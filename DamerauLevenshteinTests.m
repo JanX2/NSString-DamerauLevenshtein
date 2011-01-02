@@ -109,4 +109,13 @@
 	STAssertEquals((NSUInteger)0, levensteinDistance, @"Width insensitive test failed.");
 }
 
+- (void)test_real_world {
+	NSString *string1 = @"kitten";
+	NSString *string2 = @"sitting";
+	
+	levensteinDistance = [string1 distanceFromString:string2 
+											 options:0];
+	STAssertEquals((NSUInteger)3, levensteinDistance, @"Real world test #1 failed.");
+}
+
 @end
