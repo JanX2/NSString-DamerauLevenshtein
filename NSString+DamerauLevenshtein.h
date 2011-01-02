@@ -22,14 +22,22 @@ typedef NSUInteger JXLDStringDistanceOptions;
 
 @interface NSString (DamerauLevenshtein)
 
-// Calculates the Damerau-Levenshtein distance between self and a second string. 
-// The returned value is a count of the differences between the two strings. 
-// This can then be used for fuzzy string matching. 
-// See http://en.wikipedia.org/wiki/Levenstein_Distance for more information about the basic algorithm.
-// See JXLDStringDistanceOptions above for a description of the options. 
+/*
+ Calculates the Damerau-Levenshtein distance between self and a second string. 
+ The returned value is a count of the differences between the two strings.  
+ This can then be used for fuzzy string matching.  
+ See http://en.wikipedia.org/wiki/Levenstein_Distance for more information about the basic algorithm. 
+ */
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
+
+// See JXLDStringDistanceOptions above for a description of the options. 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
+/*
+ Currently this implements the restricted form of Damerau-Levenshtein. 
+ Please contact me (Jan Weiß) should you have implemented the unrestricted form.
+ See http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Applications for details.
+ */
 @end
 
 /*
