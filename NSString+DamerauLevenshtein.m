@@ -36,10 +36,10 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 {
 #define string1CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string1_inlineBuffer, (A))
 #define string2CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string2_inlineBuffer, (A))
-
+	
 	// This implementation can be improved further if execution speed or memory constraints should ever pose a problem:
 	// http://en.wikipedia.org/wiki/Levenstein_Distance#Possible_improvements
-
+	
 	CFMutableStringRef string1 = (CFMutableStringRef)[self mutableCopy];
 	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
 	
@@ -48,52 +48,52 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFIndex m = CFStringGetLength(string2);
 	
 	CFIndex distance = kCFNotFound;
-
+	
 	if (n == 0) {
 		distance = m;
 	}
-
+	
 	if (m == 0) {
 		distance = n;
 	}
 	
 	if (distance == kCFNotFound) {
-
-	// Processing options and preparing the strings accordingly 
-	if (!(options & JXLDLiteralComparison)) {
-		CFStringNormalize(string1, kCFStringNormalizationFormD);
-		CFStringNormalize(string2, kCFStringNormalizationFormD);
-	}
-	
-	if (options & JXLDWhitespaceInsensitiveComparison) {
-		CFStringTrimWhitespace(string1);
-		CFStringTrimWhitespace(string2);
-	}
-
-	if (options & JXLDCaseInsensitiveComparison) {
-		CFLocaleRef userLocale = CFLocaleCopyCurrent();
-		CFStringLowercase(string1, userLocale);
-		CFStringLowercase(string2, userLocale);
-		CFRelease(userLocale);
-	}
-	
-	if (options & JXLDDiacriticInsensitiveComparison) {
-		CFStringTransform(string1, NULL, kCFStringTransformStripDiacritics, false);
-		CFStringTransform(string2, NULL, kCFStringTransformStripDiacritics, false);
-	}
-	
-	if (options & JXLDWidthInsensitiveComparison) {
-		CFStringTransform(string1, NULL, kCFStringTransformFullwidthHalfwidth, false);
-		CFStringTransform(string2, NULL, kCFStringTransformFullwidthHalfwidth, false);
-	}
-	
-	// Step 1b
-	CFIndex k, i, j, cost, * d;
-	
-	CFStringInlineBuffer string1_inlineBuffer, string2_inlineBuffer;
-	CFStringInitInlineBuffer(string1, &string1_inlineBuffer, CFRangeMake(0, n));
-	CFStringInitInlineBuffer(string2, &string2_inlineBuffer, CFRangeMake(0, m));
-	
+		
+		// Processing options and preparing the strings accordingly 
+		if (!(options & JXLDLiteralComparison)) {
+			CFStringNormalize(string1, kCFStringNormalizationFormD);
+			CFStringNormalize(string2, kCFStringNormalizationFormD);
+		}
+		
+		if (options & JXLDWhitespaceInsensitiveComparison) {
+			CFStringTrimWhitespace(string1);
+			CFStringTrimWhitespace(string2);
+		}
+		
+		if (options & JXLDCaseInsensitiveComparison) {
+			CFLocaleRef userLocale = CFLocaleCopyCurrent();
+			CFStringLowercase(string1, userLocale);
+			CFStringLowercase(string2, userLocale);
+			CFRelease(userLocale);
+		}
+		
+		if (options & JXLDDiacriticInsensitiveComparison) {
+			CFStringTransform(string1, NULL, kCFStringTransformStripDiacritics, false);
+			CFStringTransform(string2, NULL, kCFStringTransformStripDiacritics, false);
+		}
+		
+		if (options & JXLDWidthInsensitiveComparison) {
+			CFStringTransform(string1, NULL, kCFStringTransformFullwidthHalfwidth, false);
+			CFStringTransform(string2, NULL, kCFStringTransformFullwidthHalfwidth, false);
+		}
+		
+		// Step 1b
+		CFIndex k, i, j, cost, * d;
+		
+		CFStringInlineBuffer string1_inlineBuffer, string2_inlineBuffer;
+		CFStringInitInlineBuffer(string1, &string1_inlineBuffer, CFRangeMake(0, n));
+		CFStringInitInlineBuffer(string2, &string2_inlineBuffer, CFRangeMake(0, m));
+		
 		n++;
 		m++;
 		
@@ -121,19 +121,18 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 				}
 				
 				// Step 6
-				d[ j * n + i ] = smallestCFIndex( d [ (j - 1) * n + i ] + 1,
-												  d[ j * n + i - 1 ] +  1,
-												  d[ (j - 1) * n + i - 1 ] + cost );
+				d[ j * n + i ] = smallestCFIndex(d[ (j - 1) * n + i ] + 1,
+												 d[ j * n + i - 1 ] +  1,
+												 d[ (j - 1) * n + i - 1 ] + cost );
 				
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
 				// This conditional adds Damerau transposition to Levenshtein distance
-				if ( i>1 
-				     && j>1 
-				     && string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-2) 
-				     && string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
+				if (i > 1 && j > 1 
+					&& string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-2) 
+					&& string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
 				{
-					d[ j * n + i] = MIN( d[ j * n + i ],
-										 d[ (j - 2) * n + i - 2 ] + cost );
+					d[ j * n + i] = MIN(d[ j * n + i ],
+										d[ (j - 2) * n + i - 2 ] + cost );
 				}
 #endif
 			}
@@ -144,10 +143,10 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		free( d );
 		
 	}
-
+	
 	CFRelease(string1);
 	CFRelease(string2);
-
+	
 	return (NSUInteger)distance;
 	
 #undef string1CharacterAtIndex
