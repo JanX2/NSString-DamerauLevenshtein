@@ -23,8 +23,6 @@ typedef NSUInteger JXLDStringDistanceOptions;
 
 - (NSInteger)distanceFromString:(NSString *)comparisonString;
 - (NSInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
-- (NSInteger)smallestOf:(NSInteger)a andOf:(NSInteger)b andOf:(NSInteger)c;
-- (NSInteger)smallestOf:(NSInteger)a andOf:(NSInteger)b;
 
 @end
 
