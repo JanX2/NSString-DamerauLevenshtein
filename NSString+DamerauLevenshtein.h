@@ -11,9 +11,9 @@
 #import <Foundation/Foundation.h>
 
 enum {
-    JXLDCaseInsensitiveComparison = 1,
+    JXLDCaseInsensitiveComparison = 1,			/* If specified, ignores the case (a == A) */
 	JXLDLiteralComparison = 2,					/* Exact character-by-character equivalence */
-	JXLDWhitespaceInsensitiveComparison = 4,
+	JXLDWhitespaceInsensitiveComparison = 4,	/* If specified, ignores white space */
     JXLDDiacriticInsensitiveComparison = 128,	/* If specified, ignores diacritics (o-umlaut == o) */
     JXLDWidthInsensitiveComparison = 256,		/* If specified, ignores width differences ('a' == UFF41) */
 };
@@ -21,6 +21,11 @@ typedef NSUInteger JXLDStringDistanceOptions;
 
 @interface NSString (DamerauLevenshtein)
 
+// Calculates the Damerau-Levenshtein distance between self and a second string. 
+// The returned value is a count of the differences between the two strings. 
+// This can then be used for fuzzy string matching. 
+// See http://en.wikipedia.org/wiki/Levenstein_Distance for more information about the basic algorithm.
+// See JXLDStringDistanceOptions above for a description of the options. 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
