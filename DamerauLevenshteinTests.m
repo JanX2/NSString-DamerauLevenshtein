@@ -38,4 +38,23 @@
 }
 #endif
 
+- (void)test_case_insensitive {
+	levensteinDistance = [@"a" distanceFromString:@"A" 
+										  options:JXLDCaseInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Case insensitive test failed.");
+}
+
+- (void)test_literal {
+	NSString *nWithTilde = @"\U000000F1";
+	NSString *nWithTildeDecomposed = @"n\U00000303";
+	
+	levensteinDistance = [nWithTilde distanceFromString:nWithTildeDecomposed 
+												options:0];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Non-literal test failed.");
+	
+	levensteinDistance = [nWithTilde distanceFromString:nWithTildeDecomposed 
+												options:JXLDLiteralComparison];
+	STAssertEquals((NSUInteger)2, levensteinDistance, @"Literal test failed.");
+}
+
 @end

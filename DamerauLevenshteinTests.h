@@ -10,7 +10,7 @@
 
 
 @interface DamerauLevenshteinTests : SenTestCase {
-
+	NSUInteger levensteinDistance;
 }
 
 @end
