@@ -103,6 +103,7 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 												  d[ j * n + i - 1 ] +  1,
 												  d[ (j - 1) * n + i - 1 ] + cost );
 				
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
 				// This conditional adds Damerau transposition to Levenshtein distance
 				if ( i>1 
 				     && j>1 
@@ -112,6 +113,7 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 					d[ j * n + i] = MIN( d[ j * n + i ],
 										 d[ (j - 2) * n + i - 2 ] + cost );
 				}
+#endif
 			}
 		
 		distance = d[ n * m - 1 ];
