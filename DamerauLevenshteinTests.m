@@ -83,4 +83,17 @@
 	STAssertEquals((NSUInteger)0, levensteinDistance, @"Whitespace trimming enabled test failed.");
 }
 
+- (void)test_diacritics {
+	NSString *textWithDiacritics = @"ÄËÏÖÜ";
+	NSString *textWithoutDiacritics = @"AEIOU";
+	
+	levensteinDistance = [textWithDiacritics distanceFromString:textWithoutDiacritics 
+														options:0];
+	STAssertEquals((NSUInteger)5, levensteinDistance, @"Diacritics sensitive test failed.");
+	
+	levensteinDistance = [textWithDiacritics distanceFromString:textWithoutDiacritics 
+														options:JXLDDiacriticInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Diacritics insensitive test failed.");
+}
+
 @end
