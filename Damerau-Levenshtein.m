@@ -8,7 +8,7 @@ int main (int argc, const char * argv[]) {
 	NSString *string1 = @"Hello, World!";
 	NSString *string2 = @"Hallo, Welt!";
 	
-	NSInteger levensteinDistance = [string1 distanceFromString:string2];
+	NSUInteger levensteinDistance = [string1 distanceFromString:string2];
 	NSLog(@"\nThe Levenstein distance between\n\"%@\"\nand\n\"%@\"\n=\n%ld", string1, string2, (long)levensteinDistance);
 	
 	[pool drain];

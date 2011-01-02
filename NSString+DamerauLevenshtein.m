@@ -27,12 +27,12 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 
 @implementation NSString (DamerauLevenshtein)
 
-- (NSInteger)distanceFromString:(NSString *)comparisonString;
+- (NSUInteger)distanceFromString:(NSString *)comparisonString;
 {
 	return [self distanceFromString:comparisonString options:0];
 }
 
-- (NSInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+- (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
 #define string1CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string1_inlineBuffer, (A))
 #define string2CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string2_inlineBuffer, (A))
@@ -126,7 +126,7 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFRelease(string1);
 	CFRelease(string2);
 
-	return distance;
+	return (NSUInteger)distance;
 	
 #undef string1CharacterAtIndex
 #undef string2CharacterAtIndex

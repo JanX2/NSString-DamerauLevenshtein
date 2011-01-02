@@ -21,8 +21,8 @@ typedef NSUInteger JXLDStringDistanceOptions;
 
 @interface NSString (DamerauLevenshtein)
 
-- (NSInteger)distanceFromString:(NSString *)comparisonString;
-- (NSInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+- (NSUInteger)distanceFromString:(NSString *)comparisonString;
+- (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
 @end
 
