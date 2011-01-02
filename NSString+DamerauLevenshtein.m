@@ -53,8 +53,7 @@
 			for( j = 1; j < m; j++ ) {
 				
 				// Step 5
-				if( [string1 characterAtIndex: i-1] == 
-				   [string2 characterAtIndex: j-1] )
+				if( [string1 characterAtIndex: i-1] == [string2 characterAtIndex: j-1] )
 					cost = 0;
 				else
 					cost = 1;
@@ -65,10 +64,10 @@
 											   andOf: d[ (j - 1) * n + i - 1 ] + cost ];
 				
 				// This conditional adds Damerau transposition to Levenshtein distance
-				if( i>1 && j>1 && [string1 characterAtIndex: i-1] ==
-				   [string2 characterAtIndex: j-2] &&
-				   [string1 characterAtIndex: i-2] ==
-				   [string2 characterAtIndex: j-1] )
+				if( i>1 
+				   && j>1 
+				   && [string1 characterAtIndex: i-1] == [string2 characterAtIndex: j-2] 
+				   && [string1 characterAtIndex: i-2] == [string2 characterAtIndex: j-1] )
 				{
 					d[ j * n + i] = [string1 smallestOf: d[ j * n + i ]
 												  andOf: d[ (j - 2) * n + i - 2 ] + cost ];
