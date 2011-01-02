@@ -18,7 +18,7 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	if ( b < min )
 		min = b;
 	
-	if( c < min )
+	if ( c < min )
 		min = c;
 	
 	return min;
@@ -77,23 +77,23 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFStringInitInlineBuffer(string1, &string1_inlineBuffer, CFRangeMake(0, n));
 	CFStringInitInlineBuffer(string2, &string2_inlineBuffer, CFRangeMake(0, m));
 	
-	if( n++ != 0 && m++ != 0 ) {
+	if ( n++ != 0 && m++ != 0 ) {
 		
 		d = malloc( sizeof(CFIndex) * m * n );
 		
 		// Step 2
-		for( k = 0; k < n; k++)
+		for ( k = 0; k < n; k++)
 			d[k] = k;
 		
-		for( k = 0; k < m; k++)
+		for ( k = 0; k < m; k++)
 			d[ k * n ] = k;
 		
 		// Step 3 and 4
-		for( i = 1; i < n; i++ )
-			for( j = 1; j < m; j++ ) {
+		for ( i = 1; i < n; i++ )
+			for ( j = 1; j < m; j++ ) {
 				
 				// Step 5
-				if( string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1) )
+				if ( string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1) )
 					cost = 0;
 				else
 					cost = 1;
@@ -104,10 +104,10 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 												  d[ (j - 1) * n + i - 1 ] + cost );
 				
 				// This conditional adds Damerau transposition to Levenshtein distance
-				if( i>1 
-				   && j>1 
-				   && string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-2) 
-				   && string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
+				if ( i>1 
+				     && j>1 
+				     && string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-2) 
+				     && string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
 				{
 					d[ j * n + i] = MIN( d[ j * n + i ],
 										 d[ (j - 2) * n + i - 2 ] + cost );
