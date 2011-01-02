@@ -96,4 +96,17 @@
 	STAssertEquals((NSUInteger)0, levensteinDistance, @"Diacritics insensitive test failed.");
 }
 
+- (void)test_width {
+	NSString *normalA = @"a";
+	NSString *wideA = @"\U0000FF41";
+	
+	levensteinDistance = [normalA distanceFromString:wideA 
+														options:0];
+	STAssertEquals((NSUInteger)1, levensteinDistance, @"Width sensitive test failed.");
+	
+	levensteinDistance = [normalA distanceFromString:wideA 
+														options:JXLDWidthInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Width insensitive test failed.");
+}
+
 @end
