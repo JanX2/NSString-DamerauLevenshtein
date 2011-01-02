@@ -67,6 +67,18 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		}
 		
 		if (options & JXLDWhitespaceInsensitiveComparison) {
+			NSArray *string1Array = [(NSString *)string1 componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			NSString *string1WithoutWhitespace = [string1Array componentsJoinedByString:@""];
+			CFRelease(string1);
+			string1 = (CFMutableStringRef)[string1WithoutWhitespace mutableCopy];
+			
+			NSArray *string2Array = [(NSString *)string2 componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			NSString *string2WithoutWhitespace = [string2Array componentsJoinedByString:@""];
+			CFRelease(string2);
+			string2 = (CFMutableStringRef)[string2WithoutWhitespace mutableCopy];
+		}
+		
+		if (options & JXLDWhitespaceTrimmingComparison) {
 			CFStringTrimWhitespace(string1);
 			CFStringTrimWhitespace(string2);
 		}
