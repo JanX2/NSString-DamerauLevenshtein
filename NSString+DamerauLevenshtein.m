@@ -100,21 +100,25 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		d = malloc( sizeof(CFIndex) * m * n );
 		
 		// Step 2
-		for ( k = 0; k < n; k++)
+		for ( k = 0; k < n; k++) {
 			d[k] = k;
+		}
 		
-		for ( k = 0; k < m; k++)
+		for ( k = 0; k < m; k++) {
 			d[ k * n ] = k;
+		}
 		
 		// Step 3 and 4
-		for ( i = 1; i < n; i++ )
+		for ( i = 1; i < n; i++ ) {
 			for ( j = 1; j < m; j++ ) {
 				
 				// Step 5
-				if ( string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1) )
+				if ( string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1) ) {
 					cost = 0;
-				else
+				}
+				else {
 					cost = 1;
+				}
 				
 				// Step 6
 				d[ j * n + i ] = smallestCFIndex( d [ (j - 1) * n + i ] + 1,
@@ -133,6 +137,7 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 				}
 #endif
 			}
+		}
 		
 		distance = d[ n * m - 1 ];
 		
