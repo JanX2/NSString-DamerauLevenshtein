@@ -17,16 +17,30 @@
 
 - (NSInteger)distanceFromString:(NSString *)comparisonString;
 {
-	return [self distanceFromString:comparisonString caseSensitive:NO];
+	return [self distanceFromString:comparisonString options:0];
 }
 
-- (NSInteger)distanceFromString:(NSString *)comparisonString caseSensitive:(BOOL)caseSensitive;
+- (NSInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
-	// Normalize strings
-	NSString *string1 = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSString *string2 = [comparisonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString *string1;
+	NSString *string2;
 	
-	if (!caseSensitive) {
+	if (options & JXLDLiteralComparison) {
+		string1 = [[self copy] autorelease];
+		string2 = [[comparisonString copy] autorelease];
+	}
+	else {
+		string1 = [self decomposedStringWithCanonicalMapping];
+		string2 = [comparisonString decomposedStringWithCanonicalMapping];
+	}
+	
+	if (options & JXLDWhitespaceInsensitiveComparison) {
+		// Normalize strings
+		string1 = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		string2 = [comparisonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	}
+
+	if (options & JXLDCaseInsensitiveComparison) {
 		string1 = [string1 lowercaseString];
 		string2 = [string2 lowercaseString];
 	}

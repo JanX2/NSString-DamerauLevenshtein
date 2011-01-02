@@ -10,11 +10,17 @@
 
 #import <Foundation/Foundation.h>
 
+enum {
+    JXLDCaseInsensitiveComparison = 1,
+	JXLDLiteralComparison = 2,					/* Exact character-by-character equivalence */
+	JXLDWhitespaceInsensitiveComparison = 4
+};
+typedef NSUInteger JXLDStringDistanceOptions;
 
 @interface NSString (DamerauLevenshtein)
 
 - (NSInteger)distanceFromString:(NSString *)comparisonString;
-- (NSInteger)distanceFromString:(NSString *)comparisonString caseSensitive:(BOOL)caseSensitive;
+- (NSInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 - (NSInteger)smallestOf:(NSInteger)a andOf:(NSInteger)b andOf:(NSInteger)c;
 - (NSInteger)smallestOf:(NSInteger)a andOf:(NSInteger)b;
 
