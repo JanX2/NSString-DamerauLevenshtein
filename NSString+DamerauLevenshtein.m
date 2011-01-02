@@ -22,27 +22,37 @@
 
 - (NSInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
-	NSString *string1;
-	NSString *string2;
+	NSMutableString *string1;
+	NSMutableString *string2;
+
+	string1 = [self mutableCopy];
+	string2 = [comparisonString mutableCopy];
 	
-	if (options & JXLDLiteralComparison) {
-		string1 = [[self copy] autorelease];
-		string2 = [[comparisonString copy] autorelease];
-	}
-	else {
-		string1 = [self decomposedStringWithCanonicalMapping];
-		string2 = [comparisonString decomposedStringWithCanonicalMapping];
+	if (!(options & JXLDLiteralComparison)) {
+		CFStringNormalize((CFMutableStringRef)string1, kCFStringNormalizationFormD);
+		CFStringNormalize((CFMutableStringRef)string2, kCFStringNormalizationFormD);
 	}
 	
 	if (options & JXLDWhitespaceInsensitiveComparison) {
-		// Normalize strings
-		string1 = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		string2 = [comparisonString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		CFStringTrimWhitespace((CFMutableStringRef)string1);
+		CFStringTrimWhitespace((CFMutableStringRef)string2);
 	}
 
 	if (options & JXLDCaseInsensitiveComparison) {
-		string1 = [string1 lowercaseString];
-		string2 = [string2 lowercaseString];
+		CFLocaleRef userLocale = CFLocaleCopyCurrent();
+		CFStringLowercase((CFMutableStringRef)string1, userLocale);
+		CFStringLowercase((CFMutableStringRef)string2, userLocale);
+		CFRelease(userLocale);
+	}
+	
+	if (options & JXLDDiacriticInsensitiveComparison) {
+		CFStringTransform((CFMutableStringRef)string1, NULL, kCFStringTransformStripDiacritics, false);
+		CFStringTransform((CFMutableStringRef)string2, NULL, kCFStringTransformStripDiacritics, false);
+	}
+	
+	if (options & JXLDWidthInsensitiveComparison) {
+		CFStringTransform((CFMutableStringRef)string1, NULL, kCFStringTransformFullwidthHalfwidth, false);
+		CFStringTransform((CFMutableStringRef)string2, NULL, kCFStringTransformFullwidthHalfwidth, false);
 	}
 	
 	// Step 1 (Steps follow description at http://www.merriampark.com/ld.htm )
@@ -92,11 +102,15 @@
 		
 		free( d );
 		
-		return distance;
-		
 	}
-	
-	return 0;
+	else {
+		distance = 0;
+	}
+
+	[string1 release];
+	[string2 release];
+
+	return distance;
 	
 }
 

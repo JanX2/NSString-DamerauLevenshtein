@@ -13,7 +13,9 @@
 enum {
     JXLDCaseInsensitiveComparison = 1,
 	JXLDLiteralComparison = 2,					/* Exact character-by-character equivalence */
-	JXLDWhitespaceInsensitiveComparison = 4
+	JXLDWhitespaceInsensitiveComparison = 4,
+    JXLDDiacriticInsensitiveComparison = 128,	/* If specified, ignores diacritics (o-umlaut == o) */
+    JXLDWidthInsensitiveComparison = 256,		/* If specified, ignores width differences ('a' == UFF41) */
 };
 typedef NSUInteger JXLDStringDistanceOptions;
 
