@@ -57,4 +57,30 @@
 	STAssertEquals((NSUInteger)2, levensteinDistance, @"Literal test failed.");
 }
 
+- (void)test_whitespace_insensitive {
+	NSString *textWithWhitespace = @"\tDamerau & Levenshtein\n";
+	NSString *textWithoutWhitespace = @"Damerau&Levenshtein";
+	
+	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
+												options:0];
+	STAssertEquals((NSUInteger)4, levensteinDistance, @"Whitespace sensitive test failed.");
+	
+	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
+												options:JXLDWhitespaceInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Whitespace insensitive test failed.");
+}
+
+- (void)test_whitespace_trimming {
+	NSString *textWithWhitespace = @"\t A \n";
+	NSString *textWithoutWhitespace = @"A";
+	
+	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
+												options:0];
+	STAssertEquals((NSUInteger)4, levensteinDistance, @"Whitespace trimming diabled test failed.");
+	
+	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
+												options:JXLDWhitespaceTrimmingComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Whitespace trimming enabled test failed.");
+}
+
 @end
