@@ -43,6 +43,23 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFMutableStringRef string1 = (CFMutableStringRef)[self mutableCopy];
 	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
 	
+	// Step 1a (Steps follow description at http://www.merriampark.com/ld.htm )
+	CFIndex n = CFStringGetLength(string1);
+	CFIndex m = CFStringGetLength(string2);
+	
+	CFIndex distance = kCFNotFound;
+
+	if (n == 0) {
+		distance = m;
+	}
+
+	if (m == 0) {
+		distance = n;
+	}
+	
+	if (distance == kCFNotFound) {
+
+	// Processing options and preparing the strings accordingly 
 	if (!(options & JXLDLiteralComparison)) {
 		CFStringNormalize(string1, kCFStringNormalizationFormD);
 		CFStringNormalize(string2, kCFStringNormalizationFormD);
@@ -70,17 +87,15 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		CFStringTransform(string2, NULL, kCFStringTransformFullwidthHalfwidth, false);
 	}
 	
-	// Step 1 (Steps follow description at http://www.merriampark.com/ld.htm )
-	CFIndex k, i, j, cost, * d, distance;
-	
-	CFIndex n = CFStringGetLength(string1);
-	CFIndex m = CFStringGetLength(string2);
+	// Step 1b
+	CFIndex k, i, j, cost, * d;
 	
 	CFStringInlineBuffer string1_inlineBuffer, string2_inlineBuffer;
 	CFStringInitInlineBuffer(string1, &string1_inlineBuffer, CFRangeMake(0, n));
 	CFStringInitInlineBuffer(string2, &string2_inlineBuffer, CFRangeMake(0, m));
 	
-	if ( n++ != 0 && m++ != 0 ) {
+		n++;
+		m++;
 		
 		d = malloc( sizeof(CFIndex) * m * n );
 		
@@ -123,9 +138,6 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		
 		free( d );
 		
-	}
-	else {
-		distance = 0;
 	}
 
 	CFRelease(string1);
