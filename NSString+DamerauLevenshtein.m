@@ -37,6 +37,9 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 #define string1CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string1_inlineBuffer, (A))
 #define string2CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string2_inlineBuffer, (A))
 
+	// This implementation can be improved further if execution speed or memory constraints should ever pose a problem:
+	// http://en.wikipedia.org/wiki/Levenstein_Distance#Possible_improvements
+
 	CFMutableStringRef string1 = (CFMutableStringRef)[self mutableCopy];
 	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
 	
