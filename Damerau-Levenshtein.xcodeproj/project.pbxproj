@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
+		3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
+		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Damerau-Levenshtein.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */; };
@@ -32,11 +34,22 @@
 		32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Damerau-Levenshtein_Prefix.pch"; sourceTree = "<group>"; };
 		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; };
 		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; };
+		3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTest-Info.plist"; sourceTree = "<group>"; };
+		3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DamerauLevenshteinTests.h; sourceTree = "<group>"; };
+		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3D3E639312D1011700B94EC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76F9B0486AA7600D96B5E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,9 +66,11 @@
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
 				3D3E62A312D0B86500B94EC9 /* Classes */,
+				3D3E639C12D1016700B94EC9 /* Tests */,
 				C6859EA2029092E104C91782 /* Documentation */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
+				3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */,
 			);
 			name = "Damerau-Levenshtein";
 			sourceTree = "<group>";
@@ -81,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */,
+				3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,6 +110,15 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		3D3E639C12D1016700B94EC9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */,
+				3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		C6859EA2029092E104C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +130,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D3E639A12D1011A00B94EC9 /* Build configuration list for PBXNativeTarget "DamerauLevenshteinTest" */;
+			buildPhases = (
+				3D3E639112D1011700B94EC9 /* Resources */,
+				3D3E639212D1011700B94EC9 /* Sources */,
+				3D3E639312D1011700B94EC9 /* Frameworks */,
+				3D3E639412D1011700B94EC9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DamerauLevenshteinTest;
+			productName = DamerauLevenshteinTest;
+			productReference = 3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8DD76F960486AA7600D96B5E /* Damerau-Levenshtein */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "Damerau-Levenshtein" */;
@@ -143,11 +186,47 @@
 			projectRoot = "";
 			targets = (
 				8DD76F960486AA7600D96B5E /* Damerau-Levenshtein */,
+				3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		3D3E639112D1011700B94EC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D3E639412D1011700B94EC9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		3D3E639212D1011700B94EC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
+				3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76F990486AA7600D96B5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -217,6 +296,60 @@
 			};
 			name = Release;
 		};
+		3D3E639812D1011A00B94EC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "DamerauLevenshteinTest-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = DamerauLevenshteinTest;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		3D3E639912D1011A00B94EC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "DamerauLevenshteinTest-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = DamerauLevenshteinTest;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -234,6 +367,15 @@
 			buildConfigurations = (
 				1DEB927908733DD40010E9CD /* Debug */,
 				1DEB927A08733DD40010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D3E639A12D1011A00B94EC9 /* Build configuration list for PBXNativeTarget "DamerauLevenshteinTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D3E639812D1011A00B94EC9 /* Debug */,
+				3D3E639912D1011A00B94EC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
