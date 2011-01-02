@@ -44,8 +44,9 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
 	
 	// Step 1a (Steps follow description at http://www.merriampark.com/ld.htm )
-	CFIndex n = CFStringGetLength(string1);
-	CFIndex m = CFStringGetLength(string2);
+	CFIndex n, m;
+	n = CFStringGetLength(string1);
+	m = CFStringGetLength(string2);
 	
 	CFIndex distance = kCFNotFound;
 	
@@ -59,7 +60,7 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	
 	if (distance == kCFNotFound) {
 		
-		// Processing options and preparing the strings accordingly 
+		// Processing options and pre-processing the strings accordingly 
 		if (!(options & JXLDLiteralComparison)) {
 			CFStringNormalize(string1, kCFStringNormalizationFormD);
 			CFStringNormalize(string2, kCFStringNormalizationFormD);
@@ -86,7 +87,11 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 			CFStringTransform(string1, NULL, kCFStringTransformFullwidthHalfwidth, false);
 			CFStringTransform(string2, NULL, kCFStringTransformFullwidthHalfwidth, false);
 		}
-		
+
+		// The string lengths may change during pre-processing
+		n = CFStringGetLength(string1);
+		m = CFStringGetLength(string2);
+
 		// Step 1b
 		CFIndex k, i, j, cost, * d;
 		
