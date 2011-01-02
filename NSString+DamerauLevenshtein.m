@@ -170,4 +170,17 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 #undef string2CharacterAtIndex
 }
 
+- (float)normalizedDistanceFromString:(NSString *)comparisonString;
+{
+	return [self normalizedDistanceFromString:comparisonString options:0];
+}
+
+- (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+{
+	NSUInteger levensteinDistance = [self distanceFromString:comparisonString options:options];
+	NSUInteger reference = MAX(self.length, comparisonString.length);
+	
+	return (float)levensteinDistance/reference;
+}
+
 @end

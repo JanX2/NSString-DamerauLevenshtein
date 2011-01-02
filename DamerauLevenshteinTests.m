@@ -118,4 +118,16 @@
 	STAssertEquals((NSUInteger)3, levensteinDistance, @"Real world test #1 failed.");
 }
 
+- (void)test_normalized {
+	STAssertEquals(0.0f, [@"123456789" normalizedDistanceFromString:@"123456789"], @"Normalized equality test failed.");
+
+	STAssertEquals(0.5f, [@"12345" normalizedDistanceFromString:@"1234567890"], @"Normalized partial similarity test failed.");
+	
+	STAssertEquals(1.0f, [@"ABCDE" normalizedDistanceFromString:@"123456789"], @"Normalized no similarity test failed.");
+
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
+	STAssertEquals(0.5f, [@"2143658709" normalizedDistanceFromString:@"1234567890"], @"Normalized transposition test failed.");
+#endif
+}
+
 @end
