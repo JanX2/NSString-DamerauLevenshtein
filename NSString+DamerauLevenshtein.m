@@ -183,4 +183,14 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	return (float)levensteinDistance/reference;
 }
 
+- (float)similarityToString:(NSString *)comparisonString;
+{
+	return (1.0f - [self normalizedDistanceFromString:comparisonString options:0]);
+}
+
+- (float)similarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+{
+	return (1.0f - [self normalizedDistanceFromString:comparisonString options:options]);
+}
+
 @end

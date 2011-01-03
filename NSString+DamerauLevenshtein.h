@@ -37,6 +37,10 @@ typedef NSUInteger JXLDStringDistanceOptions;
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;
 - (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
+// These methods just invert the value of -normalizedDistanceFromString:options: (100% to 0% similarity)
+- (float)similarityToString:(NSString *)comparisonString;
+- (float)similarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+
 /*
  Currently this implements the restricted form of Damerau-Levenshtein. 
  Please contact me (Jan Weiß) should you have implemented the unrestricted form.
