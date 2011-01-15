@@ -55,15 +55,19 @@
 	
 	JXTrieNode *node = self;
 	JXTrieNode *newNode = nil;
+	JXTrieNode *thisNode = nil;
 	for (CFIndex i = 0; i < newWord_length; i++) {
 		CFStringSetExternalCharactersNoCopy(letter, (UniChar *)&(newWord_chars[i]), 1, 1);
-		if ([node.children objectForKey:(NSString *)letter] == nil) {
-			newNode = [JXTrieNode new];
-			newNodesCount += 1;
+		thisNode = [node.children objectForKey:(NSString *)letter];
+		if (thisNode == nil) {
+			newNode = [[JXTrieNode new] autorelease];
 			[node.children setValue:newNode forKey:(NSString *)letter];
-			[newNode release];
+			newNodesCount += 1;
+			node = newNode;
 		}
-		node = [node.children objectForKey:(NSString *)letter];
+		else {
+			node = thisNode;
+		}
 	}
 	
 	node.word = newWord;
