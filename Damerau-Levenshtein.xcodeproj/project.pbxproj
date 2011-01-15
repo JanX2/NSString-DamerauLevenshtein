@@ -10,6 +10,10 @@
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
 		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
+		3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
+		3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
+		3D6A188B12E22FF1009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
+		3D6A188C12E22FF1009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
 		8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Damerau-Levenshtein.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */; };
@@ -38,6 +42,10 @@
 		3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTest-Info.plist"; sourceTree = "<group>"; };
 		3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DamerauLevenshteinTests.h; sourceTree = "<group>"; };
 		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; };
+		3D6A188512E22FF1009E3F9B /* JXTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTrie.h; sourceTree = "<group>"; };
+		3D6A188612E22FF1009E3F9B /* JXTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrie.m; sourceTree = "<group>"; };
+		3D6A188712E22FF1009E3F9B /* JXTrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTrieNode.h; sourceTree = "<group>"; };
+		3D6A188812E22FF1009E3F9B /* JXTrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrieNode.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,6 +74,7 @@
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
 				3D3E62A312D0B86500B94EC9 /* Classes */,
+				3D6A188412E22FF1009E3F9B /* JXTrie */,
 				3D3E639C12D1016700B94EC9 /* Tests */,
 				C6859EA2029092E104C91782 /* Documentation */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
@@ -117,6 +126,17 @@
 				3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		3D6A188412E22FF1009E3F9B /* JXTrie */ = {
+			isa = PBXGroup;
+			children = (
+				3D6A188512E22FF1009E3F9B /* JXTrie.h */,
+				3D6A188612E22FF1009E3F9B /* JXTrie.m */,
+				3D6A188712E22FF1009E3F9B /* JXTrieNode.h */,
+				3D6A188812E22FF1009E3F9B /* JXTrieNode.m */,
+			);
+			path = JXTrie;
 			sourceTree = "<group>";
 		};
 		C6859EA2029092E104C91782 /* Documentation */ = {
@@ -224,6 +244,8 @@
 			files = (
 				3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
 				3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */,
+				3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */,
+				3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +255,8 @@
 			files = (
 				8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */,
 				3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
+				3D6A188B12E22FF1009E3F9B /* JXTrie.m in Sources */,
+				3D6A188C12E22FF1009E3F9B /* JXTrieNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
