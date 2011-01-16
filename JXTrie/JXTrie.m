@@ -32,16 +32,29 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 
 @synthesize rootNode;
 
-- (id)init
++ (id)trieWithStrings:(NSArray *)wordList;
+{
+	return [[[JXTrie alloc] initWithStrings:wordList] autorelease];
+}
+
+- (id)initWithStrings:(NSArray *)wordList;
 {
 	self = [super init];
 	if (self) {
 		self.rootNode = [JXTrieNode new];
 		nodeCount = 0;
+		wordCount = 0;
+
+		for (NSString *word in wordList) {
+			[self insertWord:word];
+			wordCount += 1;
+		}
+		
 	}
-	return self;
 	
+    return self;
 }
+
 
 - (void)dealloc
 {
@@ -50,9 +63,14 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 }
 
 
-- (NSUInteger)count;
+- (NSUInteger)nodeCount;
 {
 	return nodeCount;
+}
+
+- (NSUInteger)count;
+{
+	return wordCount;
 }
 
 

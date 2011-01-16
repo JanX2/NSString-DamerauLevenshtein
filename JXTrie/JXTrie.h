@@ -15,9 +15,14 @@
 @interface JXTrie : NSObject {
 	JXTrieNode *rootNode;
 	NSUInteger nodeCount;
+	NSUInteger wordCount;
 }
 
+- (NSUInteger)nodeCount;
 - (NSUInteger)count;
+
++ (id)trieWithStrings:(NSArray *)wordList;
+- (id)initWithStrings:(NSArray *)wordList;
 
 - (void)insertWord:(NSString *)newWord;
 
