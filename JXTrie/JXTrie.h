@@ -21,4 +21,7 @@
 
 - (void)insertWord:(NSString *)newWord;
 
+// The search method returns an NSArray of JXTrieResult objects for all words that are less than the given maximum distance from the target word
+- (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;
+
 @end
