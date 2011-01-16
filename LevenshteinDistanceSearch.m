@@ -12,6 +12,9 @@ int main (int argc, const char * argv[]) {
 	NSString *target;
 	NSUInteger maxCost;
 	
+	NSTimeInterval start;
+	NSTimeInterval duration;
+	
 	if ([[[NSProcessInfo processInfo] arguments] count] < 3) {
 		fprintf(stderr, "usage: %s <search string> <maximum distance>\n",
 				[[[NSProcessInfo processInfo] processName] UTF8String]);
@@ -24,22 +27,25 @@ int main (int argc, const char * argv[]) {
 	}
 	
 	// Read dictionary file into a trie
+	start = [NSDate timeIntervalSinceReferenceDate];
 	NSString *wordListText = [NSString stringWithContentsOfFile:DICTIONARY encoding:NSUTF8StringEncoding error:NULL];
 	NSArray *wordList = [wordListText componentsSeparatedByString:@"\n"];
 	
 	JXTrie *trie = [JXTrie trieWithStrings:wordList];
+    duration = [NSDate timeIntervalSinceReferenceDate] - start;
 	
 	NSLog(@"Read %lu words into %lu nodes", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
+	NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", DICTIONARY, (double)duration);
 	
 	NSArray *results = nil;
 	
-	NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
+	start = [NSDate timeIntervalSinceReferenceDate];
 	results = [trie search:target maximumDistance:maxCost];
-    NSTimeInterval duration = [NSDate timeIntervalSinceReferenceDate] - start;
+    duration = [NSDate timeIntervalSinceReferenceDate] - start;
 	
 	NSLog(@"\n%@", results);
 	
-	NSLog(@"Search for \"%@\" took %.4lf", target, (double)duration);
+	NSLog(@"Search for \"%@\" took %.4lf s. ", target, (double)duration);
 	
 	[pool drain];
 	return 0;
