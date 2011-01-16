@@ -19,4 +19,9 @@
 
 - (NSUInteger)insertWord:(NSString *)newWord;
 
+- (NSString *)descriptionWithLocale:(id)locale;
+- (NSString *)descriptionWithChildren:(BOOL)describeChildren;
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level;
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level describeChildren:(BOOL)describeChildren;
+
 @end

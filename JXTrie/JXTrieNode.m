@@ -8,6 +8,31 @@
 
 #import "JXTrieNode.h"
 
+NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
+{
+	NSString *descriptionString;
+	BOOL addQuotes = NO;
+	
+    if ([object isKindOfClass:[NSString class]])
+        descriptionString = object;
+    else if ([object respondsToSelector:@selector(descriptionWithLocale:indent:)])
+        return [(id)object descriptionWithLocale:locale indent:indentLevel];
+    else  if ([object respondsToSelector:@selector(descriptionWithLocale:)])
+        return [(id)object descriptionWithLocale:locale];
+    else
+        descriptionString = [object description];
+	
+	NSRange range = [descriptionString rangeOfString:@" "];
+	if (range.location != NSNotFound)
+		addQuotes = YES;
+	
+	if (addQuotes)
+		return [NSString stringWithFormat:@"\"%@\"", descriptionString];
+	else
+        return descriptionString;
+	
+}
+
 
 @implementation JXTrieNode
 
@@ -77,6 +102,73 @@
 	}
 	
 	return newNodesCount;
+}
+
+
+- (NSString *)description
+{
+	return [self descriptionWithLocale:nil indent:0 describeChildren:YES];
+}
+
+- (NSString *)descriptionWithChildren:(BOOL)describeChildren;
+{
+	return [self descriptionWithLocale:nil indent:0 describeChildren:describeChildren];
+}
+
+- (NSString *)descriptionWithLocale:(id)locale;
+{
+	return [self descriptionWithLocale:locale indent:0 describeChildren:YES];
+}
+
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level;
+{
+	return [self descriptionWithLocale:locale indent:level describeChildren:YES];
+}
+
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level describeChildren:(BOOL)describeChildren;
+{
+	NSMutableString *nodeDescription = [[NSMutableString alloc] init];
+	
+	size_t indentationDepth = (level+1) * 4;
+	size_t indentationDepth2 = (level+2) * 4;
+	
+	char indentation_chars[indentationDepth2+1];
+	memset(indentation_chars, ' ', indentationDepth2);
+	indentation_chars[indentationDepth2] = '\0';
+	
+	NSString *indentation2 = [NSString stringWithCString:(const char *)indentation_chars encoding:NSASCIIStringEncoding];
+	indentation_chars[indentationDepth] = '\0';
+	NSString *indentation = [NSString stringWithCString:(const char *)indentation_chars encoding:NSASCIIStringEncoding];
+	
+	NSString *thisDescription;
+	
+	thisDescription = JXDescriptionForObject(self.word, nil, level+1);
+
+	[nodeDescription appendFormat:
+	 @"%@word = %@;\n", 
+	 indentation, 
+	 thisDescription
+	 ];
+	
+	if (describeChildren && [children count] > 0) {
+		[nodeDescription appendFormat:@"%@%@ = (\n", indentation, @"children"];
+		NSArray *allKeys = [children allKeys];
+		NSString *lastKey = [allKeys lastObject];
+		
+		for (NSString *childKey in allKeys) {
+			thisDescription = JXDescriptionForObject([children objectForKey:childKey], nil, level+2);
+			[nodeDescription appendFormat:@"%1$@%4$@ = {\n%2$@%1$@}%3$@\n", 
+			 indentation2, 
+			 thisDescription,
+			 (childKey == lastKey) ? @"" : @",",
+			 childKey];
+		}
+		
+		[nodeDescription appendFormat:@"%@)\n", indentation];
+	}
+
+	return [nodeDescription autorelease];
+	
 }
 
 @end
