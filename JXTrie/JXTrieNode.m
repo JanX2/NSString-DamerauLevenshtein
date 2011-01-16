@@ -101,6 +101,8 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 		free(newWord_buffer);
 	}
 	
+	CFRelease(letter);
+	
 	return newNodesCount;
 }
 
