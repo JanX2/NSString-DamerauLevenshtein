@@ -34,8 +34,8 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
-#define string1CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string1_inlineBuffer, (A))
-#define string2CharacterAtIndex(A)	CFStringGetCharacterFromInlineBuffer(&string2_inlineBuffer, (A))
+#define string1CharacterAtIndex(A)	string1_chars[(A)]
+#define string2CharacterAtIndex(A)	string2_chars[(A)]
 	
 	// This implementation can be improved further if execution speed or memory constraints should ever pose a problem:
 	// http://en.wikipedia.org/wiki/Levenstein_Distance#Possible_improvements
@@ -107,9 +107,27 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		// Step 1b
 		CFIndex k, i, j, cost, * d;
 		
-		CFStringInlineBuffer string1_inlineBuffer, string2_inlineBuffer;
-		CFStringInitInlineBuffer(string1, &string1_inlineBuffer, CFRangeMake(0, n));
-		CFStringInitInlineBuffer(string2, &string2_inlineBuffer, CFRangeMake(0, m));
+		// Prepare access to chars array for string1
+		const UniChar *string1_chars;
+		UniChar *string1_buffer = NULL;
+		
+		string1_chars = CFStringGetCharactersPtr(string1);
+		if (string1_chars == NULL) {
+			string1_buffer = malloc(n * sizeof(UniChar));
+			CFStringGetCharacters(string1, CFRangeMake(0, n), string1_buffer);
+			string1_chars = string1_buffer;
+		}
+		
+		// Prepare access to chars array for string2
+		const UniChar *string2_chars;
+		UniChar *string2_buffer = NULL;
+		
+		string2_chars = CFStringGetCharactersPtr(string2);
+		if (string2_chars == NULL) {
+			string2_buffer = malloc(m * sizeof(UniChar));
+			CFStringGetCharacters(string2, CFRangeMake(0, m), string2_buffer);
+			string2_chars = string2_buffer;
+		}
 		
 		n++;
 		m++;
@@ -158,6 +176,9 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 		distance = d[ n * m - 1 ];
 		
 		free( d );
+		
+		if (string1_buffer != NULL) free(string1_buffer);
+		if (string2_buffer != NULL) free(string2_buffer);
 		
 	}
 	
