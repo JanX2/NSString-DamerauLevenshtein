@@ -12,10 +12,11 @@
 		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
 		3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
-		3D6A188B12E22FF1009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
-		3D6A188C12E22FF1009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
 		3D6A18FC12E25B8D009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
-		3D6A18FD12E25B8D009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
+		3D6A1A1F12E282FB009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
+		3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
+		3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
+		3D6A1A2412E28324009E3F9B /* LevenshteinDistanceSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */; };
 		8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Damerau-Levenshtein.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */; };
@@ -50,12 +51,21 @@
 		3D6A188812E22FF1009E3F9B /* JXTrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrieNode.m; sourceTree = "<group>"; };
 		3D6A18FA12E25B8D009E3F9B /* JXTrieResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTrieResult.h; sourceTree = "<group>"; };
 		3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrieResult.m; sourceTree = "<group>"; };
+		3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LevenshteinDistanceSearch; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevenshteinDistanceSearch.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3D3E639312D1011700B94EC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D6A1A1912E282DE009E3F9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -93,6 +103,7 @@
 			children = (
 				32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */,
 				08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */,
+				3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -110,6 +121,7 @@
 			children = (
 				8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */,
 				3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */,
+				3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -174,6 +186,22 @@
 			productReference = 3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		3D6A1A1A12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D6A1A2212E28321009E3F9B /* Build configuration list for PBXNativeTarget "LevenshteinDistanceSearch" */;
+			buildPhases = (
+				3D6A1A1812E282DE009E3F9B /* Sources */,
+				3D6A1A1912E282DE009E3F9B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LevenshteinDistanceSearch;
+			productName = LevenshteinDistanceSearch;
+			productReference = 3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */;
+			productType = "com.apple.product-type.tool";
+		};
 		8DD76F960486AA7600D96B5E /* Damerau-Levenshtein */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "Damerau-Levenshtein" */;
@@ -213,6 +241,7 @@
 			targets = (
 				8DD76F960486AA7600D96B5E /* Damerau-Levenshtein */,
 				3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */,
+				3D6A1A1A12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 			);
 		};
 /* End PBXProject section */
@@ -256,15 +285,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D6A1A1812E282DE009E3F9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D6A1A2412E28324009E3F9B /* LevenshteinDistanceSearch.m in Sources */,
+				3D6A1A1F12E282FB009E3F9B /* JXTrie.m in Sources */,
+				3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */,
+				3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76F990486AA7600D96B5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */,
 				3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
-				3D6A188B12E22FF1009E3F9B /* JXTrie.m in Sources */,
-				3D6A188C12E22FF1009E3F9B /* JXTrieNode.m in Sources */,
-				3D6A18FD12E25B8D009E3F9B /* JXTrieResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +419,52 @@
 			};
 			name = Release;
 		};
+		3D6A1A1D12E282E1009E3F9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = LevenshteinDistanceSearch;
+			};
+			name = Debug;
+		};
+		3D6A1A1E12E282E1009E3F9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = LevenshteinDistanceSearch;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -408,6 +491,15 @@
 			buildConfigurations = (
 				3D3E639812D1011A00B94EC9 /* Debug */,
 				3D3E639912D1011A00B94EC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D6A1A2212E28321009E3F9B /* Build configuration list for PBXNativeTarget "LevenshteinDistanceSearch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D6A1A1D12E282E1009E3F9B /* Debug */,
+				3D6A1A1E12E282E1009E3F9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
