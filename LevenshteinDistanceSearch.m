@@ -6,6 +6,9 @@
 #define TARGET	@"goober"
 #define MAX_COST	1
 
+// Apparently, recreating the trie is more efficient than archiving/unarchiving using NSKeyedArchiver for large tries. 
+#define ENABLE_ARCHIVING	NO
+
 int main (int argc, const char * argv[]) {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
@@ -26,16 +29,39 @@ int main (int argc, const char * argv[]) {
 		maxCost = [[[[NSProcessInfo processInfo] arguments] objectAtIndex:2] integerValue];
 	}
 	
-	// Read dictionary file into a trie
-	start = [NSDate timeIntervalSinceReferenceDate];
-	NSString *wordListText = [NSString stringWithContentsOfFile:DICTIONARY encoding:NSUTF8StringEncoding error:NULL];
-	NSArray *wordList = [wordListText componentsSeparatedByString:@"\n"];
+	NSString *archivePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"trie.archive"];
+	JXTrie *trie;
 	
-	JXTrie *trie = [JXTrie trieWithStrings:wordList];
-    duration = [NSDate timeIntervalSinceReferenceDate] - start;
-	
-	NSLog(@"Read %lu words into %lu nodes", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
-	NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", DICTIONARY, (double)duration);
+	if (ENABLE_ARCHIVING && [[NSFileManager defaultManager] fileExistsAtPath:archivePath]) {
+		start = [NSDate timeIntervalSinceReferenceDate];
+		trie = [NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
+		duration = [NSDate timeIntervalSinceReferenceDate] - start;
+		NSLog(@"Read trie from archive: %lu words, %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
+		NSLog(@"Reading the trie took %.4lf s. ", (double)duration);
+	}
+	else {
+		// Read dictionary file into a trie
+		start = [NSDate timeIntervalSinceReferenceDate];
+		NSString *wordListText = [NSString stringWithContentsOfFile:DICTIONARY encoding:NSUTF8StringEncoding error:NULL];
+		NSArray *wordList = [wordListText componentsSeparatedByString:@"\n"];
+		
+		trie = [JXTrie trieWithStrings:wordList];
+		duration = [NSDate timeIntervalSinceReferenceDate] - start;
+		
+		NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
+		NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", DICTIONARY, (double)duration);
+		
+		if (ENABLE_ARCHIVING) {
+			BOOL result = [NSKeyedArchiver archiveRootObject:trie
+													  toFile:archivePath];
+			if (result) {
+				NSLog(@"Successfully archived to \"%@\". ", archivePath);
+			}
+			else {
+				NSLog(@"Archiving to \"%@\" failed! ", archivePath);
+			}
+		}
+	}
 	
 	NSArray *results = nil;
 	
