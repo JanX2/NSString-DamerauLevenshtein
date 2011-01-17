@@ -69,6 +69,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	UniChar *newWord_buffer = NULL;
 	UniChar currentChar;
 	CFMutableStringRef letter = CFStringCreateMutableWithExternalCharactersNoCopy(kCFAllocatorDefault, &currentChar, 1, 1, kCFAllocatorNull);
+	CFMakeCollectable(letter);
 	
 	newWord_chars = CFStringGetCharactersPtr((CFStringRef)newWord);
 	if (newWord_chars == NULL) {
