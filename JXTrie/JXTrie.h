@@ -17,7 +17,7 @@
 
 @class JXTrieNode;
 
-@interface JXTrie : NSObject {
+@interface JXTrie : NSObject <NSCoding> {
 	JXTrieNode *rootNode;
 	NSUInteger nodeCount;
 	NSUInteger wordCount;

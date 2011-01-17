@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface JXTrieNode : NSObject {
+@interface JXTrieNode : NSObject <NSCoding> {
 	NSString *word;
 	NSMutableDictionary *children;
 }

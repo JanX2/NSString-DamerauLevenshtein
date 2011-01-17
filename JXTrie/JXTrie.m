@@ -63,6 +63,25 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 }
 
 
+- (id)initWithCoder:(NSCoder *)coder
+{		
+	if (self = [super init]) {
+		self.rootNode = [coder decodeObjectForKey:@"rootNode"];
+		nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
+		wordCount = [coder decodeIntegerForKey:@"wordCount"];
+	}
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{	
+	[coder encodeObject:rootNode forKey:@"rootNode"];
+	[coder encodeInteger:nodeCount forKey:@"nodeCount"];
+	[coder encodeInteger:wordCount forKey:@"wordCount"];
+}
+
+
 - (NSUInteger)nodeCount;
 {
 	return nodeCount;

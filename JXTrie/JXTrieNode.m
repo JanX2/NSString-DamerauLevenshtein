@@ -59,6 +59,23 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 }
 
 
+- (id)initWithCoder:(NSCoder *)coder
+{		
+	if (self = [super init]) {
+		self.word = [coder decodeObjectForKey:@"word"];
+		self.children = [coder decodeObjectForKey:@"children"];
+	}
+	
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{	
+	[coder encodeObject:word forKey:@"word"];
+	[coder encodeObject:children forKey:@"children"];
+}
+
+
 - (NSUInteger)insertWord:(NSString *)newWord;
 {
 	NSUInteger newNodesCount = 0;
