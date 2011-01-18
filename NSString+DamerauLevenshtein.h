@@ -52,7 +52,7 @@ typedef NSUInteger JXLDStringDistanceOptions;
  * Author: support@wanderingmango.com (K. Darcy Otto)
  * Author: jan@geheimwerk.de (Jan Weiß)
  *
- * Copyright (c) 2010 geheimwerk.de
+ * Copyright (c) 2011 geheimwerk.de
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
