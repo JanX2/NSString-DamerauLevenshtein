@@ -12,17 +12,7 @@
 
 #import "NSString+DamerauLevenshtein.h"
 
-// Return the minimum of a, b and c - used by distanceFromString:options:
-CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
-	CFIndex min = a;
-	if ( b < min )
-		min = b;
-	
-	if ( c < min )
-		min = c;
-	
-	return min;
-}
+#import "JXLDStringDistanceUtilities.h"
 
 
 @implementation NSString (DamerauLevenshtein)
@@ -61,44 +51,8 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	if (distance == kCFNotFound) {
 		
 		// Processing options and pre-processing the strings accordingly 
-		if (!(options & JXLDLiteralComparison)) {
-			CFStringNormalize(string1, kCFStringNormalizationFormD);
-			CFStringNormalize(string2, kCFStringNormalizationFormD);
-		}
-		
-		if (options & JXLDWhitespaceInsensitiveComparison) {
-			NSArray *string1Array = [(NSString *)string1 componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *string1WithoutWhitespace = [string1Array componentsJoinedByString:@""];
-			CFRelease(string1);
-			string1 = (CFMutableStringRef)[string1WithoutWhitespace mutableCopy];
-			
-			NSArray *string2Array = [(NSString *)string2 componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			NSString *string2WithoutWhitespace = [string2Array componentsJoinedByString:@""];
-			CFRelease(string2);
-			string2 = (CFMutableStringRef)[string2WithoutWhitespace mutableCopy];
-		}
-		
-		if (options & JXLDWhitespaceTrimmingComparison) {
-			CFStringTrimWhitespace(string1);
-			CFStringTrimWhitespace(string2);
-		}
-		
-		if (options & JXLDCaseInsensitiveComparison) {
-			CFLocaleRef userLocale = CFLocaleCopyCurrent();
-			CFStringLowercase(string1, userLocale);
-			CFStringLowercase(string2, userLocale);
-			CFRelease(userLocale);
-		}
-		
-		if (options & JXLDDiacriticInsensitiveComparison) {
-			CFStringTransform(string1, NULL, kCFStringTransformStripDiacritics, false);
-			CFStringTransform(string2, NULL, kCFStringTransformStripDiacritics, false);
-		}
-		
-		if (options & JXLDWidthInsensitiveComparison) {
-			CFStringTransform(string1, NULL, kCFStringTransformFullwidthHalfwidth, false);
-			CFStringTransform(string2, NULL, kCFStringTransformFullwidthHalfwidth, false);
-		}
+		jxld_CFStringPreprocessWithOptions(string1, options);
+		jxld_CFStringPreprocessWithOptions(string2, options);
 
 		// The string lengths may change during pre-processing
 		n = CFStringGetLength(string1);

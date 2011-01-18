@@ -17,6 +17,9 @@
 		3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
 		3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
 		3D6A1A2412E28324009E3F9B /* LevenshteinDistanceSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */; };
+		3D7C736512E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
+		3D7C736612E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
+		3D7C736712E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
 		8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Damerau-Levenshtein.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */; };
@@ -54,6 +57,8 @@
 		3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LevenshteinDistanceSearch; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevenshteinDistanceSearch.m; sourceTree = "<group>"; };
 		3D7C734612E549D2002D2014 /* JXLDStringDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLDStringDistance.h; sourceTree = "<group>"; };
+		3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLDStringDistanceUtilities.h; sourceTree = "<group>"; };
+		3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXLDStringDistanceUtilities.m; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				3D7C734612E549D2002D2014 /* JXLDStringDistance.h */,
+				3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */,
+				3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -292,6 +299,7 @@
 				3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */,
 				3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */,
 				3D6A18FC12E25B8D009E3F9B /* JXTrieResult.m in Sources */,
+				3D7C736512E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +311,7 @@
 				3D6A1A1F12E282FB009E3F9B /* JXTrie.m in Sources */,
 				3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */,
 				3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */,
+				3D7C736712E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +321,7 @@
 			files = (
 				8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */,
 				3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
+				3D7C736612E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
