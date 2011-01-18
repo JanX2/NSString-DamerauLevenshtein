@@ -14,12 +14,13 @@ int main (int argc, const char * argv[]) {
 	
 	NSString *target;
 	NSUInteger maxCost;
+	NSString *dictionary;
 	
 	NSTimeInterval start;
 	NSTimeInterval duration;
 	
 	if ([[[NSProcessInfo processInfo] arguments] count] < 3) {
-		fprintf(stderr, "usage: %s <search string> <maximum distance>\n",
+		fprintf(stderr, "usage: %s [<search string> <maximum distance>] [<dictionary path>]\n",
 				[[[NSProcessInfo processInfo] processName] UTF8String]);
 		target = TARGET;
 		maxCost = MAX_COST;
@@ -27,6 +28,13 @@ int main (int argc, const char * argv[]) {
 	else {
 		target = [[[NSProcessInfo processInfo] arguments] objectAtIndex:1];
 		maxCost = [[[[NSProcessInfo processInfo] arguments] objectAtIndex:2] integerValue];
+	}
+
+	if ([[[NSProcessInfo processInfo] arguments] count] >= 3) {
+		dictionary = [[[NSProcessInfo processInfo] arguments] objectAtIndex:3];
+	}
+	else {
+		dictionary = DICTIONARY;
 	}
 	
 	NSString *archivePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"trie.archive"];
@@ -42,14 +50,14 @@ int main (int argc, const char * argv[]) {
 	else {
 		// Read dictionary file into a trie
 		start = [NSDate timeIntervalSinceReferenceDate];
-		NSString *wordListText = [NSString stringWithContentsOfFile:DICTIONARY encoding:NSUTF8StringEncoding error:NULL];
+		NSString *wordListText = [NSString stringWithContentsOfFile:dictionary encoding:NSUTF8StringEncoding error:NULL];
 		NSArray *wordList = [wordListText componentsSeparatedByString:@"\n"];
 		
 		trie = [JXTrie trieWithStrings:wordList];
 		duration = [NSDate timeIntervalSinceReferenceDate] - start;
 		
 		NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
-		NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", DICTIONARY, (double)duration);
+		NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", dictionary, (double)duration);
 		
 		if (ENABLE_ARCHIVING) {
 			BOOL result = [NSKeyedArchiver archiveRootObject:trie
