@@ -12,7 +12,7 @@
 
 
 // Return the minimum of a, b and c - used by distanceFromString:options:
-CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
+CF_INLINE CFIndex jxld_smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFIndex min = a;
 	if ( b < min )
 		min = b;

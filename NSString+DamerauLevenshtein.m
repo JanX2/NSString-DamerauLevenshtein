@@ -110,9 +110,9 @@
 				}
 				
 				// Step 6
-				d[ j * n + i ] = smallestCFIndex(d[ (j - 1) * n + i ] + 1,
-												 d[ j * n + i - 1 ] +  1,
-												 d[ (j - 1) * n + i - 1 ] + cost );
+				d[ j * n + i ] = jxld_smallestCFIndex(d[ (j - 1) * n + i ] + 1,
+													  d[ j * n + i - 1 ] +  1,
+													  d[ (j - 1) * n + i - 1 ] + cost );
 				
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
 				// This conditional adds Damerau transposition to the Levenshtein distance

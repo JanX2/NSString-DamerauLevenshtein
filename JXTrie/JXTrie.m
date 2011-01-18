@@ -160,7 +160,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 		}
 		replaceCost = previousRow[column - 1] + cost;
 		
-		currentRow[column] = smallestCFIndex(insertCost, deleteCost, replaceCost);
+		currentRow[column] = jxld_smallestCFIndex(insertCost, deleteCost, replaceCost);
 
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
 		// This conditional adds Damerau transposition to the Levenshtein distance
