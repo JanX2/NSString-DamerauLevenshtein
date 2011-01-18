@@ -7,7 +7,8 @@
 #define MAX_COST	1
 
 // Apparently, recreating the trie is more efficient than archiving/unarchiving using NSKeyedArchiver for large tries. 
-#define ENABLE_ARCHIVING	NO
+#define ENABLE_ARCHIVING		(NO)
+#define ENABLE_ARRAY_ARCHIVING	(NO)
 
 int main (int argc, const char * argv[]) {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
@@ -38,6 +39,7 @@ int main (int argc, const char * argv[]) {
 	}
 	
 	NSString *archivePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"trie.archive"];
+	NSString *arrayArchivePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"word-list.archive"];
 	JXTrie *trie;
 	
 	if (ENABLE_ARCHIVING && [[NSFileManager defaultManager] fileExistsAtPath:archivePath]) {
@@ -49,9 +51,27 @@ int main (int argc, const char * argv[]) {
 	}
 	else {
 		// Read dictionary file into a trie
+		NSArray *wordList;
+		
 		start = [NSDate timeIntervalSinceReferenceDate];
-		NSString *wordListText = [NSString stringWithContentsOfFile:dictionary encoding:NSUTF8StringEncoding error:NULL];
-		NSArray *wordList = [wordListText componentsSeparatedByString:@"\n"];
+		if (!ENABLE_ARCHIVING && ENABLE_ARRAY_ARCHIVING && [[NSFileManager defaultManager] fileExistsAtPath:arrayArchivePath]) {
+			wordList = [NSKeyedUnarchiver unarchiveObjectWithFile:arrayArchivePath];
+		}
+		else {
+			NSString *wordListText = [NSString stringWithContentsOfFile:dictionary encoding:NSUTF8StringEncoding error:NULL];
+			wordList = [wordListText componentsSeparatedByString:@"\n"];
+			
+			if (!ENABLE_ARCHIVING && ENABLE_ARRAY_ARCHIVING) {
+				BOOL result = [NSKeyedArchiver archiveRootObject:wordList
+														  toFile:arrayArchivePath];
+				if (result) {
+					NSLog(@"Successfully archived word list to \"%@\". ", arrayArchivePath);
+				}
+				else {
+					NSLog(@"Archiving word list to \"%@\" failed! ", arrayArchivePath);
+				}
+			}
+		}
 		
 		trie = [JXTrie trieWithStrings:wordList];
 		duration = [NSDate timeIntervalSinceReferenceDate] - start;
