@@ -101,13 +101,14 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 
 // This recursive helper is used by the search function above. It assumes that
 // the previousRow has been filled in already.
-void searchRecursive(JXTrieNode *node, UniChar letter, CFStringRef word, UniChar *word_chars, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
+void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
 	
 	CFIndex columns = CFStringGetLength(word) + 1;
 	CFIndex currentRowLastIndex = columns - 1;
 	CFIndex currentRow[columns];
 	currentRow[0] = previousRow[0] + 1;
 	
+	CFIndex cost;
 	CFIndex insertCost;
 	CFIndex deleteCost;
 	CFIndex replaceCost;
@@ -121,15 +122,26 @@ void searchRecursive(JXTrieNode *node, UniChar letter, CFStringRef word, UniChar
 		insertCost = currentRow[column - 1] + 1;
 		deleteCost = previousRow[column] + 1;
 		
-		if (word_chars[column - 1] != letter) {
-			replaceCost = previousRow[column - 1] + 1;
+		if (word_chars[column - 1] != thisLetter) {
+			cost = 1;
 		}
 		else {
-			replaceCost = previousRow[column - 1];
+			cost = 0;
 		}
+		replaceCost = previousRow[column - 1] + cost;
 		
 		currentRow[column] = smallestCFIndex(insertCost, deleteCost, replaceCost);
-		
+
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
+		// This conditional adds Damerau transposition to the Levenshtein distance
+		if (column > 1 && penultimateRow != NULL
+			&& word_chars[column - 1] == prevLetter 
+			&& word_chars[column - 2] == thisLetter )
+		{
+			currentRow[column] = MIN(currentRow[column],
+									 penultimateRow[column - 2] + cost );
+		}
+#endif
 	}
 	
 	// If the last entry in the row indicates the optimal cost is less than the
@@ -147,8 +159,8 @@ void searchRecursive(JXTrieNode *node, UniChar letter, CFStringRef word, UniChar
 	// If any entries in the row are less than the maximum cost, then 
 	// recursively search each branch of the trie
 	if (currentRowMinCost <= maxCost) {
-		for (NSString *letter in node.children) {
-			searchRecursive( [node.children objectForKey:letter], [letter characterAtIndex:0], word, word_chars, currentRow, results, maxCost);
+		for (NSString *nextLetter in node.children) {
+			searchRecursive( [node.children objectForKey:nextLetter], thisLetter, [nextLetter characterAtIndex:0], word, word_chars, previousRow, currentRow, results, maxCost);
 		}
 	}
 }
@@ -180,7 +192,7 @@ void searchRecursive(JXTrieNode *node, UniChar letter, CFStringRef word, UniChar
 	
 	// recursively search each branch of the trie
 	for (NSString *letter in rootNodeChildren) {
-		searchRecursive([rootNodeChildren objectForKey:letter], [letter characterAtIndex:0], (CFStringRef)word, (UniChar *)word_chars, currentRow, 
+		searchRecursive([rootNodeChildren objectForKey:letter], 0, [letter characterAtIndex:0], (CFStringRef)word, (UniChar *)word_chars, NULL, currentRow, 
 						results, maxCost);
 	}
 		
