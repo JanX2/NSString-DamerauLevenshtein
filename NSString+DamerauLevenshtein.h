@@ -10,15 +10,7 @@
 
 #import <Foundation/Foundation.h>
 
-enum {
-    JXLDCaseInsensitiveComparison = 1,			/* If specified, ignores the case (a == A) */
-	JXLDLiteralComparison = 2,					/* Exact character-by-character equivalence */
-	JXLDWhitespaceInsensitiveComparison = 4,	/* If specified, ignores white space */
-	JXLDWhitespaceTrimmingComparison = 8,		/* If specified, trims white space from both ends (" A " == "A") */
-    JXLDDiacriticInsensitiveComparison = 128,	/* If specified, ignores diacritics (o-umlaut == o) */
-    JXLDWidthInsensitiveComparison = 256,		/* If specified, ignores width differences ('a' == UFF41) */
-};
-typedef NSUInteger JXLDStringDistanceOptions;
+#import "JXLDStringDistance.h"
 
 @interface NSString (DamerauLevenshtein)
 
@@ -30,7 +22,7 @@ typedef NSUInteger JXLDStringDistanceOptions;
  */
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 
-// See JXLDStringDistanceOptions above for a description of the options. 
+// See JXLDStringDistanceOptions in JXLDStringDistance.h for a description of the options. 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
 // The return value of -distanceFromString:options: is normalized to the interval [0.0f, 1.0f] (0% to 100% distance)

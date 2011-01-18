@@ -53,6 +53,7 @@
 		3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrieResult.m; sourceTree = "<group>"; };
 		3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LevenshteinDistanceSearch; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevenshteinDistanceSearch.m; sourceTree = "<group>"; };
+		3D7C734612E549D2002D2014 /* JXLDStringDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLDStringDistance.h; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
+				3D7C734D12E54A8F002D2014 /* Shared */,
 				3D3E62A312D0B86500B94EC9 /* Classes */,
 				3D6A188412E22FF1009E3F9B /* JXTrie */,
 				3D3E639C12D1016700B94EC9 /* Tests */,
@@ -155,6 +157,14 @@
 				3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */,
 			);
 			path = JXTrie;
+			sourceTree = "<group>";
+		};
+		3D7C734D12E54A8F002D2014 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3D7C734612E549D2002D2014 /* JXLDStringDistance.h */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		C6859EA2029092E104C91782 /* Documentation */ = {
