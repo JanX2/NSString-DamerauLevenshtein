@@ -45,9 +45,24 @@
 		wordCount = 0;
 		optionFlags = options;
 
-		for (NSString *word in wordList) {
-			[self insertWord:word];
-			wordCount += 1;
+		if (optionFlags) {
+			CFMutableStringRef string;
+			
+			for (NSString *word in wordList) {
+				string = (CFMutableStringRef)[word mutableCopy];
+				jxld_CFStringPreprocessWithOptions(string, optionFlags);
+				
+				[self insertWord:(NSString *)string];
+				wordCount += 1;
+				
+				CFRelease(string);
+			}
+		}
+		else {
+			for (NSString *word in wordList) {
+				[self insertWord:word];
+				wordCount += 1;
+			}
 		}
 		
 	}
@@ -197,20 +212,30 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;
 {
-	CFIndex word_length = CFStringGetLength((CFStringRef)word);
-	const UniChar *word_chars;
-	UniChar *word_buffer = NULL;
+	CFStringRef string;
+	
+	if (optionFlags) {
+		string = (CFStringRef)[word mutableCopy];
+		jxld_CFStringPreprocessWithOptions((CFMutableStringRef)string, optionFlags);
+	}
+	else {
+		string = (CFStringRef)[word retain];
+	}
+	
+	CFIndex string_length = CFStringGetLength(string);
+	const UniChar *string_chars;
+	UniChar *string_buffer = NULL;
 
-	word_chars = CFStringGetCharactersPtr((CFStringRef)word);
-	if (word_chars == NULL) {
+	string_chars = CFStringGetCharactersPtr(string);
+	if (string_chars == NULL) {
 		// Fallback in case CFStringGetCharactersPtr() didn’t work. 
-		word_buffer = malloc(word_length * sizeof(UniChar));
-		CFStringGetCharacters((CFStringRef)word, CFRangeMake(0, word_length), word_buffer);
-		word_chars = word_buffer;
+		string_buffer = malloc(string_length * sizeof(UniChar));
+		CFStringGetCharacters(string, CFRangeMake(0, string_length), string_buffer);
+		string_chars = string_buffer;
 	}
 	
 	// build first row
-	CFIndex currentRowSize = word_length + 1;
+	CFIndex currentRowSize = string_length + 1;
 	CFIndex currentRow[currentRowSize];
 	for (CFIndex k = 0; k < currentRowSize; k++) {
 		currentRow[k] = k;
@@ -222,13 +247,15 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	
 	// recursively search each branch of the trie
 	for (NSString *letter in rootNodeChildren) {
-		searchRecursive([rootNodeChildren objectForKey:letter], 0, [letter characterAtIndex:0], (CFStringRef)word, (UniChar *)word_chars, NULL, currentRow, 
+		searchRecursive([rootNodeChildren objectForKey:letter], 0, [letter characterAtIndex:0], string, (UniChar *)string_chars, NULL, currentRow, 
 						results, maxCost);
 	}
 		
-	if (word_buffer != NULL) {
-		free(word_buffer);
+	if (string_buffer != NULL) {
+		free(string_buffer);
 	}
+	
+	CFRelease(string);
 
 	return results;
 }
