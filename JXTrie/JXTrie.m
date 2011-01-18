@@ -34,16 +34,27 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 
 + (id)trieWithStrings:(NSArray *)wordList;
 {
-	return [[[JXTrie alloc] initWithStrings:wordList] autorelease];
+	return [[[JXTrie alloc] initWithStrings:wordList options:0] autorelease];
+}
+
++ (id)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
+{
+	return [[[JXTrie alloc] initWithStrings:wordList options:options] autorelease];
 }
 
 - (id)initWithStrings:(NSArray *)wordList;
+{
+	return [self initWithStrings:wordList options:0];
+}
+
+- (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 {
 	self = [super init];
 	if (self) {
 		self.rootNode = [JXTrieNode new];
 		nodeCount = 0;
 		wordCount = 0;
+		optionFlags = options;
 
 		for (NSString *word in wordList) {
 			[self insertWord:word];
@@ -65,10 +76,26 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 
 - (id)initWithCoder:(NSCoder *)coder
 {		
-	if (self = [super init]) {
+	self = [super init];
+	if (self) {
 		self.rootNode = [coder decodeObjectForKey:@"rootNode"];
 		nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
 		wordCount = [coder decodeIntegerForKey:@"wordCount"];
+		
+		BOOL caseInsensitive		= [coder decodeBoolForKey:@"caseInsensitive"];
+		BOOL literal				= [coder decodeBoolForKey:@"literal"];
+		BOOL whitespaceInsensitive	= [coder decodeBoolForKey:@"whitespaceInsensitive"];
+		BOOL whitespaceTrimming		= [coder decodeBoolForKey:@"whitespaceTrimming"];
+		BOOL diacriticInsensitive	= [coder decodeBoolForKey:@"diacriticInsensitive"];
+		BOOL widthInsensitive		= [coder decodeBoolForKey:@"widthInsensitive"];
+		
+		optionFlags = 0;
+		if (caseInsensitive)		optionFlags |= JXLDCaseInsensitiveComparison;
+		if (literal)				optionFlags |= JXLDLiteralComparison;
+		if (whitespaceInsensitive)	optionFlags |= JXLDWhitespaceInsensitiveComparison;
+		if (whitespaceTrimming)		optionFlags |= JXLDWhitespaceTrimmingComparison;
+		if (diacriticInsensitive)	optionFlags |= JXLDDiacriticInsensitiveComparison;
+		if (widthInsensitive)		optionFlags |= JXLDWidthInsensitiveComparison;
 	}
 	
 	return self;
@@ -79,6 +106,20 @@ CF_INLINE CFIndex smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	[coder encodeObject:rootNode forKey:@"rootNode"];
 	[coder encodeInteger:nodeCount forKey:@"nodeCount"];
 	[coder encodeInteger:wordCount forKey:@"wordCount"];
+	
+	BOOL caseInsensitive		 = optionFlags & JXLDCaseInsensitiveComparison;
+	BOOL literal				 = optionFlags & JXLDLiteralComparison;
+	BOOL whitespaceInsensitive	 = optionFlags & JXLDWhitespaceInsensitiveComparison;
+	BOOL whitespaceTrimming		 = optionFlags & JXLDWhitespaceTrimmingComparison;
+    BOOL diacriticInsensitive	 = optionFlags & JXLDDiacriticInsensitiveComparison;
+    BOOL widthInsensitive		 = optionFlags & JXLDWidthInsensitiveComparison;
+	
+	[coder encodeBool:caseInsensitive		forKey:@"caseInsensitive"];
+	[coder encodeBool:literal				forKey:@"literal"];
+	[coder encodeBool:whitespaceInsensitive	forKey:@"whitespaceInsensitive"];
+	[coder encodeBool:whitespaceTrimming	forKey:@"whitespaceTrimming"];
+	[coder encodeBool:diacriticInsensitive	forKey:@"diacriticInsensitive"];
+	[coder encodeBool:widthInsensitive		forKey:@"widthInsensitive"];
 }
 
 

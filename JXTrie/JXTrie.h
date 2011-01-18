@@ -13,6 +13,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "JXLDStringDistance.h"
 #import "JXTrieResult.h"
 
 @class JXTrieNode;
@@ -21,13 +22,17 @@
 	JXTrieNode *rootNode;
 	NSUInteger nodeCount;
 	NSUInteger wordCount;
+	
+	JXLDStringDistanceOptions optionFlags;
 }
 
 - (NSUInteger)nodeCount;
 - (NSUInteger)count;
 
 + (id)trieWithStrings:(NSArray *)wordList;
++ (id)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 - (id)initWithStrings:(NSArray *)wordList;
+- (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 
 - (void)insertWord:(NSString *)newWord;
 
