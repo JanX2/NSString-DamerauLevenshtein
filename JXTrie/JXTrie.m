@@ -146,9 +146,8 @@
 
 // This recursive helper is used by the search function above. It assumes that
 // the previousRow has been filled in already.
-void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
+void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
 	
-	CFIndex columns = CFStringGetLength(word) + 1;
 	CFIndex currentRowLastIndex = columns - 1;
 	CFIndex currentRow[columns];
 	currentRow[0] = previousRow[0] + 1;
@@ -205,7 +204,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	// recursively search each branch of the trie
 	if (currentRowMinCost <= maxCost) {
 		for (NSString *nextLetter in node.children) {
-			searchRecursive( [node.children objectForKey:nextLetter], thisLetter, [nextLetter characterAtIndex:0], word, word_chars, previousRow, currentRow, results, maxCost);
+			searchRecursive( [node.children objectForKey:nextLetter], thisLetter, [nextLetter characterAtIndex:0], word, word_chars, columns, previousRow, currentRow, results, maxCost);
 		}
 	}
 }
@@ -247,7 +246,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	
 	// recursively search each branch of the trie
 	for (NSString *letter in rootNodeChildren) {
-		searchRecursive([rootNodeChildren objectForKey:letter], 0, [letter characterAtIndex:0], string, (UniChar *)string_chars, NULL, currentRow, 
+		searchRecursive([rootNodeChildren objectForKey:letter], 0, [letter characterAtIndex:0], string, (UniChar *)string_chars, string_length+1, NULL, currentRow, 
 						results, maxCost);
 	}
 		
