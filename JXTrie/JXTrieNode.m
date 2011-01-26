@@ -8,6 +8,8 @@
 
 #import "JXTrieNode.h"
 
+#import "JXLDStringDistanceUtilities.h"
+
 NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 {
 	NSString *descriptionString;
@@ -88,13 +90,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	CFMutableStringRef letter = CFStringCreateMutableWithExternalCharactersNoCopy(kCFAllocatorDefault, &currentChar, 1, 1, kCFAllocatorNull);
 	CFMakeCollectable(letter);
 	
-	newWord_chars = CFStringGetCharactersPtr((CFStringRef)newWord);
-	if (newWord_chars == NULL) {
-		// Fallback in case CFStringGetCharactersPtr() didn’t work. 
-		newWord_buffer = malloc(newWord_length * sizeof(UniChar));
-		CFStringGetCharacters((CFStringRef)newWord, CFRangeMake(0, newWord_length), newWord_buffer);
-		newWord_chars = newWord_buffer;
-	}
+	jxld_CFStringPrepareUniCharBuffer((CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
 	
 	JXTrieNode *node = self;
 	JXTrieNode *newNode = nil;

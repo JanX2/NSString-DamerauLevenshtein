@@ -68,25 +68,11 @@
 		
 		// Prepare access to chars array for string1
 		const UniChar *string1_chars;
-		//UniChar *string1_buffer = NULL;
-		
-		string1_chars = CFStringGetCharactersPtr(string1);
-		if (string1_chars == NULL) {
-			string1_buffer = malloc(n * sizeof(UniChar));
-			CFStringGetCharacters(string1, CFRangeMake(0, n), string1_buffer);
-			string1_chars = string1_buffer;
-		}
+		jxld_CFStringPrepareUniCharBuffer(string1, &string1_chars, &string1_buffer, CFRangeMake(0, n));
 		
 		// Prepare access to chars array for string2
 		const UniChar *string2_chars;
-		//UniChar *string2_buffer = NULL;
-		
-		string2_chars = CFStringGetCharactersPtr(string2);
-		if (string2_chars == NULL) {
-			string2_buffer = malloc(m * sizeof(UniChar));
-			CFStringGetCharacters(string2, CFRangeMake(0, m), string2_buffer);
-			string2_chars = string2_buffer;
-		}
+		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
 		
 		// Ignore common prefix (reducing memory footprint).
 		while (m > 0 && n > 0 && (*string1_chars == *string2_chars)) {

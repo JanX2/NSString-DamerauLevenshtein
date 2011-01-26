@@ -225,13 +225,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	const UniChar *string_chars;
 	UniChar *string_buffer = NULL;
 
-	string_chars = CFStringGetCharactersPtr(string);
-	if (string_chars == NULL) {
-		// Fallback in case CFStringGetCharactersPtr() didn’t work. 
-		string_buffer = malloc(string_length * sizeof(UniChar));
-		CFStringGetCharacters(string, CFRangeMake(0, string_length), string_buffer);
-		string_chars = string_buffer;
-	}
+	jxld_CFStringPrepareUniCharBuffer(string, &string_chars, &string_buffer, CFRangeMake(0, string_length));
 	
 	// build first row
 	CFIndex currentRowSize = string_length + 1;
