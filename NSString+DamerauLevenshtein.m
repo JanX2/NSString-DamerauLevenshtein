@@ -53,11 +53,11 @@
 		// Processing options and pre-processing the strings accordingly 
 		jxld_CFStringPreprocessWithOptions(string1, options);
 		jxld_CFStringPreprocessWithOptions(string2, options);
-
+		
 		// The string lengths may change during pre-processing
 		n = CFStringGetLength(string1);
 		m = CFStringGetLength(string2);
-
+		
 		// Step 1b
 		CFIndex k, i, j, cost, * d;
 		
@@ -121,7 +121,7 @@
 					&& string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
 				{
 					d[ j * n + i ] = MIN(d[ j * n + i ],
-										d[ (j - 2) * n + i - 2 ] + cost );
+										 d[ (j - 2) * n + i - 2 ] + cost );
 				}
 #endif
 			}

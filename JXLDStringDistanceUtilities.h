@@ -11,7 +11,7 @@
 #import "JXLDStringDistance.h"
 
 
-// Return the minimum of a, b and c - used by distanceFromString:options:
+// Return the minimum of a, b and c
 CF_INLINE CFIndex jxld_smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
 	CFIndex min = a;
 	if ( b < min )
