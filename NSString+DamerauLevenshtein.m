@@ -38,17 +38,22 @@
 	n = CFStringGetLength(string1);
 	m = CFStringGetLength(string2);
 	
+	UniChar *string1_buffer = NULL;
+	UniChar *string2_buffer = NULL;
+
 	CFIndex distance = kCFNotFound;
 	
-	if (n == 0) {
-		distance = m;
-	}
-	
-	if (m == 0) {
-		distance = n;
-	}
-	
-	if (distance == kCFNotFound) {
+	while (distance == kCFNotFound) {
+		
+		if (n == 0) {
+			distance = m;
+			break;
+		}
+		
+		if (m == 0) {
+			distance = n;
+			break;
+		}		
 		
 		// Processing options and pre-processing the strings accordingly 
 		jxld_CFStringPreprocessWithOptions(string1, options);
@@ -63,7 +68,7 @@
 		
 		// Prepare access to chars array for string1
 		const UniChar *string1_chars;
-		UniChar *string1_buffer = NULL;
+		//UniChar *string1_buffer = NULL;
 		
 		string1_chars = CFStringGetCharactersPtr(string1);
 		if (string1_chars == NULL) {
@@ -74,13 +79,38 @@
 		
 		// Prepare access to chars array for string2
 		const UniChar *string2_chars;
-		UniChar *string2_buffer = NULL;
+		//UniChar *string2_buffer = NULL;
 		
 		string2_chars = CFStringGetCharactersPtr(string2);
 		if (string2_chars == NULL) {
 			string2_buffer = malloc(m * sizeof(UniChar));
 			CFStringGetCharacters(string2, CFRangeMake(0, m), string2_buffer);
 			string2_chars = string2_buffer;
+		}
+		
+		// Ignore common prefix (reducing memory footprint).
+		while (m > 0 && n > 0 && (*string1_chars == *string2_chars)) {
+			m -= 1;
+			n -= 1;
+			string1_chars++;
+			string2_chars++;
+		}
+		
+		// Ignore common suffix (reducing memory footprint).
+		while (m > 0 && n > 0 && (string1_chars[n-1] == string2_chars[m-1])) {
+			m -= 1;
+			n -= 1;
+		}
+		
+		// One of the strings is contained within the other when comparing with consideration to options
+		if (n == 0) {
+			distance = m;
+			break;
+		}
+		
+		if (m == 0) {
+			distance = n;
+			break;
 		}
 		
 		n++;
@@ -131,10 +161,10 @@
 		
 		free( d );
 		
-		if (string1_buffer != NULL) free(string1_buffer);
-		if (string2_buffer != NULL) free(string2_buffer);
-		
 	}
+	
+	if (string1_buffer != NULL) free(string1_buffer);
+	if (string2_buffer != NULL) free(string2_buffer);
 	
 	CFRelease(string1);
 	CFRelease(string2);

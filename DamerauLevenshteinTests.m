@@ -116,6 +116,15 @@
 	levensteinDistance = [string1 distanceFromString:string2 
 											 options:0];
 	STAssertEquals((NSUInteger)3, levensteinDistance, @"Real world test #1 failed.");
+	
+	
+	string1 = @"sit-in";
+	string2 = @"sitting";
+	
+	levensteinDistance = [string1 distanceFromString:string2 
+											 options:0];
+	STAssertEquals((NSUInteger)2, levensteinDistance, @"Real world test #4 failed.");
+	
 }
 
 - (void)test_normalized {
