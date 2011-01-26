@@ -127,6 +127,40 @@
 	
 }
 
+- (void)test_unicode {
+	NSArray *entries = [NSArray arrayWithObjects:
+						[NSArray arrayWithObjects:@"Štein", @"stein", [NSNumber numberWithUnsignedInteger:1], nil], 
+						[NSArray arrayWithObjects:@"Štein", @"Stein", [NSNumber numberWithUnsignedInteger:1], nil], 
+						[NSArray arrayWithObjects:@"Štein", @"steïn", [NSNumber numberWithUnsignedInteger:2], nil], 
+						[NSArray arrayWithObjects:@"Štein", @"Steïn", [NSNumber numberWithUnsignedInteger:2], nil], 
+						[NSArray arrayWithObjects:@"Štein", @"štein", [NSNumber numberWithUnsignedInteger:1], nil], 
+						[NSArray arrayWithObjects:@"Štein", @"šteïn", [NSNumber numberWithUnsignedInteger:2], nil], 
+						[NSArray arrayWithObjects:@"föo", @"foo", [NSNumber numberWithUnsignedInteger:1], nil], 
+						[NSArray arrayWithObjects:@"français", @"francais", [NSNumber numberWithUnsignedInteger:1], nil], 
+						[NSArray arrayWithObjects:@"français", @"franæais", [NSNumber numberWithUnsignedInteger:1], nil], 
+						[NSArray arrayWithObjects:@"私の名前は白です", @"ぼくの名前は白です", [NSNumber numberWithUnsignedInteger:2], nil], nil];
+
+	NSString *testFailedMessage;
+
+	NSString *string1;
+	NSString *string2;
+	NSUInteger expectedDistance;
+	
+	for (NSUInteger entryIndex; entryIndex < entries.count; entryIndex++) {
+		NSArray *entry = [entries objectAtIndex:entryIndex];
+		string1 = [entry objectAtIndex:0];
+		string2 = [entry objectAtIndex:1];
+		expectedDistance = [[entry objectAtIndex:2] unsignedIntegerValue];
+		
+		testFailedMessage = [NSString stringWithFormat:@"Unicode test #%lu failed.", (unsigned long)entryIndex+1];
+		
+		levensteinDistance = [string1 distanceFromString:string2 
+												 options:0];
+		STAssertEquals(expectedDistance, levensteinDistance, testFailedMessage);
+	}
+	
+}
+
 - (void)test_normalized {
 	STAssertEquals(0.0f, [@"123456789" normalizedDistanceFromString:@"123456789"], @"Normalized equality test failed.");
 

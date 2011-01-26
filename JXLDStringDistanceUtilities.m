@@ -33,8 +33,8 @@ void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDis
 			CFStringTrimWhitespace(string);
 		}
 		
-		CFStringNormalize(string, kCFStringNormalizationFormD);
 		CFStringFold(string, foldingOptions, NULL);
+		CFStringNormalize(string, kCFStringNormalizationFormC);
 	}
 }
 
