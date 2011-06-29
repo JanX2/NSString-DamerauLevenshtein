@@ -29,7 +29,7 @@ int main (int argc, const char * argv[]) {
 		maxCost = [[[[NSProcessInfo processInfo] arguments] objectAtIndex:2] integerValue];
 	}
 
-	if ([[[NSProcessInfo processInfo] arguments] count] >= 3) {
+	if ([[[NSProcessInfo processInfo] arguments] count] > 3) {
 		dictionary = [[[NSProcessInfo processInfo] arguments] objectAtIndex:3];
 	}
 	else {
