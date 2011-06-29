@@ -39,28 +39,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Damerau-Levenshtein.m"; sourceTree = "<group>"; };
+		08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "Damerau-Levenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Damerau-Levenshtein_Prefix.pch"; sourceTree = "<group>"; };
-		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; };
-		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; };
+		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTest-Info.plist"; sourceTree = "<group>"; };
 		3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DamerauLevenshteinTests.h; sourceTree = "<group>"; };
-		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; };
-		3D6A188512E22FF1009E3F9B /* JXTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTrie.h; sourceTree = "<group>"; };
-		3D6A188612E22FF1009E3F9B /* JXTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrie.m; sourceTree = "<group>"; };
-		3D6A188712E22FF1009E3F9B /* JXTrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTrieNode.h; sourceTree = "<group>"; };
-		3D6A188812E22FF1009E3F9B /* JXTrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrieNode.m; sourceTree = "<group>"; };
-		3D6A18FA12E25B8D009E3F9B /* JXTrieResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXTrieResult.h; sourceTree = "<group>"; };
-		3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXTrieResult.m; sourceTree = "<group>"; };
+		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3D6A188512E22FF1009E3F9B /* JXTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrie.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3D6A188612E22FF1009E3F9B /* JXTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrie.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3D6A188712E22FF1009E3F9B /* JXTrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieNode.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3D6A188812E22FF1009E3F9B /* JXTrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrieNode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3D6A18FA12E25B8D009E3F9B /* JXTrieResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrieResult.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LevenshteinDistanceSearch; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevenshteinDistanceSearch.m; sourceTree = "<group>"; };
-		3D7C734612E549D2002D2014 /* JXLDStringDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLDStringDistance.h; sourceTree = "<group>"; };
-		3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXLDStringDistanceUtilities.h; sourceTree = "<group>"; };
-		3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXLDStringDistanceUtilities.m; sourceTree = "<group>"; };
+		3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LevenshteinDistanceSearch.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3D7C734612E549D2002D2014 /* JXLDStringDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXLDStringDistance.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXLDStringDistanceUtilities.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXLDStringDistanceUtilities.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
+		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; lineEnding = 0; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
