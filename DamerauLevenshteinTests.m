@@ -162,14 +162,14 @@
 }
 
 - (void)test_normalized {
-	STAssertEquals(0.0f, [@"123456789" normalizedDistanceFromString:@"123456789"], @"Normalized equality test failed.");
+	STAssertEqualsWithAccuracy(0.0f, [@"123456789" normalizedDistanceFromString:@"123456789"], 0.001f, @"Normalized equality test failed.");
 
-	STAssertEquals(0.5f, [@"12345" normalizedDistanceFromString:@"1234567890"], @"Normalized partial similarity test failed.");
+	STAssertEqualsWithAccuracy(0.5f, [@"12345" normalizedDistanceFromString:@"1234567890"], 0.001f, @"Normalized partial similarity test failed.");
 	
-	STAssertEquals(1.0f, [@"ABCDE" normalizedDistanceFromString:@"123456789"], @"Normalized no similarity test failed.");
+	STAssertEqualsWithAccuracy(1.0f, [@"ABCDE" normalizedDistanceFromString:@"123456789"], 0.001f, @"Normalized no similarity test failed.");
 
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
-	STAssertEquals(0.5f, [@"2143658709" normalizedDistanceFromString:@"1234567890"], @"Normalized transposition test failed.");
+	STAssertEqualsWithAccuracy(0.5f, [@"2143658709" normalizedDistanceFromString:@"1234567890"], 0.001f, @"Normalized transposition test failed.");
 #endif
 }
 
