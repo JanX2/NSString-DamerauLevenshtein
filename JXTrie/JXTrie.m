@@ -21,6 +21,10 @@
 
 @synthesize rootNode;
 
+
+void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost);
+
+
 + (id)trieWithStrings:(NSArray *)wordList;
 {
 	return [[[JXTrie alloc] initWithStrings:wordList options:0] autorelease];

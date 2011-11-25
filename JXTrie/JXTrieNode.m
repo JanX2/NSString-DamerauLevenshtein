@@ -10,6 +10,8 @@
 
 #import "JXLDStringDistanceUtilities.h"
 
+NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel);
+
 NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 {
 	NSString *descriptionString;
@@ -63,7 +65,9 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (id)initWithCoder:(NSCoder *)coder
 {		
-	if (self = [super init]) {
+	self = [super init];
+	
+	if (self) {
 		self.word = [coder decodeObjectForKey:@"word"];
 		self.children = [coder decodeObjectForKey:@"children"];
 	}
