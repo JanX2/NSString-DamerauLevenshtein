@@ -26,17 +26,32 @@ CFIndex ld(CFStringRef string1, CFStringRef string2);
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
-	CFMutableStringRef string1 = (CFMutableStringRef)[self mutableCopy];
-	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
+	CFStringRef string1, string2;
 	
-	// Processing options and pre-processing the strings accordingly 
-	jxld_CFStringPreprocessWithOptions(string1, options);
-	jxld_CFStringPreprocessWithOptions(string2, options);
+	CFMutableStringRef string1_mutable = NULL;
+	CFMutableStringRef string2_mutable = NULL;
+	
+	if (options & JXLDLiteralComparison) {
+		string1 = (CFStringRef)self;
+		string2 = (CFStringRef)comparisonString;
+	}
+	else {
+		string1_mutable = (CFMutableStringRef)[self mutableCopy];
+		string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+		
+		// Processing options and pre-processing the strings accordingly 
+		// The string lengths may change during pre-processing
+		jxld_CFStringPreprocessWithOptions(string1_mutable, options);
+		jxld_CFStringPreprocessWithOptions(string2_mutable, options);
+
+		string1 = (CFStringRef)string1_mutable;
+		string2 = (CFStringRef)string2_mutable;
+	}
 	
 	NSUInteger distance = ld(string1, string2);
 	
-	CFRelease(string1);
-	CFRelease(string2);
+	if (string1_mutable != NULL)  CFRelease(string1_mutable);
+	if (string2_mutable != NULL)  CFRelease(string2_mutable);
 	
 	return distance;
 }
