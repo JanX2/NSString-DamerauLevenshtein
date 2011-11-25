@@ -17,6 +17,8 @@
 
 @implementation NSString (DamerauLevenshtein)
 
+CFIndex ld(CFStringRef string1, CFStringRef string2);
+
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 {
 	return [self distanceFromString:comparisonString options:0];
@@ -24,14 +26,27 @@
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
+	CFMutableStringRef string1 = (CFMutableStringRef)[self mutableCopy];
+	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
+	
+	// Processing options and pre-processing the strings accordingly 
+	jxld_CFStringPreprocessWithOptions(string1, options);
+	jxld_CFStringPreprocessWithOptions(string2, options);
+	
+	NSUInteger distance = ld(string1, string2);
+	
+	CFRelease(string1);
+	CFRelease(string2);
+	
+	return distance;
+}
+
+CFIndex ld(CFStringRef string1, CFStringRef string2) {
 #define string1CharacterAtIndex(A)	string1_chars[(A)]
 #define string2CharacterAtIndex(A)	string2_chars[(A)]
 	
 	// This implementation can be improved further if execution speed or memory constraints should ever pose a problem:
 	// http://en.wikipedia.org/wiki/Levenstein_Distance#Possible_improvements
-	
-	CFMutableStringRef string1 = (CFMutableStringRef)[self mutableCopy];
-	CFMutableStringRef string2 = (CFMutableStringRef)[comparisonString mutableCopy];
 	
 	// Step 1a (Steps follow description at http://www.merriampark.com/ld.htm )
 	CFIndex n, m;
@@ -43,6 +58,7 @@
 
 	CFIndex distance = kCFNotFound;
 	
+	// This loop is here just so we don’t have to use goto
 	while (distance == kCFNotFound) {
 		
 		if (n == 0) {
@@ -54,14 +70,6 @@
 			distance = n;
 			break;
 		}		
-		
-		// Processing options and pre-processing the strings accordingly 
-		jxld_CFStringPreprocessWithOptions(string1, options);
-		jxld_CFStringPreprocessWithOptions(string2, options);
-		
-		// The string lengths may change during pre-processing
-		n = CFStringGetLength(string1);
-		m = CFStringGetLength(string2);
 		
 		// Step 1b
 		CFIndex k, i, j, cost, * d;
@@ -152,10 +160,7 @@
 	if (string1_buffer != NULL) free(string1_buffer);
 	if (string2_buffer != NULL) free(string2_buffer);
 	
-	CFRelease(string1);
-	CFRelease(string2);
-	
-	return (NSUInteger)distance;
+	return distance;
 	
 #undef string1CharacterAtIndex
 #undef string2CharacterAtIndex
