@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D05EECE14803A2800782B4D /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
+		3D05EECF14803A2800782B4D /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
 		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
@@ -42,6 +44,8 @@
 		08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "Damerau-Levenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Damerau-Levenshtein_Prefix.pch"; sourceTree = "<group>"; };
+		3D05EECC14803A2800782B4D /* Lorem1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem1.txt; sourceTree = "<group>"; };
+		3D05EECD14803A2800782B4D /* Lorem2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem2.txt; sourceTree = "<group>"; };
 		3D0A5C2B147FA27B00AD637E /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -98,6 +102,7 @@
 				3D3E62A312D0B86500B94EC9 /* Classes */,
 				3D6A188412E22FF1009E3F9B /* JXTrie */,
 				3D3E639C12D1016700B94EC9 /* Tests */,
+				3D05EECB14803A2800782B4D /* Test Data */,
 				C6859EA2029092E104C91782 /* Documentation */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				3D0A5C2A147FA27B00AD637E /* Configs */,
@@ -133,6 +138,15 @@
 				3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3D05EECB14803A2800782B4D /* Test Data */ = {
+			isa = PBXGroup;
+			children = (
+				3D05EECC14803A2800782B4D /* Lorem1.txt */,
+				3D05EECD14803A2800782B4D /* Lorem2.txt */,
+			);
+			path = "Test Data";
 			sourceTree = "<group>";
 		};
 		3D0A5C2A147FA27B00AD637E /* Configs */ = {
@@ -278,6 +292,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D05EECE14803A2800782B4D /* Lorem1.txt in Resources */,
+				3D05EECF14803A2800782B4D /* Lorem2.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

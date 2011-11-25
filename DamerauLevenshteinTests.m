@@ -10,7 +10,31 @@
 
 #import "NSString+DamerauLevenshtein.h"
 
+// A bit hacky ;)
+NSString *DamerauLevenshteinTestsLongString1;
+NSString *DamerauLevenshteinTestsLongString2;
+
+
 @implementation DamerauLevenshteinTests
+
++ (void) initialize
+{
+	if ( self == [DamerauLevenshteinTests class] ) {
+		NSError *error;
+		NSBundle *testBundle = [NSBundle bundleWithIdentifier:@"de.geheimwerk.DamerauLevenshteinTest"];
+		DamerauLevenshteinTestsLongString1 = [[NSString alloc] initWithContentsOfURL:[testBundle URLForResource:@"Lorem1" withExtension:@"txt"] 
+																			encoding:NSUTF8StringEncoding 
+																			   error:&error];
+		if (!DamerauLevenshteinTestsLongString1)  NSLog(@"%@", error);
+		
+		DamerauLevenshteinTestsLongString2 = [[NSString alloc] initWithContentsOfURL:[testBundle URLForResource:@"Lorem2" withExtension:@"txt"] 
+																			encoding:NSUTF8StringEncoding 
+																			   error:&error];
+		if (!DamerauLevenshteinTestsLongString2)  NSLog(@"%@", error);
+	}
+}
+
+
 
 - (void)test_empty {
 	STAssertEquals((NSUInteger)0, [@"" distanceFromString:@""], @"Empty test #1 failed.");
@@ -187,4 +211,8 @@
 	STAssertTrue([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity no similarity test #3 failed.");
 }
 
+- (void)test_performance {
+	levensteinDistance = [DamerauLevenshteinTestsLongString1 distanceFromString:DamerauLevenshteinTestsLongString2];
+	STAssertEquals((NSUInteger)127, levensteinDistance, @"Perfomance test failed.");
+}
 @end
