@@ -17,20 +17,38 @@ NSString *DamerauLevenshteinTestsLongString2;
 
 @implementation DamerauLevenshteinTests
 
+#define LONG_STRING_EXPANSION_FACTOR	4
+
 + (void) initialize
 {
 	if ( self == [DamerauLevenshteinTests class] ) {
 		NSError *error;
-		NSBundle *testBundle = [NSBundle bundleWithIdentifier:@"de.geheimwerk.DamerauLevenshteinTest"];
-		DamerauLevenshteinTestsLongString1 = [[NSString alloc] initWithContentsOfURL:[testBundle URLForResource:@"Lorem1" withExtension:@"txt"] 
-																			encoding:NSUTF8StringEncoding 
-																			   error:&error];
-		if (!DamerauLevenshteinTestsLongString1)  NSLog(@"%@", error);
 		
-		DamerauLevenshteinTestsLongString2 = [[NSString alloc] initWithContentsOfURL:[testBundle URLForResource:@"Lorem2" withExtension:@"txt"] 
+		NSBundle *testBundle = [NSBundle bundleWithIdentifier:@"de.geheimwerk.DamerauLevenshteinTest"];
+		
+		NSString *a;
+		NSString *b;
+		
+		a = [[NSString alloc] initWithContentsOfURL:[testBundle URLForResource:@"Lorem1" withExtension:@"txt"] 
 																			encoding:NSUTF8StringEncoding 
 																			   error:&error];
-		if (!DamerauLevenshteinTestsLongString2)  NSLog(@"%@", error);
+		if (!a)  NSLog(@"%@", error);
+		
+		b = [[NSString alloc] initWithContentsOfURL:[testBundle URLForResource:@"Lorem2" withExtension:@"txt"] 
+																			encoding:NSUTF8StringEncoding 
+																			   error:&error];
+		if (!b)  NSLog(@"%@", error);
+		
+		NSMutableString *aMutable = [NSMutableString stringWithString:a];
+		NSMutableString *bMutable = [NSMutableString stringWithString:b];
+
+		for (int x = 1; x < LONG_STRING_EXPANSION_FACTOR; x++) {
+			[aMutable appendString:a];
+			[bMutable appendString:b];
+		}
+		
+		DamerauLevenshteinTestsLongString1 = [aMutable copy];
+		DamerauLevenshteinTestsLongString2 = [bMutable copy];		
 	}
 }
 
@@ -213,6 +231,6 @@ NSString *DamerauLevenshteinTestsLongString2;
 
 - (void)test_performance {
 	levensteinDistance = [DamerauLevenshteinTestsLongString1 distanceFromString:DamerauLevenshteinTestsLongString2];
-	STAssertEquals((NSUInteger)127, levensteinDistance, @"Perfomance test failed.");
+	STAssertEquals((NSUInteger)127*LONG_STRING_EXPANSION_FACTOR, levensteinDistance, @"Perfomance test failed.");
 }
 @end
