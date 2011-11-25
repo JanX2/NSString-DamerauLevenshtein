@@ -183,17 +183,34 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;
 {
-	return [self normalizedDistanceFromString:comparisonString options:0];
+	return [self normalizedDistanceFromString:comparisonString options:0 maximumDistance:FLT_MAX];
 }
 
 - (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
+	return [self normalizedDistanceFromString:comparisonString options:options maximumDistance:FLT_MAX];
+}
+
+- (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options maximumDistance:(float)maxDistance;
+{
 	float normalizedDistance = 0.0f;
-	NSUInteger reference = MAX(self.length, comparisonString.length);
+	NSUInteger selfLength = self.length;
+	NSUInteger comparisonStringLength = comparisonString.length;
 	
-	if (reference > 0) {
+	NSUInteger longStringLength = MAX(selfLength, comparisonStringLength);
+	if (maxDistance <= 1.0f) {
+		NSUInteger shortStringLength = MIN(selfLength, comparisonStringLength);
+		
+		NSUInteger minPossibleDistance = longStringLength - shortStringLength;
+		float minPossibleNormalizedDistance = (float)minPossibleDistance/longStringLength;
+		if (minPossibleNormalizedDistance >= maxDistance) {
+			return minPossibleNormalizedDistance;
+		}
+	}
+	
+	if (longStringLength > 0) {
 		NSUInteger levensteinDistance = [self distanceFromString:comparisonString options:options];
-		normalizedDistance = (float)levensteinDistance/reference;
+		normalizedDistance = (float)levensteinDistance/longStringLength;
 	}
 	
 	return normalizedDistance;
@@ -201,12 +218,22 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 
 - (float)similarityToString:(NSString *)comparisonString;
 {
-	return (1.0f - [self normalizedDistanceFromString:comparisonString options:0]);
+	return (1.0f - [self normalizedDistanceFromString:comparisonString options:0 maximumDistance:FLT_MAX]);
 }
 
 - (float)similarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
-	return (1.0f - [self normalizedDistanceFromString:comparisonString options:options]);
+	return (1.0f - [self normalizedDistanceFromString:comparisonString options:options maximumDistance:FLT_MAX]);
+}
+
+- (float)similarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options minimumSimilarity:(float)minSimilarity;
+{
+	return (1.0f - [self normalizedDistanceFromString:comparisonString options:options maximumDistance:(1.0f - minSimilarity)]);
+}
+
+- (BOOL)hasSimilarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options minimumSimilarity:(float)minSimilarity;
+{
+	return ((1.0f - [self normalizedDistanceFromString:comparisonString options:options maximumDistance:(1.0f - minSimilarity)]) >= minSimilarity);
 }
 
 @end

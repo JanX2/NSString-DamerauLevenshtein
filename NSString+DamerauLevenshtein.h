@@ -33,6 +33,11 @@
 - (float)similarityToString:(NSString *)comparisonString;
 - (float)similarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
+// These methods perform some speed optimizations only possible with the given bounds
+- (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options maximumDistance:(float)maxDistance;
+- (float)similarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options minimumSimilarity:(float)minSimilarity;
+- (BOOL)hasSimilarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options minimumSimilarity:(float)minSimilarity;
+
 /*
  Currently this implements the restricted form of Damerau-Levenshtein. 
  Please contact me (Jan Weiß) should you have implemented the unrestricted form.

@@ -173,4 +173,18 @@
 #endif
 }
 
+- (void)test_hasSimilarity {
+	STAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:1.0f], @"Has Similarity equality test #1 failed.");
+	STAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.5f], @"Has Similarity equality test #2 failed.");
+	STAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity equality test #3 failed.");
+
+	STAssertFalse([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:1.0f], @"Has Similarity partial similarity test #1 failed.");
+	STAssertTrue([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:0.5f], @"Has Similarity partial similarity test #2 failed.");
+	STAssertTrue([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:0.0f], @"Has Similarity partial similarity test #3 failed.");
+	
+	STAssertFalse([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:1.0f], @"Has Similarity no similarity test #1 failed.");
+	STAssertFalse([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.5f], @"Has Similarity no similarity test #2 failed.");
+	STAssertTrue([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity no similarity test #3 failed.");
+}
+
 @end
