@@ -188,10 +188,15 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 
 - (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 {
-	NSUInteger levensteinDistance = [self distanceFromString:comparisonString options:options];
+	float normalizedDistance = 0.0f;
 	NSUInteger reference = MAX(self.length, comparisonString.length);
 	
-	return (float)levensteinDistance/reference;
+	if (reference > 0) {
+		NSUInteger levensteinDistance = [self distanceFromString:comparisonString options:options];
+		normalizedDistance = (float)levensteinDistance/reference;
+	}
+	
+	return normalizedDistance;
 }
 
 - (float)similarityToString:(NSString *)comparisonString;
