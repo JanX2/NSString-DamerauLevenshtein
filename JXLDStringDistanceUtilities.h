@@ -33,4 +33,6 @@ CF_INLINE void jxld_CFStringPrepareUniCharBuffer(CFStringRef string, const UniCh
 	}
 }
 
+void jxld_CFStringRemoveWhitespace(CFMutableStringRef string);
+
 void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDistanceOptions options);
