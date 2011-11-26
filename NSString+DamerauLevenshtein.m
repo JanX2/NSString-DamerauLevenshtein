@@ -125,16 +125,20 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		CFIndex *d = &(d_array[0]);
 		CFIndex *_d;			// Placeholder to assist in swapping p and d
 		
+		// Step 2
 		for (i = 0; i <= n; i++) {
 			p[i] = i;
 		}
 		
+		// Step 3 and 4
 		for (j = 1; j <= m; j++) {
 			d[0] = j;
 			
 			for (i = 1; i <= n; i++) {
 				// Step 5
 				cost = (string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1)) ? 0 : 1;
+
+				// Step 6
 				// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost				
 				d[i] = MIN(MIN(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
 			}
