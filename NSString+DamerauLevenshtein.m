@@ -115,7 +115,7 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 			n -= 1;
 		}
 		
-#ifdef DISABLE_DAMERAU_TRANSPOSITION
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
 		// This implementation is based on Chas Emerick’s Java implementation:
 		// http://www.merriampark.com/ldjava.htm
 		
@@ -124,6 +124,11 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		CFIndex *d = &(d_array[0]);
 		CFIndex *p = &(p_array[0]);
 		CFIndex *_d;			// Placeholder to assist in swapping p and d
+
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
+		CFIndex p2_array[n+1];	// cost array before 'previous', horizontally
+		CFIndex *p2 = &(p2_array[0]);
+#endif
 		
 		// Step 2
 		for (i = 0; i <= n; i++) {
@@ -141,10 +146,25 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 				// Step 6
 				// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost				
 				d[i] = MIN(MIN(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
+				
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
+				// This conditional adds Damerau transposition to the Levenshtein distance
+				if (i > 1 && j > 1 
+					&& string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-2) 
+					&& string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
+				{
+					d[i] = MIN(d[i], p2[i-2] + cost );
+				}
+#endif
 			}
 			
 			// Copy current distance counts to 'previous row' distance counts
+#ifdef DISABLE_DAMERAU_TRANSPOSITION
 			_d = p;
+#else
+			_d = p2;
+			p2 = p;
+#endif
 			p = d;
 			d = _d;
 		} 
