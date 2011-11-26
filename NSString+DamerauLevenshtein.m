@@ -94,7 +94,27 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		const UniChar *string2_chars;
 		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
 		
-
+		// Step 1b
+		// Indexes into strings string1 and string2
+		CFIndex i;		// Iterates through string1
+		CFIndex j;		// Iterates through string2
+		
+		CFIndex cost;
+				
+		// Ignore common prefix (reducing memory footprint).
+		while (m > 0 && n > 0 && (*string1_chars == *string2_chars)) {
+			m -= 1;
+			n -= 1;
+			string1_chars++;
+			string2_chars++;
+		}
+		
+		// Ignore common suffix (reducing memory footprint).
+		while (m > 0 && n > 0 && (string1_chars[n-1] == string2_chars[m-1])) {
+			m -= 1;
+			n -= 1;
+		}
+		
 #ifdef DISABLE_DAMERAU_TRANSPOSITION
 		// This implementation is based on Chas Emerick’s Java implementation:
 		// http://www.merriampark.com/ldjava.htm
@@ -105,12 +125,6 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		CFIndex *d = &(d_array[0]);
 		CFIndex *_d;			// Placeholder to assist in swapping p and d
 		
-		// Indexes into strings s and t
-		CFIndex i;		// Iterates through s
-		CFIndex j;		// Iterates through t
-		
-		CFIndex cost;
-		
 		for (i = 0; i <= n; i++) {
 			p[i] = i;
 		}
@@ -119,6 +133,7 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 			d[0] = j;
 			
 			for (i = 1; i <= n; i++) {
+				// Step 5
 				cost = (string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1)) ? 0 : 1;
 				// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost				
 				d[i] = MIN(MIN(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
@@ -135,25 +150,10 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		distance = p[n];
 		
 #else
-		// Step 1b
-		CFIndex k, i, j, cost, * d;
-		
-		// Ignore common prefix (reducing memory footprint).
-		while (m > 0 && n > 0 && (*string1_chars == *string2_chars)) {
-			m -= 1;
-			n -= 1;
-			string1_chars++;
-			string2_chars++;
-		}
-		
-		// Ignore common suffix (reducing memory footprint).
-		while (m > 0 && n > 0 && (string1_chars[n-1] == string2_chars[m-1])) {
-			m -= 1;
-			n -= 1;
-		}
-		
 		n++;
 		m++;
+		
+		CFIndex k, * d;
 		
 		d = malloc( sizeof(CFIndex) * m * n );
 		
@@ -171,12 +171,7 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 			for ( j = 1; j < m; j++ ) {
 				
 				// Step 5
-				if ( string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1) ) {
-					cost = 0;
-				}
-				else {
-					cost = 1;
-				}
+				cost = (string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1)) ? 0 : 1;
 				
 				// Step 6
 				d[ j * n + i ] = jxld_smallestCFIndex(d[ (j - 1) * n + i ] + 1,
