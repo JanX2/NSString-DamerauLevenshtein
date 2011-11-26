@@ -119,10 +119,10 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		// This implementation is based on Chas Emerick’s Java implementation:
 		// http://www.merriampark.com/ldjava.htm
 		
-		CFIndex p_array[n+1];	// 'previous' cost array, horizontally
 		CFIndex d_array[n+1];	// Cost array, horizontally
-		CFIndex *p = &(p_array[0]);
+		CFIndex p_array[n+1];	// 'previous' cost array, horizontally
 		CFIndex *d = &(d_array[0]);
+		CFIndex *p = &(p_array[0]);
 		CFIndex *_d;			// Placeholder to assist in swapping p and d
 		
 		// Step 2
