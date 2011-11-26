@@ -115,7 +115,6 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 			n -= 1;
 		}
 		
-#ifndef DISABLE_DAMERAU_TRANSPOSITION
 		// This implementation is based on Chas Emerick’s Java implementation:
 		// http://www.merriampark.com/ldjava.htm
 		
@@ -172,53 +171,6 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		// Our last action in the above loop was to switch d and p, so p now 
 		// actually has the most recent cost counts
 		distance = p[n];
-		
-#else
-		n++;
-		m++;
-		
-		CFIndex k, * d;
-		
-		d = malloc( sizeof(CFIndex) * m * n );
-		
-		// Step 2
-		for ( k = 0; k < n; k++) {
-			d[k] = k;
-		}
-		
-		for ( k = 0; k < m; k++) {
-			d[ k * n ] = k;
-		}
-		
-		// Step 3 and 4
-		for ( i = 1; i < n; i++ ) {
-			for ( j = 1; j < m; j++ ) {
-				
-				// Step 5
-				cost = (string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1)) ? 0 : 1;
-				
-				// Step 6
-				d[ j * n + i ] = jxld_smallestCFIndex(d[ (j - 1) * n + i ] + 1,
-													  d[ j * n + i - 1 ] +  1,
-													  d[ (j - 1) * n + i - 1 ] + cost );
-				
-#ifndef DISABLE_DAMERAU_TRANSPOSITION
-				// This conditional adds Damerau transposition to the Levenshtein distance
-				if (i > 1 && j > 1 
-					&& string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-2) 
-					&& string1CharacterAtIndex(i-2) == string2CharacterAtIndex(j-1) )
-				{
-					d[ j * n + i ] = MIN(d[ j * n + i ],
-										 d[ (j - 2) * n + i - 2 ] + cost );
-				}
-#endif
-			}
-		}
-		
-		distance = d[ n * m - 1 ];
-		
-		free( d );
-#endif
 		
 	}
 	
