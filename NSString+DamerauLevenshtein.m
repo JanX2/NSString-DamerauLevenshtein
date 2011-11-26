@@ -86,9 +86,6 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 			break;
 		}		
 		
-		// Step 1b
-		CFIndex k, i, j, cost, * d;
-		
 		// Prepare access to chars array for string1
 		const UniChar *string1_chars;
 		jxld_CFStringPrepareUniCharBuffer(string1, &string1_chars, &string1_buffer, CFRangeMake(0, n));
@@ -96,6 +93,50 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		// Prepare access to chars array for string2
 		const UniChar *string2_chars;
 		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
+		
+
+#ifdef DISABLE_DAMERAU_TRANSPOSITION
+		// This implementation is based on Chas Emerick’s Java implementation:
+		// http://www.merriampark.com/ldjava.htm
+		
+		CFIndex p_array[n+1];	// 'previous' cost array, horizontally
+		CFIndex d_array[n+1];	// Cost array, horizontally
+		CFIndex *p = &(p_array[0]);
+		CFIndex *d = &(d_array[0]);
+		CFIndex *_d;			// Placeholder to assist in swapping p and d
+		
+		// Indexes into strings s and t
+		CFIndex i;		// Iterates through s
+		CFIndex j;		// Iterates through t
+		
+		CFIndex cost;
+		
+		for (i = 0; i <= n; i++) {
+			p[i] = i;
+		}
+		
+		for (j = 1; j <= m; j++) {
+			d[0] = j;
+			
+			for (i = 1; i <= n; i++) {
+				cost = (string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1)) ? 0 : 1;
+				// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost				
+				d[i] = MIN(MIN(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
+			}
+			
+			// Copy current distance counts to 'previous row' distance counts
+			_d = p;
+			p = d;
+			d = _d;
+		} 
+		
+		// Our last action in the above loop was to switch d and p, so p now 
+		// actually has the most recent cost counts
+		distance = p[n];
+		
+#else
+		// Step 1b
+		CFIndex k, i, j, cost, * d;
 		
 		// Ignore common prefix (reducing memory footprint).
 		while (m > 0 && n > 0 && (*string1_chars == *string2_chars)) {
@@ -109,17 +150,6 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		while (m > 0 && n > 0 && (string1_chars[n-1] == string2_chars[m-1])) {
 			m -= 1;
 			n -= 1;
-		}
-		
-		// One of the strings is contained within the other when comparing with consideration to options
-		if (n == 0) {
-			distance = m;
-			break;
-		}
-		
-		if (m == 0) {
-			distance = n;
-			break;
 		}
 		
 		n++;
@@ -169,6 +199,7 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		distance = d[ n * m - 1 ];
 		
 		free( d );
+#endif
 		
 	}
 	
