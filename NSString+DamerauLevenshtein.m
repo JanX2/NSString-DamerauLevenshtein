@@ -118,15 +118,12 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		// This implementation is based on Chas Emerick’s Java implementation:
 		// http://www.merriampark.com/ldjava.htm
 		
-		CFIndex d_array[n+1];	// Cost array, horizontally
-		CFIndex p_array[n+1];	// 'previous' cost array, horizontally
-		CFIndex *d = &(d_array[0]);
-		CFIndex *p = &(p_array[0]);
+		CFIndex *d = malloc((n+1) * sizeof(CFIndex));	// Cost array, horizontally
+		CFIndex *p = malloc((n+1) * sizeof(CFIndex));	// 'previous' cost array, horizontally
 		CFIndex *_d;			// Placeholder to assist in swapping p and d
 
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
-		CFIndex p2_array[n+1];	// cost array before 'previous', horizontally
-		CFIndex *p2 = &(p2_array[0]);
+		CFIndex *p2 = malloc((n+1) * sizeof(CFIndex));	// cost array before 'previous', horizontally
 #endif
 		
 		// Step 2
@@ -172,6 +169,11 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 		// actually has the most recent cost counts
 		distance = p[n];
 		
+		free(d);
+		free(p);
+#ifndef DISABLE_DAMERAU_TRANSPOSITION
+		free(p2);
+#endif
 	}
 	
 	if (string1_buffer != NULL) free(string1_buffer);
