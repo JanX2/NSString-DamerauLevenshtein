@@ -24,8 +24,9 @@ NSString *DamerauLevenshteinTestsLongString2;
 	if ( self == [DamerauLevenshteinTests class] ) {
 		NSError *error;
 		
-		NSBundle *testBundle = [NSBundle bundleWithIdentifier:@"de.geheimwerk.DamerauLevenshteinTest"];
-		
+		//NSBundle *testBundle = [NSBundle bundleWithIdentifier:@"de.geheimwerk.DamerauLevenshteinTest"];
+		NSBundle *testBundle = [NSBundle bundleForClass:[self class]];
+        
 		NSString *a;
 		NSString *b;
 		
