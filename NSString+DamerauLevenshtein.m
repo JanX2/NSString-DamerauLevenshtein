@@ -32,12 +32,12 @@ CFIndex ld(CFStringRef string1, CFStringRef string2);
 	CFMutableStringRef string2_mutable = NULL;
 	
 	if (options & JXLDLiteralComparison) {
-		string1 = (CFStringRef)self;
-		string2 = (CFStringRef)comparisonString;
+		string1 = (__bridge CFStringRef)self;
+		string2 = (__bridge CFStringRef)comparisonString;
 	}
 	else {
-		string1_mutable = (CFMutableStringRef)[self mutableCopy];
-		string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+		string1_mutable = (__bridge_retained CFMutableStringRef)[self mutableCopy];
+		string2_mutable = (__bridge_retained CFMutableStringRef)[comparisonString mutableCopy];
 		
 		// Processing options and pre-processing the strings accordingly 
 		// The string lengths may change during pre-processing
@@ -140,8 +140,9 @@ CFIndex ld(CFStringRef string1, CFStringRef string2) {
 				cost = (string1CharacterAtIndex(i-1) == string2CharacterAtIndex(j-1)) ? 0 : 1;
 
 				// Step 6
-				// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost				
-				d[i] = MIN(MIN(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
+				// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost
+				CFIndex di = MIN((d[i-1]+1), (p[i]+1));
+				d[i] = MIN(di,  (p[i-1]+cost));  
 				
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
 				// This conditional adds Damerau transposition to the Levenshtein distance
