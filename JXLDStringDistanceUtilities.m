@@ -26,6 +26,28 @@ void jxld_CFStringRemoveWhitespace(CFMutableStringRef string) {
 	}
 }
 
+void jxld_CFStringReplaceDelimitersWithSpace(CFMutableStringRef string) {
+	// We may be able to optimize this function by directly manipulating an UniChar buffer.
+	CFIndex string_length = CFStringGetLength(string);
+	
+    static CFCharacterSetRef delimitersCharacterSet = nil;
+	if (delimitersCharacterSet == nil) {
+		delimitersCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("._-"));
+	}
+	
+	CFRange result;
+	CFRange range_to_search = CFRangeMake(0, string_length);
+	
+	while ( CFStringFindCharacterFromSet(string, 
+										 delimitersCharacterSet, 
+										 range_to_search, 
+										 kCFCompareBackwards, 
+										 &result) ) {
+		CFStringReplace(string, result, CFSTR(" "));
+		range_to_search.length = result.location; // We can do this safely, because we use kCFCompareBackwards
+	}
+}
+
 void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDistanceOptions options) {
 	if (!(options & JXLDLiteralComparison)) {
 		CFOptionFlags foldingOptions = 0;
@@ -40,6 +62,10 @@ void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDis
 		
 		if (options & JXLDWidthInsensitiveComparison) {
 			foldingOptions |= kCFCompareWidthInsensitive;
+		}
+		
+		if (options & JXLDDelimiterInsensitiveComparison) {
+			jxld_CFStringReplaceDelimitersWithSpace(string);
 		}
 		
 		if (options & JXLDWhitespaceInsensitiveComparison) {
