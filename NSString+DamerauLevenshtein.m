@@ -22,7 +22,9 @@ CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const
 CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 
 int tokenRanges(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges);
-CFIndex valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
+CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count);
+float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
+float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
 float semanticStringDistance(CFStringRef string1, CFStringRef string2);
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
@@ -250,10 +252,37 @@ int tokenRanges(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokeni
 	return token_index;
 }
 
-CFIndex valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m) {
+
+float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m) {
+	float normalizedDistance = 0.0f;
+
+	NSUInteger longStringLength = MAX(n, m);
+	
+	CFIndex levensteinDistance = levensteinUniCharDistance(string1_chars, n, string2_chars, m);
+	normalizedDistance = (float)levensteinDistance/longStringLength;
+	
+	return normalizedDistance;
+}
+
+CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count) {
+	CFIndex token_length_total = 0;
+	
+	for (int i = 0; i < token_count; i++) {
+		token_length_total += token_ranges[i].length;
+	}
+	
+	return token_length_total;
+}
+
+float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m) {
+	// We might be able to speed this up using JXTrie 
 	CFRange *word_ranges1, *word_ranges2;
 	int word_count1 = tokenRanges(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
 	int word_count2 = tokenRanges(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
+	
+	CFIndex word_length_total1 = tokenLengthTotal(word_ranges1, word_count1);
+	CFIndex word_length_total2 = tokenLengthTotal(word_ranges2, word_count2);
+	CFIndex longer_word_length_total = MAX(word_length_total1, word_length_total2);
 	
 	CFIndex distance_total = 0;
 	CFRange word1Range, word2Range;
@@ -282,17 +311,21 @@ CFIndex valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n,
 	free(word_ranges1);
 	free(word_ranges2);
 	
-	return distance_total;
+	return distance_total/(float)longer_word_length_total;
 }
 
 float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
-#define valuePhrase	levensteinUniCharDistanceCore
-	float phrase_weight = 0.5;
-	float words_weight = 1.0;
-	float length_weight = -0.3;
-	float min_weight = 10.0;
-	float max_weight = 1.0;
-
+	float phrase_to_word_weight = 1.0f/3.0f;
+	float min_weight = 10.0f;
+	float max_weight = 1.0f;
+	float length_weight = -0.3f;
+	
+	// Normalize weights so that the result will be normalized
+	float outer_weight_sum = min_weight + max_weight + length_weight;
+	min_weight /= outer_weight_sum;
+	max_weight /= outer_weight_sum;
+	length_weight /= outer_weight_sum;
+	
 	CFIndex n, m;
 	n = CFStringGetLength(string1);
 	m = CFStringGetLength(string2);
@@ -323,13 +356,26 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 		const UniChar *string2_chars;
 		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
 		
-		float phrase_value = (float)valuePhrase(string1_chars, n, string2_chars, m);
-		float words_value = (float)valueWords(string1, string1_chars, n, string2, string2_chars, m);
-		float length_value = (float)ABS(n - m);
+		float phrase_value = valuePhrase(string1_chars, n, string2_chars, m);
+		float words_value = valueWords(string1, string1_chars, n, string2, string2_chars, m);
+		float length_value = ABS(n - m)/(float)MAX(n, m);
 		
-		distance = (MIN(phrase_value*phrase_weight, words_value*words_weight)*min_weight
-					+ MAX(phrase_value*phrase_weight, words_value*words_weight)*max_weight
-					+ length_weight*length_value);
+		float phrase_weighted = phrase_value * phrase_to_word_weight;
+		float words_weighted = words_value * (1.0f - phrase_to_word_weight);
+		
+		float min, max;
+		
+		if (phrase_weighted < words_weighted) {
+			min = phrase_weighted;
+			max = words_weighted;
+		} else {
+			min = words_weighted;
+			max = phrase_weighted;
+		}
+		
+		distance = (min * min_weight
+					+ max * max_weight
+					+ length_weight * length_value);
 		
 		break;
 	}
