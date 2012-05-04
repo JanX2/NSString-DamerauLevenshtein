@@ -359,30 +359,21 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 	
 	CFStringRef string1, string2;
 	
-	CFMutableStringRef string1_mutable = NULL;
-	CFMutableStringRef string2_mutable = NULL;
+	CFMutableStringRef string1_mutable = (CFMutableStringRef)[self mutableCopy];
+	CFMutableStringRef string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
 	
-	if (options & JXLDLiteralComparison) {
-		string1 = (CFStringRef)self;
-		string2 = (CFStringRef)comparisonString;
-	}
-	else {
-		string1_mutable = (CFMutableStringRef)[self mutableCopy];
-		string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
-		
-		// Processing options and pre-processing the strings accordingly 
-		// The string lengths may change during pre-processing
-		jxld_CFStringPreprocessWithOptions(string1_mutable, options);
-		jxld_CFStringPreprocessWithOptions(string2_mutable, options);
-		
-		string1 = (CFStringRef)string1_mutable;
-		string2 = (CFStringRef)string2_mutable;
-	}
+	// Processing options and pre-processing the strings accordingly 
+	// The string lengths may change during pre-processing
+	jxld_CFStringPreprocessWithOptions(string1_mutable, options);
+	jxld_CFStringPreprocessWithOptions(string2_mutable, options);
+	
+	string1 = (CFStringRef)string1_mutable;
+	string2 = (CFStringRef)string2_mutable;
 	
 	float distance = semanticStringDistance(string1, string2);
 	
-	if (string1_mutable != NULL)  CFRelease(string1_mutable);
-	if (string2_mutable != NULL)  CFRelease(string2_mutable);
+	CFRelease(string1_mutable);
+	CFRelease(string2_mutable);
 	
 	return distance;
 }
