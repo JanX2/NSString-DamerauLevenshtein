@@ -18,3 +18,9 @@ enum {
 };
 typedef NSUInteger JXLDStringDistanceOptions;
 
+/*
+Important:
+ 
+Please note that JXLDDelimiterInsensitiveComparison is processed before JXLDWhitespaceInsensitiveComparison and JXLDWhitespaceTrimmingComparison.
+This results in the affected delimiter characters being removed for the comparison (all from the former option, only those at both ends for the latter).
+*/

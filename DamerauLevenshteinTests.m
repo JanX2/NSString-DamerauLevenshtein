@@ -165,6 +165,32 @@ NSString *DamerauLevenshteinTestsLongString2;
 	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
 }
 
+- (void)test_delimiters_whitespace_trimming {
+	NSString *textWithDelimiters = @"__string-delimiter_matcher--";
+	NSString *textWithoutDelimiters = @"string delimiter matcher";
+	
+	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
+														options:0];
+	STAssertEquals((NSUInteger)6, levensteinDistance, @"Delimiters sensitive test failed.");
+	
+	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
+														options:JXLDDelimiterInsensitiveComparison | JXLDWhitespaceTrimmingComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
+}
+
+- (void)test_delimiters_whitespace_insensitive {
+	NSString *textWithDelimiters = @"__string-delimiter_matcher--";
+	NSString *textWithoutDelimiters = @"stringdelimitermatcher";
+	
+	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
+														options:0];
+	STAssertEquals((NSUInteger)6, levensteinDistance, @"Delimiters sensitive test failed.");
+	
+	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
+														options:JXLDDelimiterInsensitiveComparison | JXLDWhitespaceInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
+}
+
 - (void)test_real_world {
 	NSString *string1 = @"kitten";
 	NSString *string2 = @"sitting";
