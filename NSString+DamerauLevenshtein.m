@@ -243,6 +243,7 @@ CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count) {
 
 float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m) {
 	// We might be able to speed this up using JXTrie 
+	// We could penalize words that are similar the farther their indexes are apart  
 	CFRange *word_ranges1, *word_ranges2;
 	int word_count1 = jxst_CFStringPrepareTokenRangesArray(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
 	int word_count2 = jxst_CFStringPrepareTokenRangesArray(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
