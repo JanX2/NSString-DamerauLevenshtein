@@ -30,6 +30,9 @@ int main (int argc, const char * argv[]) {
 
 	NSLog(@"Damerau transposition %@. ", resultDescription);
 
+	float similarity = [string1 similarityToString:string2];
+	NSLog(@"\nThe similarity between\n\"%@\"\nand\n\"%@\"\n=\n%f", string1, string2, similarity);
+	
 	float semanticSimilarity = [string1 semanticSimilarityToString:string2];
 	NSLog(@"\nThe semantic similarity between\n\"%@\"\nand\n\"%@\"\n=\n%f", string1, string2, semanticSimilarity);
 	
