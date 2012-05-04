@@ -14,7 +14,7 @@ enum {
 	JXLDWhitespaceTrimmingComparison = 8,		/* If specified, trims white space from both ends (" A " == "A") */
     JXLDDiacriticInsensitiveComparison = 128,	/* If specified, ignores diacritics (o-umlaut == o) */
     JXLDWidthInsensitiveComparison = 256,		/* If specified, ignores width differences ('a' == U+FF41) */
-    JXLDDelimiterInsensitiveComparison = 512,	/* If specified, replaces common delimiters ('.', '_', '-') with space (' ') */
+    JXLDDelimiterInsensitiveComparison = 512,	/* If specified, replaces common delimiters ('_', '-') with space (' ') */
 };
 typedef NSUInteger JXLDStringDistanceOptions;
 

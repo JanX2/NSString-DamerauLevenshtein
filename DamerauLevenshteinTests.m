@@ -153,12 +153,12 @@ NSString *DamerauLevenshteinTestsLongString2;
 }
 
 - (void)test_delimiters {
-	NSString *textWithDelimiters = @"string-delimiter_matcher.test";
-	NSString *textWithoutDelimiters = @"string delimiter matcher test";
+	NSString *textWithDelimiters = @"string-delimiter_matcher";
+	NSString *textWithoutDelimiters = @"string delimiter matcher";
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:0];
-	STAssertEquals((NSUInteger)3, levensteinDistance, @"Delimiters sensitive test failed.");
+	STAssertEquals((NSUInteger)2, levensteinDistance, @"Delimiters sensitive test failed.");
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:JXLDDelimiterInsensitiveComparison];

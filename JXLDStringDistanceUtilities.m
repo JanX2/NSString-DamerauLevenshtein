@@ -32,7 +32,7 @@ void jxld_CFStringReplaceDelimitersWithSpace(CFMutableStringRef string) {
 	
     static CFCharacterSetRef delimitersCharacterSet = nil;
 	if (delimitersCharacterSet == nil) {
-		delimitersCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("._-"));
+		delimitersCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("_-"));
 	}
 	
 	CFRange result;
