@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 
 #import "JXLDStringDistance.h"
-#import "JXLDSemanticComparisonWeights.h"
+#import "JXLDWeights.h"
 
 
 @interface NSString (DamerauLevenshtein)
@@ -28,9 +28,9 @@
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
 - (float)semanticDistanceFromString:(NSString *)comparisonString;
-- (float)semanticDistanceFromString:(NSString *)comparisonString weights:(JXLDSemanticComparisonWeights)weight;
+- (float)semanticDistanceFromString:(NSString *)comparisonString weights:(JXLDWeights)weight;
 - (float)semanticSimilarityToString:(NSString *)comparisonString;
-- (float)semanticSimilarityToString:(NSString *)comparisonString weights:(JXLDSemanticComparisonWeights)weight;
+- (float)semanticSimilarityToString:(NSString *)comparisonString weights:(JXLDWeights)weight;
 
 // The return value of -distanceFromString:options: is normalized to the interval [0.0f, 1.0f] (0% to 100% distance)
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;

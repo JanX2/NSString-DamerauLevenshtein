@@ -25,7 +25,7 @@ CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, c
 CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count);
 float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
-float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDSemanticComparisonWeights weights);
+float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeights weights);
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 {
@@ -281,7 +281,7 @@ float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, C
 	return distance_total/(float)longer_word_length_total;
 }
 
-float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDSemanticComparisonWeights weights) {
+float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeights weights) {
 	CFIndex n, m;
 	n = CFStringGetLength(string1);
 	m = CFStringGetLength(string2);
@@ -344,10 +344,10 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDSeman
 
 - (float)semanticDistanceFromString:(NSString *)comparisonString;
 {
-	return [self semanticDistanceFromString:comparisonString weights:JXLDSemanticComparisonWeightsDefault()];
+	return [self semanticDistanceFromString:comparisonString weights:JXLDWeightsDefault()];
 }
 
-- (float)semanticDistanceFromString:(NSString *)comparisonString weights:(JXLDSemanticComparisonWeights)weights;
+- (float)semanticDistanceFromString:(NSString *)comparisonString weights:(JXLDWeights)weights;
 {
 	JXLDStringDistanceOptions options = JXLDDelimiterInsensitiveComparison | JXLDWhitespaceTrimmingComparison;
 	
@@ -374,10 +374,10 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDSeman
 
 - (float)semanticSimilarityToString:(NSString *)comparisonString;
 {
-	return (1.0f - [self semanticDistanceFromString:comparisonString weights:JXLDSemanticComparisonWeightsDefault()]);
+	return (1.0f - [self semanticDistanceFromString:comparisonString weights:JXLDWeightsDefault()]);
 }
 
-- (float)semanticSimilarityToString:(NSString *)comparisonString weights:(JXLDSemanticComparisonWeights)weights;
+- (float)semanticSimilarityToString:(NSString *)comparisonString weights:(JXLDWeights)weights;
 {
 	return (1.0f - [self semanticDistanceFromString:comparisonString weights:weights]);
 }

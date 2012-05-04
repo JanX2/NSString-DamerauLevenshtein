@@ -1,5 +1,5 @@
 //
-//  JXLDSemanticComparisonWeights.h
+//  JXLDWeights.h
 //  Damerau-Levenshtein
 //
 //  Created by Jan on 04.05.12.
@@ -13,9 +13,9 @@ typedef struct {
 	float min;
 	float max;
 	float length;
-} JXLDSemanticComparisonWeights;
+} JXLDWeights;
 
-NS_INLINE JXLDSemanticComparisonWeights JXLDSemanticComparisonWeightsNormalize(JXLDSemanticComparisonWeights weights) {
+NS_INLINE JXLDWeights JXLDWeightsNormalize(JXLDWeights weights) {
 	// Normalize weights so that the resulting distances/similarities will be normalized to the 0.0 … 1.0 range.
 	float weight_sum = weights.min + weights.max + weights.length;
 	
@@ -26,13 +26,13 @@ NS_INLINE JXLDSemanticComparisonWeights JXLDSemanticComparisonWeightsNormalize(J
 	return weights;
 }
 
-NS_INLINE JXLDSemanticComparisonWeights JXLDSemanticComparisonWeightsDefault() {
-	JXLDSemanticComparisonWeights weights = (JXLDSemanticComparisonWeights){
+NS_INLINE JXLDWeights JXLDWeightsDefault() {
+	JXLDWeights weights = (JXLDWeights){
 		.phrase_to_word = 1.0f/3.0f,
 		.min = 10.0f,
 		.max = 1.0f,
 		.length = -0.3f,
 	};
-	return JXLDSemanticComparisonWeightsNormalize(weights);
+	return JXLDWeightsNormalize(weights);
 }
 
