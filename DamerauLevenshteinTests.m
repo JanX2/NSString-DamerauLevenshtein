@@ -152,6 +152,19 @@ NSString *DamerauLevenshteinTestsLongString2;
 	STAssertEquals((NSUInteger)0, levensteinDistance, @"Width insensitive test failed.");
 }
 
+- (void)test_delimiters {
+	NSString *textWithDelimiters = @"string-delimiter_matcher.test";
+	NSString *textWithoutDelimiters = @"string delimiter matcher test";
+	
+	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
+														options:0];
+	STAssertEquals((NSUInteger)3, levensteinDistance, @"Delimiters sensitive test failed.");
+	
+	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
+														options:JXLDDelimiterInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
+}
+
 - (void)test_real_world {
 	NSString *string1 = @"kitten";
 	NSString *string2 = @"sitting";
