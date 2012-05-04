@@ -18,6 +18,7 @@
 @implementation NSString (DamerauLevenshtein)
 
 CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2);
+CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
@@ -192,6 +193,24 @@ CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, c
 	
 #undef string1CharacterAtIndex
 #undef string2CharacterAtIndex
+}
+
+CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m) {
+	CFIndex distance = 0;
+	
+	if (n == 0) {
+		distance = m;
+		return distance;
+	}
+	
+	if (m == 0) {
+		distance = n;
+		return distance;
+	}		
+	
+	distance = levensteinUniCharDistanceCore(string1_chars, n, string2_chars, m);
+
+	return distance;
 }
 
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;
