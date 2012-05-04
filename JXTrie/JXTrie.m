@@ -207,8 +207,12 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	// If any entries in the row are less than the maximum cost, then 
 	// recursively search each branch of the trie
 	if (currentRowMinCost <= maxCost) {
-		for (NSString *nextLetter in node.children) {
-			searchRecursive( [node.children objectForKey:nextLetter], thisLetter, [nextLetter characterAtIndex:0], word, word_chars, columns, previousRow, currentRow, results, maxCost);
+		UniChar *keys = node.children_keys;
+		CFIndex keys_count = node.children_keys_count;
+		UniChar nextLetter;
+		for (CFIndex i = 0; i < keys_count; i++) {
+			nextLetter = keys[i];
+			searchRecursive( CFDictionaryGetValue(node.children, (void *)nextLetter), thisLetter, nextLetter, word, word_chars, columns, previousRow, currentRow, results, maxCost);
 		}
 	}
 }
@@ -240,11 +244,16 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	
 	NSMutableArray *results = [NSMutableArray array];
 	
-	NSMutableDictionary *rootNodeChildren = self.rootNode.children;
+	JXTrieNode *selfRootNode = self.rootNode;
+	CFMutableDictionaryRef rootNodeChildren = selfRootNode.children;
 	
+	UniChar *keys = selfRootNode.children_keys;
+	CFIndex keys_count = selfRootNode.children_keys_count;
+	UniChar nextLetter;
 	// recursively search each branch of the trie
-	for (NSString *letter in rootNodeChildren) {
-		searchRecursive([rootNodeChildren objectForKey:letter], 0, [letter characterAtIndex:0], string, (UniChar *)string_chars, string_length+1, NULL, currentRow, 
+	for (CFIndex i = 0; i < keys_count; i++) {
+		nextLetter = keys[i];
+		searchRecursive( CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter), 0, nextLetter, string, (UniChar *)string_chars, string_length+1, NULL, currentRow, 
 						results, maxCost);
 	}
 		

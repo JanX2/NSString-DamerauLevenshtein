@@ -37,18 +37,22 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	
 }
 
+@interface JXTrieNode (Private)
+- (void)setChildren:(CFMutableDictionaryRef)newChildren;
+@end
 
 @implementation JXTrieNode
 
 @synthesize word;
-@synthesize children;
 
 - (id)init
 {
 	self = [super init];
 	if (self) {
 		self.word = nil;
-		self.children = [NSMutableDictionary dictionary];
+		self.children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UniChar, values:JXTrieNode objects
+		_cacheIsFresh = NO;
+		_children_keys = NULL;
 	}
 	return self;
 	
@@ -58,6 +62,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 {
 	self.word = nil;
 	self.children = nil;
+	if (_children_keys != NULL)  free(_children_keys);
 
 	[super dealloc];
 }
@@ -69,7 +74,8 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	
 	if (self) {
 		self.word = [coder decodeObjectForKey:@"word"];
-		self.children = [coder decodeObjectForKey:@"children"];
+		self.children = (CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
+		_cacheIsFresh = NO;
 	}
 	
 	return self;
@@ -78,7 +84,65 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 - (void)encodeWithCoder:(NSCoder *)coder
 {	
 	[coder encodeObject:word forKey:@"word"];
-	[coder encodeObject:children forKey:@"children"];
+	[coder encodeObject:(NSMutableDictionary *)_children forKey:@"children"]; // CHANGEME: This may not work with custom CFMutableDictionary objects
+}
+
+
+- (CFMutableDictionaryRef)children
+{
+    return _children;
+}
+
+- (void)setChildren:(CFMutableDictionaryRef)newChildren
+{
+    if (_children != newChildren) {
+        if (newChildren != NULL)  CFRetain(newChildren);
+        if (_children != NULL)  CFRelease(_children);
+        _children = newChildren;
+		_cacheIsFresh = NO;
+    }
+}
+
+- (void)refreshChildrenCache;
+{
+	if (_children_keys != NULL)  free(_children_keys);
+	
+	_children_keys_count = CFDictionaryGetCount(_children);
+	if (_children_keys_count > 0) {
+		void **raw_children_keys = (void **)malloc(_children_keys_count * sizeof(void *));
+		
+		CFDictionaryGetKeysAndValues(_children, (const void **)raw_children_keys, NULL);
+		
+		_children_keys = malloc(_children_keys_count * sizeof(UniChar));
+		for (CFIndex i = 0; i < _children_keys_count; i++) {
+			_children_keys[i] = (UniChar)raw_children_keys[i];
+		}
+		
+		free(raw_children_keys);
+	}
+	else {
+		_children_keys = NULL;
+	}
+	
+	_cacheIsFresh = YES;
+}
+
+- (UniChar *)children_keys;
+{
+	if (!_cacheIsFresh)  [self refreshChildrenCache];
+	return _children_keys;
+}
+
+- (CFIndex)children_keys_count;
+{
+	if (!_cacheIsFresh)  [self refreshChildrenCache];
+	return _children_keys_count;
+}
+
+- (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
+{
+	CFDictionarySetValue(_children, (void *)currentChar, newNode);
+	_cacheIsFresh = NO;
 }
 
 
@@ -90,21 +154,19 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	// Prepare fast access to chars.
 	const UniChar *newWord_chars;
 	UniChar *newWord_buffer = NULL;
-	UniChar currentChar;
-	CFMutableStringRef letter = CFStringCreateMutableWithExternalCharactersNoCopy(kCFAllocatorDefault, &currentChar, 1, 1, kCFAllocatorNull);
-	CFMakeCollectable(letter);
 	
 	jxld_CFStringPrepareUniCharBuffer((CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
 	
+	UniChar currentChar;
 	JXTrieNode *node = self;
 	JXTrieNode *newNode = nil;
 	JXTrieNode *thisNode = nil;
 	for (CFIndex i = 0; i < newWord_length; i++) {
-		CFStringSetExternalCharactersNoCopy(letter, (UniChar *)&(newWord_chars[i]), 1, 1);
-		thisNode = [node.children objectForKey:(NSString *)letter];
+		currentChar = newWord_chars[i];
+		thisNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)currentChar);
 		if (thisNode == nil) {
 			newNode = [[JXTrieNode new] autorelease];
-			[node.children setValue:newNode forKey:(NSString *)letter];
+			[node insertNode:newNode forKey:currentChar];
 			newNodesCount += 1;
 			node = newNode;
 		}
@@ -118,8 +180,6 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	if (newWord_buffer != NULL) {
 		free(newWord_buffer);
 	}
-	
-	CFRelease(letter);
 	
 	return newNodesCount;
 }
@@ -170,18 +230,23 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	 thisDescription
 	 ];
 	
-	if (describeChildren && [children count] > 0) {
+	CFIndex keys_count = self.children_keys_count;
+	if (describeChildren && keys_count > 0) {
 		[nodeDescription appendFormat:@"%@%@ = (\n", indentation, @"children"];
-		NSArray *allKeys = [children allKeys];
-		NSString *lastKey = [allKeys lastObject];
 		
-		for (NSString *childKey in allKeys) {
-			thisDescription = JXDescriptionForObject([children objectForKey:childKey], nil, level+2);
-			[nodeDescription appendFormat:@"%1$@%4$@ = {\n%2$@%1$@}%3$@\n", 
+		UniChar *keys = self.children_keys;
+		UniChar this_letter;
+		CFIndex last_index = keys_count-1;
+		// recursively search each branch of the trie
+		for (CFIndex i = 0; i < keys_count; i++) {
+			this_letter = keys[i];
+			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)this_letter);
+			thisDescription = JXDescriptionForObject(currentNode, nil, level+2);
+			[nodeDescription appendFormat:@"%1$@%4$C = {\n%2$@%1$@}%3$@\n", 
 			 indentation2, 
 			 thisDescription,
-			 (childKey == lastKey) ? @"" : @",",
-			 childKey];
+			 (i == last_index) ? @"" : @",",
+			 this_letter];
 		}
 		
 		[nodeDescription appendFormat:@"%@)\n", indentation];

@@ -11,11 +11,19 @@
 
 @interface JXTrieNode : NSObject <NSCoding> {
 	NSString *word;
-	NSMutableDictionary *children;
+	CFMutableDictionaryRef _children;
+	
+	BOOL _cacheIsFresh;
+	UniChar *_children_keys;
+	CFIndex _children_keys_count;
 }
 
 @property (nonatomic, copy) NSString *word;
-@property (nonatomic, retain) NSMutableDictionary *children;
+
+- (CFMutableDictionaryRef)children;
+- (UniChar *)children_keys;
+- (CFIndex)children_keys_count;
+- (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
 
 - (NSUInteger)insertWord:(NSString *)newWord;
 

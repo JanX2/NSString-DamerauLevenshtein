@@ -49,6 +49,7 @@ int main (int argc, const char * argv[]) {
 	
 	duration = [NSDate timeIntervalSinceReferenceDate] - start;
 	
+	//NSLog(@"\n\n%@", trie);
 	NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
 	NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", dictionary, (double)duration);
 		
