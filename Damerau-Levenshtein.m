@@ -33,7 +33,15 @@ int main (int argc, const char * argv[]) {
 	float similarity = [string1 similarityToString:string2];
 	NSLog(@"\nThe similarity between\n\"%@\"\nand\n\"%@\"\n=\n%f\n\n", string1, string2, similarity);
 	
-	float semanticSimilarity = [string1 semanticSimilarityToString:string2];
+	JXLDSemanticComparisonWeights weights = (JXLDSemanticComparisonWeights){
+		.phrase_to_word = 0.75f,
+		.min = 0.8f,
+		.max = 0.1f,
+		.length = 0.1f,
+	};
+	weights = JXLDSemanticComparisonWeightsNormalize(weights);
+	
+	float semanticSimilarity = [string1 semanticSimilarityToString:string2 weights:weights];
 	NSLog(@"\nThe semantic similarity between\n\"%@\"\nand\n\"%@\"\n=\n%f\n\n", string1, string2, semanticSimilarity);
 	
 	[pool drain];

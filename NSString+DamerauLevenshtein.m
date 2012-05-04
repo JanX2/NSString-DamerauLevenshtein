@@ -25,7 +25,7 @@ CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, c
 CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count);
 float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
-float semanticStringDistance(CFStringRef string1, CFStringRef string2);
+float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDSemanticComparisonWeights weights);
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 {
@@ -281,18 +281,7 @@ float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, C
 	return distance_total/(float)longer_word_length_total;
 }
 
-float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
-	float phrase_to_word_weight = 1.0f/3.0f;
-	float min_weight = 10.0f;
-	float max_weight = 1.0f;
-	float length_weight = -0.3f;
-	
-	// Normalize weights so that the result will be normalized
-	float outer_weight_sum = min_weight + max_weight + length_weight;
-	min_weight /= outer_weight_sum;
-	max_weight /= outer_weight_sum;
-	length_weight /= outer_weight_sum;
-	
+float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDSemanticComparisonWeights weights) {
 	CFIndex n, m;
 	n = CFStringGetLength(string1);
 	m = CFStringGetLength(string2);
@@ -323,12 +312,12 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 		const UniChar *string2_chars;
 		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
 		
-		float phrase_value = valuePhrase(string1_chars, n, string2_chars, m);
-		float words_value = valueWords(string1, string1_chars, n, string2, string2_chars, m);
+		float phrase_value = (weights.phrase_to_word >= 1.0f) ? 0.0f : valuePhrase(string1_chars, n, string2_chars, m);
+		float words_value = (weights.phrase_to_word <= 0.0f) ? 0.0f : valueWords(string1, string1_chars, n, string2, string2_chars, m);
 		float length_value = ABS(n - m)/(float)MAX(n, m);
 		
-		float phrase_weighted = phrase_value * phrase_to_word_weight;
-		float words_weighted = words_value * (1.0f - phrase_to_word_weight);
+		float phrase_weighted = phrase_value * weights.phrase_to_word;
+		float words_weighted = words_value * (1.0f - weights.phrase_to_word);
 		
 		float min, max;
 		
@@ -340,9 +329,9 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 			max = phrase_weighted;
 		}
 		
-		distance = (min * min_weight
-					+ max * max_weight
-					+ length_weight * length_value);
+		distance = (min * weights.min
+					+ max * weights.max
+					+ length_value * weights.length);
 		
 		break;
 	}
@@ -354,6 +343,11 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 }
 
 - (float)semanticDistanceFromString:(NSString *)comparisonString;
+{
+	return [self semanticDistanceFromString:comparisonString weights:JXLDSemanticComparisonWeightsDefault()];
+}
+
+- (float)semanticDistanceFromString:(NSString *)comparisonString weights:(JXLDSemanticComparisonWeights)weights;
 {
 	JXLDStringDistanceOptions options = JXLDDelimiterInsensitiveComparison | JXLDWhitespaceTrimmingComparison;
 	
@@ -370,7 +364,7 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 	string1 = (CFStringRef)string1_mutable;
 	string2 = (CFStringRef)string2_mutable;
 	
-	float distance = semanticStringDistance(string1, string2);
+	float distance = semanticStringDistance(string1, string2, weights);
 	
 	CFRelease(string1_mutable);
 	CFRelease(string2_mutable);
@@ -380,7 +374,12 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 
 - (float)semanticSimilarityToString:(NSString *)comparisonString;
 {
-	return (1.0f - [self semanticDistanceFromString:comparisonString]);
+	return (1.0f - [self semanticDistanceFromString:comparisonString weights:JXLDSemanticComparisonWeightsDefault()]);
+}
+
+- (float)semanticSimilarityToString:(NSString *)comparisonString weights:(JXLDSemanticComparisonWeights)weights;
+{
+	return (1.0f - [self semanticDistanceFromString:comparisonString weights:weights]);
 }
 
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;
