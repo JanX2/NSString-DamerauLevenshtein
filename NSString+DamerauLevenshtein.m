@@ -17,7 +17,7 @@
 
 @implementation NSString (DamerauLevenshtein)
 
-CFIndex ld(CFStringRef string1, CFStringRef string2);
+CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2);
 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 {
@@ -48,7 +48,7 @@ CFIndex ld(CFStringRef string1, CFStringRef string2);
 		string2 = (CFStringRef)string2_mutable;
 	}
 	
-	NSUInteger distance = ld(string1, string2);
+	NSUInteger distance = levensteinStringDistance(string1, string2);
 	
 	if (string1_mutable != NULL)  CFRelease(string1_mutable);
 	if (string2_mutable != NULL)  CFRelease(string2_mutable);
@@ -56,7 +56,7 @@ CFIndex ld(CFStringRef string1, CFStringRef string2);
 	return distance;
 }
 
-CFIndex ld(CFStringRef string1, CFStringRef string2) {
+CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2) {
 #define string1CharacterAtIndex(A)	string1_chars[(A)]
 #define string2CharacterAtIndex(A)	string2_chars[(A)]
 	
