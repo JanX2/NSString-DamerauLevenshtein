@@ -420,6 +420,11 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
 	return distance;
 }
 
+- (float)semanticSimilarityToString:(NSString *)comparisonString;
+{
+	return (1.0f - [self semanticDistanceFromString:comparisonString]);
+}
+
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;
 {
 	return [self normalizedDistanceFromString:comparisonString options:0 maximumDistance:FLT_MAX];
