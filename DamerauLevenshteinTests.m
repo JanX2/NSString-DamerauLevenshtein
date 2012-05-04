@@ -273,4 +273,10 @@ NSString *DamerauLevenshteinTestsLongString2;
 	levensteinDistance = [DamerauLevenshteinTestsLongString1 distanceFromString:DamerauLevenshteinTestsLongString2];
 	STAssertEquals((NSUInteger)127*LONG_STRING_EXPANSION_FACTOR, levensteinDistance, @"Perfomance test failed.");
 }
+
+- (void)test_semantic_similarity_performance {
+	float semanticSimilarity = [DamerauLevenshteinTestsLongString1 semanticSimilarityToString:DamerauLevenshteinTestsLongString2];
+	STAssertTrue((semanticSimilarity < 1.0f), @"Semantic Similarity Perfomance test failed.");
+}
+
 @end
