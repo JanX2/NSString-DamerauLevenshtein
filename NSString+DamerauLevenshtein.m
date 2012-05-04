@@ -13,6 +13,7 @@
 #import "NSString+DamerauLevenshtein.h"
 
 #import "JXLDStringDistanceUtilities.h"
+#import "JXLDStringTokenUtilities.h"
 
 
 @implementation NSString (DamerauLevenshtein)
@@ -21,7 +22,6 @@ CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2);
 CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 
-int tokenRanges(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges);
 CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count);
 float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
@@ -219,39 +219,6 @@ CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const
 	return distance;
 }
 
-int tokenRanges(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges) {
-	int token_ranges_capacity = 4; // CHANGE To 16!
-	CFRange * token_ranges = malloc(token_ranges_capacity * sizeof(CFRange));
-	
-	CFStringTokenizerRef tokenizer = CFStringTokenizerCreate(kCFAllocatorDefault, string, tokenizerRange, tokenizerOptions, NULL);
-	
-	// Set tokenizer to the start of the string. 
-	CFStringTokenizerTokenType mask = CFStringTokenizerGoToTokenAtIndex(tokenizer, 0);
-	
-	CFRange tokenRange;
-	int token_index = 0;
-	while (mask != kCFStringTokenizerTokenNone) {
-		tokenRange = CFStringTokenizerGetCurrentTokenRange(tokenizer);
-		
-		if (token_ranges_capacity == token_index+1) {
-			token_ranges_capacity *= 2;
-			token_ranges = realloc(token_ranges, (token_ranges_capacity * sizeof(CFRange)));
-		}
-		
-		token_ranges[token_index] = tokenRange;
-		
-		token_index++;
-		
-		mask = CFStringTokenizerAdvanceToNextToken(tokenizer);
-	}
-	
-	CFRelease(tokenizer);
-	
-	*ranges = token_ranges;
-	
-	return token_index;
-}
-
 
 float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m) {
 	float normalizedDistance = 0.0f;
@@ -277,8 +244,8 @@ CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count) {
 float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m) {
 	// We might be able to speed this up using JXTrie 
 	CFRange *word_ranges1, *word_ranges2;
-	int word_count1 = tokenRanges(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
-	int word_count2 = tokenRanges(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
+	int word_count1 = jxst_CFStringPrepareTokenRangesArray(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
+	int word_count2 = jxst_CFStringPrepareTokenRangesArray(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
 	
 	CFIndex word_length_total1 = tokenLengthTotal(word_ranges1, word_count1);
 	CFIndex word_length_total2 = tokenLengthTotal(word_ranges2, word_count2);
