@@ -21,6 +21,10 @@ CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2);
 CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 
+int tokenRanges(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges);
+CFIndex valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
+float semanticStringDistance(CFStringRef string1, CFStringRef string2);
+
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 {
 	return [self distanceFromString:comparisonString options:0];
@@ -210,6 +214,163 @@ CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const
 	
 	distance = levensteinUniCharDistanceCore(string1_chars, n, string2_chars, m);
 
+	return distance;
+}
+
+int tokenRanges(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges) {
+	int token_ranges_capacity = 4; // CHANGE To 16!
+	CFRange * token_ranges = malloc(token_ranges_capacity * sizeof(CFRange));
+	
+	CFStringTokenizerRef tokenizer = CFStringTokenizerCreate(kCFAllocatorDefault, string, tokenizerRange, tokenizerOptions, NULL);
+	
+	// Set tokenizer to the start of the string. 
+	CFStringTokenizerTokenType mask = CFStringTokenizerGoToTokenAtIndex(tokenizer, 0);
+	
+	CFRange tokenRange;
+	int token_index = 0;
+	while (mask != kCFStringTokenizerTokenNone) {
+		tokenRange = CFStringTokenizerGetCurrentTokenRange(tokenizer);
+		
+		if (token_ranges_capacity == token_index+1) {
+			token_ranges_capacity *= 2;
+			token_ranges = realloc(token_ranges, (token_ranges_capacity * sizeof(CFRange)));
+		}
+		
+		token_ranges[token_index] = tokenRange;
+		
+		token_index++;
+		
+		mask = CFStringTokenizerAdvanceToNextToken(tokenizer);
+	}
+	
+	CFRelease(tokenizer);
+	
+	*ranges = token_ranges;
+	
+	return token_index;
+}
+
+CFIndex valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m) {
+	CFRange *word_ranges1, *word_ranges2;
+	int word_count1 = tokenRanges(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
+	int word_count2 = tokenRanges(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
+	
+	CFIndex distance_total = 0;
+	CFRange word1Range, word2Range;
+	
+	for (int i = 0; i < word_count1; i++) {
+		word1Range = word_ranges1[i];
+		
+		CFIndex best_distance = m;
+		
+		for (int j = 0; j < word_count2; j++) {
+			word2Range = word_ranges2[j];
+			
+			CFIndex this_distance = levensteinUniCharDistance(&(string1_chars[word1Range.location]), word1Range.length, 
+													  &(string2_chars[word2Range.location]), word2Range.length);
+            
+			if (this_distance < best_distance)  best_distance = this_distance;
+            
+			if (this_distance == 0) {
+				break;
+			}
+		}
+		
+        distance_total += best_distance;
+	}
+	
+	free(word_ranges1);
+	free(word_ranges2);
+	
+	return distance_total;
+}
+
+float semanticStringDistance(CFStringRef string1, CFStringRef string2) {
+#define valuePhrase	levensteinUniCharDistanceCore
+	float phrase_weight = 0.5;
+	float words_weight = 1.0;
+	float length_weight = -0.3;
+	float min_weight = 10.0;
+	float max_weight = 1.0;
+
+	CFIndex n, m;
+	n = CFStringGetLength(string1);
+	m = CFStringGetLength(string2);
+	
+	UniChar *string1_buffer = NULL;
+	UniChar *string2_buffer = NULL;
+	
+	float distance;
+	
+	// This loop is here just so we don’t have to use goto
+	while (1) {
+		
+		if (n == 0) {
+			distance = m;
+			break;
+		}
+		
+		if (m == 0) {
+			distance = n;
+			break;
+		}		
+		
+		// Prepare access to chars array for string1
+		const UniChar *string1_chars;
+		jxld_CFStringPrepareUniCharBuffer(string1, &string1_chars, &string1_buffer, CFRangeMake(0, n));
+		
+		// Prepare access to chars array for string2
+		const UniChar *string2_chars;
+		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
+		
+		float phrase_value = (float)valuePhrase(string1_chars, n, string2_chars, m);
+		float words_value = (float)valueWords(string1, string1_chars, n, string2, string2_chars, m);
+		float length_value = (float)ABS(n - m);
+		
+		distance = (MIN(phrase_value*phrase_weight, words_value*words_weight)*min_weight
+					+ MAX(phrase_value*phrase_weight, words_value*words_weight)*max_weight
+					+ length_weight*length_value);
+		
+		break;
+	}
+	
+	if (string1_buffer != NULL) free(string1_buffer);
+	if (string2_buffer != NULL) free(string2_buffer);
+	
+	return distance;
+}
+
+- (float)semanticDistanceFromString:(NSString *)comparisonString;
+{
+	JXLDStringDistanceOptions options = JXLDDelimiterInsensitiveComparison | JXLDWhitespaceTrimmingComparison;
+	
+	CFStringRef string1, string2;
+	
+	CFMutableStringRef string1_mutable = NULL;
+	CFMutableStringRef string2_mutable = NULL;
+	
+	if (options & JXLDLiteralComparison) {
+		string1 = (CFStringRef)self;
+		string2 = (CFStringRef)comparisonString;
+	}
+	else {
+		string1_mutable = (CFMutableStringRef)[self mutableCopy];
+		string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+		
+		// Processing options and pre-processing the strings accordingly 
+		// The string lengths may change during pre-processing
+		jxld_CFStringPreprocessWithOptions(string1_mutable, options);
+		jxld_CFStringPreprocessWithOptions(string2_mutable, options);
+		
+		string1 = (CFStringRef)string1_mutable;
+		string2 = (CFStringRef)string2_mutable;
+	}
+	
+	float distance = semanticStringDistance(string1, string2);
+	
+	if (string1_mutable != NULL)  CFRelease(string1_mutable);
+	if (string2_mutable != NULL)  CFRelease(string2_mutable);
+	
 	return distance;
 }
 

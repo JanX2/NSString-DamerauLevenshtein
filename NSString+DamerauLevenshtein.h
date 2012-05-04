@@ -25,6 +25,9 @@
 // See JXLDStringDistanceOptions in JXLDStringDistance.h for a description of the options. 
 - (NSUInteger)distanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
 
+- (float)semanticDistanceFromString:(NSString *)comparisonString;
+//- (float)semanticDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+
 // The return value of -distanceFromString:options: is normalized to the interval [0.0f, 1.0f] (0% to 100% distance)
 - (float)normalizedDistanceFromString:(NSString *)comparisonString;
 - (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
