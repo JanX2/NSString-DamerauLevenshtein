@@ -127,15 +127,16 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	_cacheIsFresh = YES;
 }
 
-- (UniChar *)children_keys;
-{
-	if (!_cacheIsFresh)  [self refreshChildrenCache];
-	return _children_keys;
-}
-
 - (CFIndex)children_keys_count;
 {
 	if (!_cacheIsFresh)  [self refreshChildrenCache];
+	return _children_keys_count;
+}
+
+- (CFIndex)children_keys:(UniChar **)keys;
+{
+	if (!_cacheIsFresh)  [self refreshChildrenCache];
+	*keys = _children_keys;
 	return _children_keys_count;
 }
 
@@ -234,12 +235,11 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	if (describeChildren && keys_count > 0) {
 		[nodeDescription appendFormat:@"%@%@ = (\n", indentation, @"children"];
 		
-		UniChar *keys = self.children_keys;
 		UniChar this_letter;
-		CFIndex last_index = keys_count-1;
+		CFIndex last_index = _children_keys_count-1;
 		// recursively search each branch of the trie
 		for (CFIndex i = 0; i < keys_count; i++) {
-			this_letter = keys[i];
+			this_letter = _children_keys[i];
 			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)this_letter);
 			thisDescription = JXDescriptionForObject(currentNode, nil, level+2);
 			[nodeDescription appendFormat:@"%1$@%4$C = {\n%2$@%1$@}%3$@\n", 

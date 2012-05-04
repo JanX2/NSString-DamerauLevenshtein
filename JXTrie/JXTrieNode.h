@@ -21,8 +21,8 @@
 @property (nonatomic, copy) NSString *word;
 
 - (CFMutableDictionaryRef)children;
-- (UniChar *)children_keys;
 - (CFIndex)children_keys_count;
+- (CFIndex)children_keys:(UniChar **)keys;
 - (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
 
 - (NSUInteger)insertWord:(NSString *)newWord;

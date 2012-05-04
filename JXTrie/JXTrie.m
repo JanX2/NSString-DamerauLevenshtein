@@ -207,8 +207,8 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	// If any entries in the row are less than the maximum cost, then 
 	// recursively search each branch of the trie
 	if (currentRowMinCost <= maxCost) {
-		UniChar *keys = node.children_keys;
-		CFIndex keys_count = node.children_keys_count;
+		UniChar *keys;
+		CFIndex keys_count = [node children_keys:&keys];
 		UniChar nextLetter;
 		for (CFIndex i = 0; i < keys_count; i++) {
 			nextLetter = keys[i];
@@ -247,8 +247,8 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	JXTrieNode *selfRootNode = self.rootNode;
 	CFMutableDictionaryRef rootNodeChildren = selfRootNode.children;
 	
-	UniChar *keys = selfRootNode.children_keys;
-	CFIndex keys_count = selfRootNode.children_keys_count;
+	UniChar *keys;
+	CFIndex keys_count = [selfRootNode children_keys:&keys];
 	UniChar nextLetter;
 	// recursively search each branch of the trie
 	for (CFIndex i = 0; i < keys_count; i++) {
