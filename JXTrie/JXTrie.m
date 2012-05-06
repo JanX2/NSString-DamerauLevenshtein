@@ -145,7 +145,7 @@ void searchRecursive(JXTrieNode *node,
 									usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
 										//if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
 										// substringRange does NOT include the line termination character while enclosingRange does!
-										blockNodeCount += [rootNode insertWordWithUniChars:(list_chars + substringRange.location) 
+										blockNodeCount += [rootNode insertWordWithUniChars:&(list_chars[substringRange.location]) 
 																					length:substringRange.length];
 										blockWordCount += 1;
 										//}
