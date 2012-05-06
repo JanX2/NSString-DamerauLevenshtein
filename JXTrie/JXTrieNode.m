@@ -50,7 +50,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	self = [super init];
 	if (self) {
 		self.word = nil;
-		self.children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UniChar, values:JXTrieNode objects
+		_children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UniChar, values:JXTrieNode objects
 		_cacheIsFresh = NO;
 		_children_keys = NULL;
 	}
