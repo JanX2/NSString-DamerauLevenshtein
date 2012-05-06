@@ -38,14 +38,12 @@ int main (int argc, const char * argv[]) {
 	
 	// Read dictionary file into a trie
 	JXTrie *trie;
-	NSArray *wordList;
 	
 	start = [NSDate timeIntervalSinceReferenceDate];
 
 	NSString *wordListText = [NSString stringWithContentsOfFile:dictionary encoding:NSUTF8StringEncoding error:NULL];
-	wordList = [wordListText componentsSeparatedByString:@"\n"];
 		
-	trie = [JXTrie trieWithStrings:wordList];
+	trie = [JXTrie trieWithWordListString:wordListText];
 	
 	duration = [NSDate timeIntervalSinceReferenceDate] - start;
 	

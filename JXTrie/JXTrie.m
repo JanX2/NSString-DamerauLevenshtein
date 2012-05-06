@@ -81,6 +81,72 @@ void searchRecursive(JXTrieNode *node,
 }
 
 
++ (id)trieWithWordListString:(NSString *)wordListString;
+{
+	return [[[JXTrie alloc] initWithWordListString:wordListString options:0] autorelease];
+}
+
++ (id)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
+{
+	return [[[JXTrie alloc] initWithWordListString:wordListString options:options] autorelease];
+}
+
+- (id)initWithWordListString:(NSString *)wordListString;
+{
+	return [self initWithWordListString:wordListString options:0];
+}
+
+- (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
+{
+	self = [super init];
+	if (self) {
+		rootNode = [JXTrieNode new];
+		nodeCount = 0;
+		wordCount = 0;
+		optionFlags = options;
+		
+		if (optionFlags) {
+			CFMutableStringRef preparedWordListString = (CFMutableStringRef)[wordListString mutableCopy];
+			
+			jxld_CFStringPreprocessWithOptions(preparedWordListString, optionFlags);
+			
+			wordListString = [(NSString *)preparedWordListString autorelease];
+		}
+		
+		NSUInteger wordListStringLength = wordListString.length;
+		
+		const UniChar *list_chars;
+		UniChar *list_buffer = NULL;
+		
+		jxld_CFStringPrepareUniCharBuffer((CFStringRef)wordListString, &list_chars, &list_buffer, CFRangeMake(0, (CFIndex)wordListStringLength));
+
+		NSRange fullRange = NSMakeRange(0, wordListStringLength);
+		__block NSUInteger blockNodeCount = 0;
+		__block NSUInteger blockWordCount = 0;
+		
+		[wordListString enumerateSubstringsInRange:fullRange 
+								 options:(NSStringEnumerationByLines | NSStringEnumerationSubstringNotRequired)
+							  usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+								  //if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
+								  // substringRange does NOT include the line termination character while enclosingRange does!
+								  blockNodeCount += [rootNode insertWordWithUniChars:(list_chars + substringRange.location) 
+																			  length:substringRange.length];
+								  blockWordCount += 1;
+								  //}
+							  }];
+		
+		nodeCount += blockNodeCount;
+		wordCount += blockWordCount;
+
+		if (list_buffer != NULL) {
+			free(list_buffer);
+		}
+		
+	}
+	
+    return self;
+}
+
 - (void)dealloc
 {
 	self.rootNode = nil;

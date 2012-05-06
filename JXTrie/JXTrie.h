@@ -34,6 +34,11 @@
 - (id)initWithStrings:(NSArray *)wordList;
 - (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 
++ (id)trieWithWordListString:(NSString *)wordListString;
++ (id)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
+- (id)initWithWordListString:(NSString *)wordListString;
+- (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
+
 - (void)insertWord:(NSString *)newWord;
 
 // The search method returns an NSArray of JXTrieResult objects for all words 
