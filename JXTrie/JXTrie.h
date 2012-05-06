@@ -50,6 +50,7 @@
 // The search method returns an NSArray of JXTrieResult objects for all words 
 // that are at most the given maximum distance from the target word. 
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;
+- (NSArray *)searchForUniChar:(const UniChar *)chars length:(CFIndex)length maximumDistance:(NSUInteger)maxCost;
 
 @end
 

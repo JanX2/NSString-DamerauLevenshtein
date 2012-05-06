@@ -370,6 +370,21 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	return results;
 }
 
+- (NSArray *)searchForUniChar:(const UniChar *)chars length:(CFIndex)length maximumDistance:(NSUInteger)maxCost;
+{
+	NSArray *results;
+	
+	if (optionFlags) {
+		CFStringRef string = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, chars, length, kCFAllocatorNull);
+		results = [self search:(NSString *)string maximumDistance:maxCost];
+		CFRelease(string);
+	}
+	else {
+		results = searchCore(self.rootNode, chars, length, maxCost);
+	}
+	
+	return results;
+}
 
 - (NSString *)description
 {
