@@ -146,27 +146,16 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	_cacheIsFresh = NO;
 }
 
-
-- (NSUInteger)insertWord:(NSString *)newWord;
-{
+NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CFIndex newWord_length, JXTrieNode **baseNode) {
+#define node	(*baseNode)
 	NSUInteger newNodesCount = 0;
-	CFIndex newWord_length = CFStringGetLength((CFStringRef)newWord);
-	
-	// Prepare fast access to chars.
-	const UniChar *newWord_chars;
-	UniChar *newWord_buffer = NULL;
-	
-	jxld_CFStringPrepareUniCharBuffer((CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
-	
 	UniChar currentChar;
-	JXTrieNode *node = self;
-	JXTrieNode *newNode = nil;
 	JXTrieNode *thisNode = nil;
 	for (CFIndex i = 0; i < newWord_length; i++) {
 		currentChar = newWord_chars[i];
 		thisNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)currentChar);
 		if (thisNode == nil) {
-			newNode = [[JXTrieNode new] autorelease];
+			JXTrieNode *newNode = [[JXTrieNode new] autorelease];
 			[node insertNode:newNode forKey:currentChar];
 			newNodesCount += 1;
 			node = newNode;
@@ -175,6 +164,23 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 			node = thisNode;
 		}
 	}
+	
+	return newNodesCount;
+#undef node
+}
+
+- (NSUInteger)insertWord:(NSString *)newWord;
+{
+	CFIndex newWord_length = CFStringGetLength((CFStringRef)newWord);
+	
+	// Prepare fast access to chars.
+	const UniChar *newWord_chars;
+	UniChar *newWord_buffer = NULL;
+	
+	jxld_CFStringPrepareUniCharBuffer((CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
+	
+	JXTrieNode *node = self;
+	NSUInteger newNodesCount = insertWordFromUniCharsInto(newWord_chars, newWord_length, &node);
 	
 	node.word = newWord;
 	
