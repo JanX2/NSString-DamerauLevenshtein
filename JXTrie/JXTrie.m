@@ -174,21 +174,7 @@ void searchRecursive(JXTrieNode *node,
 		self.rootNode = [coder decodeObjectForKey:@"rootNode"];
 		nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
 		wordCount = [coder decodeIntegerForKey:@"wordCount"];
-		
-		BOOL caseInsensitive		= [coder decodeBoolForKey:@"caseInsensitive"];
-		BOOL literal				= [coder decodeBoolForKey:@"literal"];
-		BOOL whitespaceInsensitive	= [coder decodeBoolForKey:@"whitespaceInsensitive"];
-		BOOL whitespaceTrimming		= [coder decodeBoolForKey:@"whitespaceTrimming"];
-		BOOL diacriticInsensitive	= [coder decodeBoolForKey:@"diacriticInsensitive"];
-		BOOL widthInsensitive		= [coder decodeBoolForKey:@"widthInsensitive"];
-		
-		optionFlags = 0;
-		if (caseInsensitive)		optionFlags |= JXLDCaseInsensitiveComparison;
-		if (literal)				optionFlags |= JXLDLiteralComparison;
-		if (whitespaceInsensitive)	optionFlags |= JXLDWhitespaceInsensitiveComparison;
-		if (whitespaceTrimming)		optionFlags |= JXLDWhitespaceTrimmingComparison;
-		if (diacriticInsensitive)	optionFlags |= JXLDDiacriticInsensitiveComparison;
-		if (widthInsensitive)		optionFlags |= JXLDWidthInsensitiveComparison;
+		optionFlags = [coder decodeIntegerForKey:@"optionFlags"];
 	}
 	
 	return self;
@@ -199,20 +185,7 @@ void searchRecursive(JXTrieNode *node,
 	[coder encodeObject:rootNode forKey:@"rootNode"];
 	[coder encodeInteger:nodeCount forKey:@"nodeCount"];
 	[coder encodeInteger:wordCount forKey:@"wordCount"];
-	
-	BOOL caseInsensitive		 = optionFlags & JXLDCaseInsensitiveComparison;
-	BOOL literal				 = optionFlags & JXLDLiteralComparison;
-	BOOL whitespaceInsensitive	 = optionFlags & JXLDWhitespaceInsensitiveComparison;
-	BOOL whitespaceTrimming		 = optionFlags & JXLDWhitespaceTrimmingComparison;
-    BOOL diacriticInsensitive	 = optionFlags & JXLDDiacriticInsensitiveComparison;
-    BOOL widthInsensitive		 = optionFlags & JXLDWidthInsensitiveComparison;
-	
-	[coder encodeBool:caseInsensitive		forKey:@"caseInsensitive"];
-	[coder encodeBool:literal				forKey:@"literal"];
-	[coder encodeBool:whitespaceInsensitive	forKey:@"whitespaceInsensitive"];
-	[coder encodeBool:whitespaceTrimming	forKey:@"whitespaceTrimming"];
-	[coder encodeBool:diacriticInsensitive	forKey:@"diacriticInsensitive"];
-	[coder encodeBool:widthInsensitive		forKey:@"widthInsensitive"];
+	[coder encodeInteger:optionFlags forKey:@"optionFlags"];
 }
 
 
