@@ -229,7 +229,8 @@ void searchRecursive(JXTrieNode *node,
 
 		for (CFIndex i = 0; i < keys_count; i++) {
 			nextLetter = keys[i];
-			searchRecursive(CFDictionaryGetValue(node.children, (void *)nextLetter), 
+			JXTrieNode *nextNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)nextLetter);
+			searchRecursive(nextNode, 
 							thisLetter, nextLetter, 
 							word_chars, columns, 
 							previousRow, currentRow, 
@@ -280,7 +281,8 @@ void searchRecursive(JXTrieNode *node,
 	// recursively search each branch of the trie
 	for (CFIndex i = 0; i < keys_count; i++) {
 		nextLetter = keys[i];
-		searchRecursive(CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter), 
+		JXTrieNode *nextNode = (JXTrieNode *)CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter);
+		searchRecursive(nextNode, 
 						0, nextLetter, 
 						(UniChar *)string_chars, string_length+1, 
 						NULL, currentRow, 
