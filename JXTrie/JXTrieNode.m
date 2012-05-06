@@ -43,13 +43,15 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 @implementation JXTrieNode
 
-@synthesize word;
+//@synthesize word;
+@synthesize hasWord = _hasWord;
 
 - (id)init
 {
 	self = [super init];
 	if (self) {
-		self.word = nil;
+		//self.word = nil;
+		_hasWord = NO;
 		_children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UniChar, values:JXTrieNode objects
 		_cacheIsFresh = NO;
 		_children_keys = NULL;
@@ -60,7 +62,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (void)dealloc
 {
-	self.word = nil;
+	//self.word = nil;
 	self.children = nil;
 	if (_children_keys != NULL)  free(_children_keys);
 
@@ -73,7 +75,8 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	self = [super init];
 	
 	if (self) {
-		self.word = [coder decodeObjectForKey:@"word"];
+		//self.word = [coder decodeObjectForKey:@"word"];
+		_hasWord = [coder decodeBoolForKey:@"hasWord"];
 		self.children = (CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
 		_cacheIsFresh = NO;
 	}
@@ -83,7 +86,8 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {	
-	[coder encodeObject:word forKey:@"word"];
+	//[coder encodeObject:word forKey:@"word"];
+	[coder encodeBool:_hasWord forKey:@"hasWord"];
 	[coder encodeObject:(NSMutableDictionary *)_children forKey:@"children"]; // CHANGEME: This may not work with custom CFMutableDictionary objects
 }
 
@@ -182,7 +186,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	JXTrieNode *node = self;
 	NSUInteger newNodesCount = insertWordFromUniCharsInto(newWord_chars, newWord_length, &node);
 	
-	node.word = newWord;
+	node.hasWord = YES;
 	
 	if (newWord_buffer != NULL) {
 		free(newWord_buffer);
@@ -229,6 +233,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	
 	NSString *thisDescription;
 	
+#if 0
 	thisDescription = JXDescriptionForObject(self.word, nil, level+1);
 
 	[nodeDescription appendFormat:
@@ -236,6 +241,15 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	 indentation, 
 	 thisDescription
 	 ];
+#else
+	thisDescription = self.hasWord ? @"YES" : @"NO";
+	
+	[nodeDescription appendFormat:
+	 @"%@word = %@;\n", 
+	 indentation, 
+	 thisDescription
+	 ];
+#endif
 	
 	CFIndex keys_count = self.children_keys_count;
 	if (describeChildren && keys_count > 0) {
