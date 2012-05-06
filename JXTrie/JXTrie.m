@@ -153,7 +153,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
 	
 	CFIndex currentRowLastIndex = columns - 1;
-	CFIndex currentRow[columns];
+	CFIndex *currentRow = malloc(columns * sizeof(CFIndex));
 	currentRow[0] = previousRow[0] + 1;
 	
 	CFIndex cost;
@@ -215,6 +215,8 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 			searchRecursive( CFDictionaryGetValue(node.children, (void *)nextLetter), thisLetter, nextLetter, word, word_chars, columns, previousRow, currentRow, results, maxCost);
 		}
 	}
+	
+	free(currentRow);
 }
 
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;
