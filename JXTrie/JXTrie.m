@@ -62,7 +62,7 @@ void searchRecursive(JXTrieNode *node,
 				string = (CFMutableStringRef)[word mutableCopy];
 				jxld_CFStringPreprocessWithOptions(string, optionFlags);
 				
-				[self insertWord:(NSString *)string];
+				nodeCount += [rootNode insertWord:(NSString *)string];
 				wordCount += 1;
 				
 				CFRelease(string);
@@ -70,7 +70,7 @@ void searchRecursive(JXTrieNode *node,
 		}
 		else {
 			for (NSString *word in wordList) {
-				[self insertWord:word];
+				nodeCount += [rootNode insertWord:(NSString *)word];
 				wordCount += 1;
 			}
 		}
@@ -151,6 +151,7 @@ void searchRecursive(JXTrieNode *node,
 - (void)insertWord:(NSString *)newWord;
 {
 	nodeCount += [self.rootNode insertWord:newWord];
+	wordCount += 1;
 	//NSLog(@"\n%@", [self description]);
 }
 
