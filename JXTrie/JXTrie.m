@@ -207,6 +207,13 @@ void searchRecursive(JXTrieNode *node,
 	//NSLog(@"\n%@", [self description]);
 }
 
+- (void)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
+{
+	nodeCount += [self.rootNode insertWordWithUniChars:chars length:length];
+	wordCount += 1;
+	//NSLog(@"\n%@", [self description]);
+}
+
 // This recursive helper is used by the search function above. It assumes that
 // the previousRow has been filled in already.
 void searchRecursive(JXTrieNode *node, 

@@ -45,6 +45,7 @@
 - (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 
 - (void)insertWord:(NSString *)newWord;
+- (void)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 
 // The search method returns an NSArray of JXTrieResult objects for all words 
 // that are at most the given maximum distance from the target word. 
