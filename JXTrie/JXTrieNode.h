@@ -28,6 +28,7 @@
 - (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
 
 - (NSUInteger)insertWord:(NSString *)newWord;
+- (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 
 - (NSString *)descriptionWithLocale:(id)locale;
 - (NSString *)descriptionWithChildren:(BOOL)describeChildren;

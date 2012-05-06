@@ -195,6 +195,13 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	return newNodesCount;
 }
 
+- (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
+{
+	NSUInteger newNodesCount = insertWordFromUniCharsInto(chars, length, self);
+	
+	return newNodesCount;
+}
+
 
 - (NSString *)description
 {
