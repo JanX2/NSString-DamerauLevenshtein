@@ -26,6 +26,7 @@ void searchRecursive(JXTrieNode *node,
 					 UniChar prevLetter, UniChar thisLetter, 
 					 UniChar *word_chars, CFIndex columns, 
 					 CFIndex *penultimateRow, CFIndex *previousRow, 
+					 UniChar *result_chars, CFIndex row_index, 
 					 NSMutableArray *results, 
 					 CFIndex maxCost);
 
@@ -159,9 +160,12 @@ void searchRecursive(JXTrieNode *node,
 					 UniChar prevLetter, UniChar thisLetter, 
 					 UniChar *word_chars, CFIndex columns, 
 					 CFIndex *penultimateRow, CFIndex *previousRow, 
+					 UniChar *result_chars, CFIndex row_index, 
 					 NSMutableArray *results, 
 					 CFIndex maxCost) {
 	
+	result_chars[row_index] = thisLetter;
+
 	CFIndex currentRowLastIndex = columns - 1;
 	CFIndex *currentRow = malloc(columns * sizeof(CFIndex));
 	currentRow[0] = previousRow[0] + 1;
@@ -204,9 +208,11 @@ void searchRecursive(JXTrieNode *node,
 	
 	// If the last entry in the row indicates the optimal cost is less than the
 	// maximum cost, and there is a word in this trie node, then add it.
-	if (currentRow[currentRowLastIndex] <= maxCost && node.word != nil) {
-		[results addObject:[JXTrieResult resultWithWord:(NSString *)node.word 
+	if (currentRow[currentRowLastIndex] <= maxCost && node.hasWord) {
+		CFStringRef nodeWord = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, result_chars, row_index+1, kCFAllocatorNull);
+		[results addObject:[JXTrieResult resultWithWord:(NSString *)nodeWord 
 											andDistance:currentRow[currentRowLastIndex]]];
+		CFRelease(nodeWord);
 	}
 	
 	CFIndex currentRowMinCost = currentRow[0];
@@ -220,12 +226,14 @@ void searchRecursive(JXTrieNode *node,
 		UniChar *keys;
 		CFIndex keys_count = [node children_keys:&keys];
 		UniChar nextLetter;
+
 		for (CFIndex i = 0; i < keys_count; i++) {
 			nextLetter = keys[i];
 			searchRecursive(CFDictionaryGetValue(node.children, (void *)nextLetter), 
 							thisLetter, nextLetter, 
 							word_chars, columns, 
 							previousRow, currentRow, 
+							result_chars, row_index+1, 
 							results, 
 							maxCost);
 		}
@@ -264,6 +272,8 @@ void searchRecursive(JXTrieNode *node,
 	JXTrieNode *selfRootNode = self.rootNode;
 	CFMutableDictionaryRef rootNodeChildren = selfRootNode.children;
 	
+	UniChar *result_chars = malloc(string_length+maxCost * sizeof(UniChar));
+	
 	UniChar *keys;
 	CFIndex keys_count = [selfRootNode children_keys:&keys];
 	UniChar nextLetter;
@@ -274,10 +284,13 @@ void searchRecursive(JXTrieNode *node,
 						0, nextLetter, 
 						(UniChar *)string_chars, string_length+1, 
 						NULL, currentRow, 
+						result_chars, 0, 
 						results, 
 						maxCost);
 	}
 		
+	if (result_chars != NULL)  free(result_chars);
+	
 	if (string_buffer != NULL)  free(string_buffer);
 	
 	CFRelease(string);
