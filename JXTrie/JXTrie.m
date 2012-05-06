@@ -30,6 +30,34 @@ void searchRecursive(JXTrieNode *node,
 					 NSMutableArray *results, 
 					 CFIndex maxCost);
 
++ (id)trie;
+{
+	return [[[JXTrie alloc] initWithOptions:0] autorelease];
+}
+
++ (id)trieWithOptions:(JXLDStringDistanceOptions)options;
+{
+	return [[[JXTrie alloc] initWithOptions:options] autorelease];
+}
+
+- (id)init;
+{
+	return [self initWithOptions:0];
+}
+
+- (id)initWithOptions:(JXLDStringDistanceOptions)options;
+{
+	self = [super init];
+	
+	if (self) {
+		rootNode = [JXTrieNode new];
+		nodeCount = 0;
+		wordCount = 0;
+		optionFlags = options;
+	}
+	
+	return self;
+}
 
 + (id)trieWithStrings:(NSArray *)wordList;
 {
@@ -48,33 +76,26 @@ void searchRecursive(JXTrieNode *node,
 
 - (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 {
-	self = [super init];
-	if (self) {
-		rootNode = [JXTrieNode new];
-		nodeCount = 0;
-		wordCount = 0;
-		optionFlags = options;
-
-		if (optionFlags) {
-			CFMutableStringRef string;
-			
-			for (NSString *word in wordList) {
-				string = (CFMutableStringRef)[word mutableCopy];
-				jxld_CFStringPreprocessWithOptions(string, optionFlags);
-				
-				nodeCount += [rootNode insertWord:(NSString *)string];
-				wordCount += 1;
-				
-				CFRelease(string);
-			}
-		}
-		else {
-			for (NSString *word in wordList) {
-				nodeCount += [rootNode insertWord:(NSString *)word];
-				wordCount += 1;
-			}
-		}
+	if ([self initWithOptions:options] == nil)  return nil;
+	
+	if (optionFlags) {
+		CFMutableStringRef string;
 		
+		for (NSString *word in wordList) {
+			string = (CFMutableStringRef)[word mutableCopy];
+			jxld_CFStringPreprocessWithOptions(string, optionFlags);
+			
+			nodeCount += [rootNode insertWord:(NSString *)string];
+			wordCount += 1;
+			
+			CFRelease(string);
+		}
+	}
+	else {
+		for (NSString *word in wordList) {
+			nodeCount += [rootNode insertWord:(NSString *)word];
+			wordCount += 1;
+		}
 	}
 	
     return self;
@@ -98,50 +119,43 @@ void searchRecursive(JXTrieNode *node,
 
 - (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 {
-	self = [super init];
-	if (self) {
-		rootNode = [JXTrieNode new];
-		nodeCount = 0;
-		wordCount = 0;
-		optionFlags = options;
+	if ([self initWithOptions:options] == nil)  return nil;
+	
+	if (optionFlags) {
+		CFMutableStringRef preparedWordListString = (CFMutableStringRef)[wordListString mutableCopy];
 		
-		if (optionFlags) {
-			CFMutableStringRef preparedWordListString = (CFMutableStringRef)[wordListString mutableCopy];
-			
-			jxld_CFStringPreprocessWithOptions(preparedWordListString, optionFlags);
-			
-			wordListString = [(NSString *)preparedWordListString autorelease];
-		}
+		jxld_CFStringPreprocessWithOptions(preparedWordListString, optionFlags);
 		
-		NSUInteger wordListStringLength = wordListString.length;
-		
-		const UniChar *list_chars;
-		UniChar *list_buffer = NULL;
-		
-		jxld_CFStringPrepareUniCharBuffer((CFStringRef)wordListString, &list_chars, &list_buffer, CFRangeMake(0, (CFIndex)wordListStringLength));
-
-		NSRange fullRange = NSMakeRange(0, wordListStringLength);
-		__block NSUInteger blockNodeCount = 0;
-		__block NSUInteger blockWordCount = 0;
-		
-		[wordListString enumerateSubstringsInRange:fullRange 
-								 options:(NSStringEnumerationByLines | NSStringEnumerationSubstringNotRequired)
-							  usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-								  //if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
-								  // substringRange does NOT include the line termination character while enclosingRange does!
-								  blockNodeCount += [rootNode insertWordWithUniChars:(list_chars + substringRange.location) 
-																			  length:substringRange.length];
-								  blockWordCount += 1;
-								  //}
-							  }];
-		
-		nodeCount += blockNodeCount;
-		wordCount += blockWordCount;
-
-		if (list_buffer != NULL) {
-			free(list_buffer);
-		}
-		
+		wordListString = [(NSString *)preparedWordListString autorelease];
+	}
+	
+	NSUInteger wordListStringLength = wordListString.length;
+	
+	const UniChar *list_chars;
+	UniChar *list_buffer = NULL;
+	
+	jxld_CFStringPrepareUniCharBuffer((CFStringRef)wordListString, &list_chars, &list_buffer, CFRangeMake(0, (CFIndex)wordListStringLength));
+	
+	NSRange fullRange = NSMakeRange(0, wordListStringLength);
+	__block NSUInteger blockNodeCount = 0;
+	__block NSUInteger blockWordCount = 0;
+	
+	[wordListString enumerateSubstringsInRange:fullRange 
+									   options:(NSStringEnumerationByLines | NSStringEnumerationSubstringNotRequired)
+									usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+										//if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
+										// substringRange does NOT include the line termination character while enclosingRange does!
+										blockNodeCount += [rootNode insertWordWithUniChars:(list_chars + substringRange.location) 
+																					length:substringRange.length];
+										blockWordCount += 1;
+										//}
+									}];
+	
+	nodeCount += blockNodeCount;
+	wordCount += blockWordCount;
+	
+	if (list_buffer != NULL) {
+		free(list_buffer);
 	}
 	
     return self;
@@ -156,8 +170,7 @@ void searchRecursive(JXTrieNode *node,
 
 - (id)initWithCoder:(NSCoder *)coder
 {		
-	self = [super init];
-	if (self) {
+	if ([self init]) {
 		self.rootNode = [coder decodeObjectForKey:@"rootNode"];
 		nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
 		wordCount = [coder decodeIntegerForKey:@"wordCount"];

@@ -29,6 +29,11 @@
 - (NSUInteger)nodeCount;
 - (NSUInteger)count;
 
++ (id)trie;
++ (id)trieWithOptions:(JXLDStringDistanceOptions)options;
+- (id)init;
+- (id)initWithOptions:(JXLDStringDistanceOptions)options;
+
 + (id)trieWithStrings:(NSArray *)wordList;
 + (id)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 - (id)initWithStrings:(NSArray *)wordList;
