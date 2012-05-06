@@ -44,7 +44,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 {
 	self = [super init];
 	if (self) {
-		self.rootNode = [JXTrieNode new];
+		rootNode = [JXTrieNode new];
 		nodeCount = 0;
 		wordCount = 0;
 		optionFlags = options;
