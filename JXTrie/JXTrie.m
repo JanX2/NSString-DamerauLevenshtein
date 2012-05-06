@@ -22,7 +22,7 @@
 @synthesize rootNode;
 
 
-void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost);
+void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost);
 
 
 + (id)trieWithStrings:(NSArray *)wordList;
@@ -150,7 +150,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 
 // This recursive helper is used by the search function above. It assumes that
 // the previousRow has been filled in already.
-void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, CFStringRef word, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
+void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, UniChar *word_chars, CFIndex columns, CFIndex *penultimateRow, CFIndex *previousRow, NSMutableArray *results, CFIndex maxCost) {
 	
 	CFIndex currentRowLastIndex = columns - 1;
 	CFIndex *currentRow = malloc(columns * sizeof(CFIndex));
@@ -212,7 +212,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 		UniChar nextLetter;
 		for (CFIndex i = 0; i < keys_count; i++) {
 			nextLetter = keys[i];
-			searchRecursive( CFDictionaryGetValue(node.children, (void *)nextLetter), thisLetter, nextLetter, word, word_chars, columns, previousRow, currentRow, results, maxCost);
+			searchRecursive( CFDictionaryGetValue(node.children, (void *)nextLetter), thisLetter, nextLetter, word_chars, columns, previousRow, currentRow, results, maxCost);
 		}
 	}
 	
@@ -255,7 +255,7 @@ void searchRecursive(JXTrieNode *node, UniChar prevLetter, UniChar thisLetter, C
 	// recursively search each branch of the trie
 	for (CFIndex i = 0; i < keys_count; i++) {
 		nextLetter = keys[i];
-		searchRecursive( CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter), 0, nextLetter, string, (UniChar *)string_chars, string_length+1, NULL, currentRow, 
+		searchRecursive( CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter), 0, nextLetter, (UniChar *)string_chars, string_length+1, NULL, currentRow, 
 						results, maxCost);
 	}
 		
