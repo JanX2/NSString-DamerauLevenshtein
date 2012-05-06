@@ -278,9 +278,7 @@ void searchRecursive(JXTrieNode *node,
 						maxCost);
 	}
 		
-	if (string_buffer != NULL) {
-		free(string_buffer);
-	}
+	if (string_buffer != NULL)  free(string_buffer);
 	
 	CFRelease(string);
 
