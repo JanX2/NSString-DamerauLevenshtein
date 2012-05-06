@@ -46,14 +46,15 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 @implementation JXTrieNode
 
 //@synthesize word;
-@synthesize hasWord = _hasWord;
+@dynamic hasWord;
+@synthesize wordCount = _wordCount;
 
 - (id)init
 {
 	self = [super init];
 	if (self) {
 		//self.word = nil;
-		_hasWord = NO;
+		_wordCount = 0;
 		_children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UniChar, values:JXTrieNode objects
 		_cacheIsFresh = NO;
 		_children_keys = NULL;
@@ -78,7 +79,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	
 	if (self) {
 		//self.word = [coder decodeObjectForKey:@"word"];
-		_hasWord = [coder decodeBoolForKey:@"hasWord"];
+		_wordCount = [coder decodeIntegerForKey:@"wordCount"];
 		self.children = (CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
 		_cacheIsFresh = NO;
 	}
@@ -89,7 +90,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 - (void)encodeWithCoder:(NSCoder *)coder
 {	
 	//[coder encodeObject:word forKey:@"word"];
-	[coder encodeBool:_hasWord forKey:@"hasWord"];
+	[coder encodeInteger:_wordCount forKey:@"wordCount"];
 	[coder encodeObject:(NSMutableDictionary *)_children forKey:@"children"]; // CHANGEME: This may not work with custom CFMutableDictionary objects
 }
 
@@ -170,7 +171,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 		}
 	}
 	
-	node.hasWord = YES;
+	[node incrementWordCount];
 
 	return newNodesCount;
 #undef node
@@ -200,6 +201,17 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	NSUInteger newNodesCount = insertWordFromUniCharsInto(chars, length, self);
 	
 	return newNodesCount;
+}
+
+
+- (BOOL)hasWord;
+{
+	return (_wordCount > 0);
+}
+
+- (void)incrementWordCount;
+{
+	_wordCount++;
 }
 
 
@@ -249,12 +261,14 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	 thisDescription
 	 ];
 #else
-	thisDescription = self.hasWord ? @"YES" : @"NO";
+	NSUInteger wordCount = self.wordCount;
+	thisDescription = (wordCount > 0) ? @"YES" : @"NO";
 	
 	[nodeDescription appendFormat:
-	 @"%@word = %@;\n", 
+	 @"%@word = %@ (%lu);\n", 
 	 indentation, 
-	 thisDescription
+	 thisDescription,
+	 (unsigned long)wordCount
 	 ];
 #endif
 	
