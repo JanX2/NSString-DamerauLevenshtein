@@ -152,8 +152,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	_cacheIsFresh = NO;
 }
 
-NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CFIndex newWord_length, JXTrieNode **baseNode) {
-#define node	(*baseNode)
+NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CFIndex newWord_length, JXTrieNode *node) {
 	NSUInteger newNodesCount = 0;
 	UniChar currentChar;
 	JXTrieNode *thisNode = nil;
@@ -171,6 +170,8 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 		}
 	}
 	
+	node.hasWord = YES;
+
 	return newNodesCount;
 #undef node
 }
@@ -185,10 +186,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	
 	jxld_CFStringPrepareUniCharBuffer((CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
 	
-	JXTrieNode *node = self;
-	NSUInteger newNodesCount = insertWordFromUniCharsInto(newWord_chars, newWord_length, &node);
-	
-	node.hasWord = YES;
+	NSUInteger newNodesCount = insertWordFromUniCharsInto(newWord_chars, newWord_length, self);
 	
 	if (newWord_buffer != NULL) {
 		free(newWord_buffer);
