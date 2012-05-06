@@ -30,6 +30,9 @@ void searchRecursive(JXTrieNode *node,
 					 NSMutableArray *results, 
 					 CFIndex maxCost);
 
+NSMutableArray * searchCore(JXTrieNode *rootNode, 
+							const UniChar *string_chars, CFIndex string_length, 
+							NSUInteger maxCost);
 + (id)trie;
 {
 	return [[[JXTrie alloc] initWithOptions:0] autorelease];
@@ -303,6 +306,43 @@ void searchRecursive(JXTrieNode *node,
 	free(currentRow);
 }
 
+NSMutableArray * searchCore(JXTrieNode *rootNode, 
+							const UniChar *string_chars, CFIndex string_length, 
+							NSUInteger maxCost) {
+	// build first row
+    CFIndex currentRowSize = string_length + 1;
+	CFIndex currentRow[currentRowSize];
+	for (CFIndex k = 0; k < currentRowSize; k++) {
+		currentRow[k] = k;
+	}
+	
+	NSMutableArray *results = [NSMutableArray array];
+	
+	CFMutableDictionaryRef rootNodeChildren = rootNode.children;
+	
+	UniChar *result_chars = malloc(string_length+maxCost * sizeof(UniChar));
+	
+	UniChar *keys;
+	CFIndex keys_count = [rootNode children_keys:&keys];
+	UniChar nextLetter;
+	// recursively search each branch of the trie
+	for (CFIndex i = 0; i < keys_count; i++) {
+		nextLetter = keys[i];
+		JXTrieNode *nextNode = (JXTrieNode *)CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter);
+		searchRecursive(nextNode, 
+						0, nextLetter, 
+						(UniChar *)string_chars, string_length+1, 
+						NULL, currentRow, 
+						result_chars, 0, 
+						results, 
+						maxCost);
+	}
+    
+	if (result_chars != NULL)  free(result_chars);
+	
+    return results;
+}
+
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;
 {
 	CFStringRef string;
@@ -321,37 +361,7 @@ void searchRecursive(JXTrieNode *node,
 
 	jxld_CFStringPrepareUniCharBuffer(string, &string_chars, &string_buffer, CFRangeMake(0, string_length));
 	
-	// build first row
-	CFIndex currentRowSize = string_length + 1;
-	CFIndex currentRow[currentRowSize];
-	for (CFIndex k = 0; k < currentRowSize; k++) {
-		currentRow[k] = k;
-	}
-	
-	NSMutableArray *results = [NSMutableArray array];
-	
-	JXTrieNode *selfRootNode = self.rootNode;
-	CFMutableDictionaryRef rootNodeChildren = selfRootNode.children;
-	
-	UniChar *result_chars = malloc(string_length+maxCost * sizeof(UniChar));
-	
-	UniChar *keys;
-	CFIndex keys_count = [selfRootNode children_keys:&keys];
-	UniChar nextLetter;
-	// recursively search each branch of the trie
-	for (CFIndex i = 0; i < keys_count; i++) {
-		nextLetter = keys[i];
-		JXTrieNode *nextNode = (JXTrieNode *)CFDictionaryGetValue(rootNodeChildren, (void *)nextLetter);
-		searchRecursive(nextNode, 
-						0, nextLetter, 
-						(UniChar *)string_chars, string_length+1, 
-						NULL, currentRow, 
-						result_chars, 0, 
-						results, 
-						maxCost);
-	}
-		
-	if (result_chars != NULL)  free(result_chars);
+    NSMutableArray *results = searchCore(self.rootNode, string_chars, string_length, maxCost);
 	
 	if (string_buffer != NULL)  free(string_buffer);
 	
