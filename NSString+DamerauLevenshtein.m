@@ -161,7 +161,7 @@ CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, c
 			
 			// Step 6
 			// Minimum of cell to the left+1, to the top+1, diagonally left and up +cost				
-			d[i] = MIN(MIN(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
+			d[i] = jxld_smallestCFIndex(d[i-1]+1, p[i]+1,  p[i-1]+cost);  
 			
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
 			// This conditional adds Damerau transposition to the Levenshtein distance
