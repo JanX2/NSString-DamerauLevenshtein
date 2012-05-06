@@ -246,9 +246,8 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	memset(indentation_chars, ' ', indentationDepth2);
 	indentation_chars[indentationDepth2] = '\0';
 	
-	NSString *indentation2 = [NSString stringWithCString:(const char *)indentation_chars encoding:NSASCIIStringEncoding];
-	indentation_chars[indentationDepth] = '\0';
-	NSString *indentation = [NSString stringWithCString:(const char *)indentation_chars encoding:NSASCIIStringEncoding];
+	NSString *indentation = [@"" stringByPaddingToLength:indentationDepth withString:@" " startingAtIndex:0];
+	NSString *indentation2 = [@"" stringByPaddingToLength:indentationDepth2 withString:@" " startingAtIndex:0];
 	
 	NSString *thisDescription;
 	
