@@ -17,7 +17,9 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	NSString *descriptionString;
 	BOOL addQuotes = NO;
 	
-    if ([object isKindOfClass:[NSString class]])
+    if (object == nil)
+        descriptionString = @"(nil)";
+	else if ([object isKindOfClass:[NSString class]])
         descriptionString = object;
     else if ([object respondsToSelector:@selector(descriptionWithLocale:indent:)])
         return [(id)object descriptionWithLocale:locale indent:indentLevel];
