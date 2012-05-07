@@ -3,7 +3,7 @@
 //  Damerau-Levenshtein
 //
 //  Created by Jan on 02.01.11.
-//  Copyright 2011 geheimwerk.de. All rights reserved.
+//  Copyright 2011-2012 geheimwerk.de. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
