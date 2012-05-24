@@ -49,7 +49,7 @@ int main (int argc, const char * argv[]) {
 	
 	//NSLog(@"\n\n%@", trie);
 	NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
-	NSLog(@"Creating the trie for \"%@\" took %.4lf s. ", dictionary, (double)duration);
+	NSLog(@"Creating the trie for \"%@\" took %.4f s. ", dictionary, (double)duration);
 		
 	
 	NSArray *results = nil;
@@ -60,7 +60,7 @@ int main (int argc, const char * argv[]) {
 	
 	NSLog(@"\n%@", results);
 	
-	NSLog(@"Search for \"%@\" took %.4lf s. ", target, (double)duration);
+	NSLog(@"Search for \"%@\" took %.4f s. ", target, (double)duration);
 	
 	[pool drain];
 	return 0;
