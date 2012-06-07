@@ -46,6 +46,7 @@
 - (BOOL)hasSimilarityToString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options minimumSimilarity:(float)minSimilarity;
 
 - (NSComparisonResult)jxld_compare:(NSString *)aString options:(JXLDStringDistanceOptions)options;
+- (NSString *)jxld_transformWithOptions:(JXLDStringDistanceOptions)options;
 
 /*
  Currently this implements the restricted form of Damerau-Levenshtein. 
