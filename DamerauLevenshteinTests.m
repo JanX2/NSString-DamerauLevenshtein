@@ -191,6 +191,19 @@ NSString *DamerauLevenshteinTestsLongString2;
 	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
 }
 
+- (void)test_quote_types {
+	NSString *textWithSmartQuotes = @"“It’s a boy!”";
+	NSString *textWithStraightQuotes = @"\"It's a boy!\"";
+	
+	levensteinDistance = [textWithSmartQuotes distanceFromString:textWithStraightQuotes 
+														options:0];
+	STAssertEquals((NSUInteger)3, levensteinDistance, @"Quote type sensitive test failed.");
+	
+	levensteinDistance = [textWithSmartQuotes distanceFromString:textWithStraightQuotes 
+														options:JXLDQuoteTypeInsensitiveComparison];
+	STAssertEquals((NSUInteger)0, levensteinDistance, @"Quote type insensitive test failed.");
+}
+
 - (void)test_real_world {
 	NSString *string1 = @"kitten";
 	NSString *string2 = @"sitting";

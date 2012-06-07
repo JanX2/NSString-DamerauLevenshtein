@@ -15,6 +15,7 @@ enum {
     JXLDDiacriticInsensitiveComparison = 128,	/* If specified, ignores diacritics (o-umlaut == o) */
     JXLDWidthInsensitiveComparison = 256,		/* If specified, ignores width differences ('a' == U+FF41) */
     JXLDDelimiterInsensitiveComparison = 512,	/* If specified, replaces common delimiters ('_', '-') with space (' ') before comparison */
+    JXLDQuoteTypeInsensitiveComparison = 1024,	/* If specified, replaces curly quotes (“”‘’) with straigh ones ("') before comparison */
 };
 typedef NSUInteger JXLDStringDistanceOptions;
 
