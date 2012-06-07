@@ -438,4 +438,24 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeigh
 	return ((1.0f - [self normalizedDistanceFromString:comparisonString options:options maximumDistance:(1.0f - minSimilarity)]) >= minSimilarity);
 }
 
+- (NSComparisonResult)jxld_compare:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options;
+{
+	NSString *string1, *string2;
+	
+	CFMutableStringRef string1_mutable = (CFMutableStringRef)[self mutableCopy];
+	CFMutableStringRef string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+	
+	jxld_CFStringPreprocessWithOptions(string1_mutable, options);
+	jxld_CFStringPreprocessWithOptions(string2_mutable, options);
+	
+	string1 = (NSString *)string1_mutable;
+	string2 = (NSString *)string2_mutable;
+	
+	NSComparisonResult comparisonResult = [string1 compare:string2 options:NSLiteralSearch];
+	
+	CFRelease(string1_mutable);
+	CFRelease(string2_mutable);
+	
+	return comparisonResult;
+}
 @end
