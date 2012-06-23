@@ -41,7 +41,7 @@ void jxld_CFStringStraightenQuotes(CFMutableStringRef string) {
 	
     static CFCharacterSetRef doubleQuotesCharacterSet = nil;
 	if (doubleQuotesCharacterSet == nil) {
-		doubleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("“”"));
+		doubleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("“”„‟＂〟〞〝❝❞»«❠"));
 	}
 	
 	replacement = CFSTR("\""); 
@@ -49,7 +49,7 @@ void jxld_CFStringStraightenQuotes(CFMutableStringRef string) {
 	
     static CFCharacterSetRef singleQuotesCharacterSet = nil;
 	if (singleQuotesCharacterSet == nil) {
-		singleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("‘’"));
+		singleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("‘’❯❮❛❜›‹‚‛❟"));
 	}
 	
 	replacement = CFSTR("\'"); 
