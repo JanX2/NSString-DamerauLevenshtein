@@ -100,10 +100,17 @@ CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2) {
 		jxld_CFStringPrepareUniCharBuffer(string2, &string2_chars, &string2_buffer, CFRangeMake(0, m));
 		
 		distance = levensteinUniCharDistanceCore(string1_chars, n, string2_chars, m);
+
+		if (string1_buffer != NULL) {
+			free(string1_buffer);
+			string1_buffer = NULL;
+		}
+		
+		if (string2_buffer != NULL) {
+			free(string2_buffer);
+			string2_buffer = NULL;
+		}
 	}
-	
-	if (string1_buffer != NULL) free(string1_buffer);
-	if (string2_buffer != NULL) free(string2_buffer);
 	
 	return distance;
 }

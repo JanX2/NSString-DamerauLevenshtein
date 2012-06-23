@@ -79,7 +79,9 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 {
-	if ([self initWithOptions:options] == nil)  return nil;
+	self = [self initWithOptions:options];
+	
+	if (self == nil)  return nil;
 	
 	if (optionFlags) {
 		CFMutableStringRef string;
@@ -122,7 +124,9 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 {
-	if ([self initWithOptions:options] == nil)  return nil;
+	self = [self initWithOptions:options];
+	
+	if (self == nil)  return nil;
 	
 	if (optionFlags) {
 		CFMutableStringRef preparedWordListString = (CFMutableStringRef)[wordListString mutableCopy];
@@ -173,7 +177,9 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (id)initWithCoder:(NSCoder *)coder
 {		
-	if ([self init]) {
+	self = [self init];
+	
+	if (self) {
 		self.rootNode = [coder decodeObjectForKey:@"rootNode"];
 		nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
 		wordCount = [coder decodeIntegerForKey:@"wordCount"];
