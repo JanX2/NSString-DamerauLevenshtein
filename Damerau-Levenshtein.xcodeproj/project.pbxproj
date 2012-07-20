@@ -14,7 +14,7 @@
 		1B8615C814CFDC540054C0BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B8615C614CFDC540054C0BD /* InfoPlist.strings */; };
 		1B8615D314CFDC940054C0BD /* JXLDStringDistanceUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */; };
 		1B8615D414CFDC990054C0BD /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
-		1B8615D514CFDC9E0054C0BD /* NSString+DamerauLevenshtein.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1B8615D514CFDC9E0054C0BD /* NSString+DamerauLevenshtein.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */; settings = {ATTRIBUTES = (); }; };
 		1B8615D614CFDCA20054C0BD /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		1B8615E414CFDED80054C0BD /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
 		1B8615E514CFE0210054C0BD /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
