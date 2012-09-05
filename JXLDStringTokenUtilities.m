@@ -8,6 +8,8 @@
 
 #import "JXLDStringTokenUtilities.h"
 
+CFOptionFlags jxst_kCFStringTokenizerTokenIsGap                              = 1UL << ((sizeof(unsigned long) * CHAR_BIT) -1);
+
 typedef struct {
 	CFRange *array;
 	CFStringTokenizerTokenType *types;
@@ -48,6 +50,7 @@ size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenize
 
 	// Set tokenizer to the start of the string. 
 	CFStringTokenizerTokenType tokenType = CFStringTokenizerGoToTokenAtIndex(tokenizer, 0);
+	CFStringTokenizerTokenType gapTokenType = (kCFStringTokenizerTokenNormal | jxst_kCFStringTokenizerTokenIsGap);
 	
 	CFRange tokenRange;
 	CFIndex prevTokenRangeMax = 0;
@@ -59,7 +62,7 @@ size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenize
 			// but for some reason, gaps in other tokenizations can appear.
 			// One particular example is the tokenizer skipping a line feed ('\n') directly after a string of Chinese characters when using kCFStringTokenizerUnitWordBoundary. 
 			CFRange gapRange = CFRangeMake(prevTokenRangeMax, (tokenRange.location - prevTokenRangeMax));
-			insertIntoTokenRangesArray(&tokenRanges, gapRange, kCFStringTokenizerTokenNormal);
+			insertIntoTokenRangesArray(&tokenRanges, gapRange, gapTokenType);
 		}
 		
 		insertIntoTokenRangesArray(&tokenRanges, tokenRange, tokenType);
@@ -73,7 +76,7 @@ size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenize
 		CFIndex stringLength = CFStringGetLength(string);
 		if (stringLength > prevTokenRangeMax) {
 			CFRange gapRange = CFRangeMake(prevTokenRangeMax, (stringLength - prevTokenRangeMax));
-			insertIntoTokenRangesArray(&tokenRanges, gapRange, kCFStringTokenizerTokenNormal);
+			insertIntoTokenRangesArray(&tokenRanges, gapRange, gapTokenType);
 		}
 	}
 	
