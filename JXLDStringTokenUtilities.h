@@ -8,6 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-CF_EXPORT CFOptionFlags jxst_kCFStringTokenizerTokenIsGap;
-
 size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges, CFStringTokenizerTokenType **types);

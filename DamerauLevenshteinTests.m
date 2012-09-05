@@ -297,17 +297,24 @@ NSString *DamerauLevenshteinTestsLongString2;
 	{
 		CFStringRef testString = (CFStringRef)DamerauLevenshteinTestsLongString1;
 		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
-		CFRange *word_ranges;
-		size_t word_count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWord, &word_ranges, NULL);
-		STAssertEquals(word_count, (size_t)(175 * LONG_STRING_EXPANSION_FACTOR), @"jxst_CFStringPrepareTokenRangesArray test #1 failed.");
+		CFRange *ranges;
+		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWord, &ranges, NULL);
+		STAssertEquals(count, (size_t)(175 * LONG_STRING_EXPANSION_FACTOR), @"jxst_CFStringPrepareTokenRangesArray test #1 failed.");
 	}
 	
 	{
 		CFStringRef testString = CFSTR("文\nb文\n");
 		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
-		CFRange *token_ranges;
-		size_t token_count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &token_ranges, NULL);
-		STAssertEquals(token_count, (size_t)5, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
+		CFRange *ranges;
+		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &ranges, NULL);
+		STAssertEquals(count, (size_t)3, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
+		
+#if 0
+		for (size_t i = 0; i < count; i++) {
+			CFRange substringRange = ranges[i];
+			CFShow(CFStringCreateWithSubstring(kCFAllocatorDefault, testString, substringRange));
+		}
+#endif
 	}
 }
 
