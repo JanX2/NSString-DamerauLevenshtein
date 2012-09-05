@@ -252,8 +252,8 @@ float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, C
 	// We might be able to speed this up using JXTrie 
 	// We could penalize words that are similar the farther their indexes are apart  
 	CFRange *word_ranges1, *word_ranges2;
-	size_t word_count1 = jxst_CFStringPrepareTokenRangesArray(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
-	size_t word_count2 = jxst_CFStringPrepareTokenRangesArray(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
+	size_t word_count1 = jxst_CFStringPrepareTokenRangesArray(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1, NULL);
+	size_t word_count2 = jxst_CFStringPrepareTokenRangesArray(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2, NULL);
 	
 	CFIndex word_length_total1 = tokenLengthTotal(word_ranges1, word_count1);
 	CFIndex word_length_total2 = tokenLengthTotal(word_ranges2, word_count2);

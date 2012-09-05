@@ -8,4 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges);
+size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges, CFStringTokenizerTokenType **types);
