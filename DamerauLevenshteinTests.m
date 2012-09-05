@@ -306,9 +306,18 @@ NSString *DamerauLevenshteinTestsLongString2;
 		CFStringRef testString = CFSTR("文\nb文\n");
 		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
 		CFRange *ranges;
-		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &ranges, NULL);
+		CFStringTokenizerTokenType *types;
+		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &ranges, &types);
 		STAssertEquals(count, (size_t)3, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
 		
+		CFStringTokenizerTokenType normal = (kCFStringTokenizerTokenNormal);
+		CFStringTokenizerTokenType normalCJ = (kCFStringTokenizerTokenNormal | kCFStringTokenizerTokenIsCJWordMask);
+		
+		if (count == 3) {
+			STAssertEquals(types[0], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.1 failed.");
+			STAssertEquals(types[1], normal, @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
+			STAssertEquals(types[2], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.3 failed.");
+		}
 #if 0
 		for (size_t i = 0; i < count; i++) {
 			CFRange substringRange = ranges[i];
