@@ -9,6 +9,7 @@
 #import "DamerauLevenshteinTests.h"
 
 #import "NSString+DamerauLevenshtein.h"
+#import "JXLDStringTokenUtilities.h"
 
 // A bit hacky ;)
 NSString *DamerauLevenshteinTestsLongString1;
@@ -290,6 +291,24 @@ NSString *DamerauLevenshteinTestsLongString2;
 - (void)test_semantic_similarity_performance {
 	float semanticSimilarity = [DamerauLevenshteinTestsLongString1 semanticSimilarityToString:DamerauLevenshteinTestsLongString2];
 	STAssertTrue((semanticSimilarity < 1.0f), @"Semantic Similarity Perfomance test failed.");
+}
+
+- (void)test_jxst_CFStringPrepareTokenRangesArray {
+	{
+		CFStringRef testString = (CFStringRef)DamerauLevenshteinTestsLongString1;
+		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
+		CFRange *word_ranges;
+		size_t word_count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWord, &word_ranges, NULL);
+		STAssertEquals(word_count, (size_t)(175 * LONG_STRING_EXPANSION_FACTOR), @"jxst_CFStringPrepareTokenRangesArray test #1 failed.");
+	}
+	
+	{
+		CFStringRef testString = CFSTR("文\nb文\n");
+		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
+		CFRange *token_ranges;
+		size_t token_count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &token_ranges, NULL);
+		STAssertEquals(token_count, (size_t)5, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
+	}
 }
 
 @end
