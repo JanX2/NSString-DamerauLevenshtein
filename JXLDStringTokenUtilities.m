@@ -8,11 +8,27 @@
 
 #import "JXLDStringTokenUtilities.h"
 
-int jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges) {
+typedef struct {
+	CFRange *array;
+	size_t used;
+	size_t capacity;
+} TokenRangesArray;
+
+CF_INLINE void assureTokenRangesArrayCapacity(TokenRangesArray *tokenRanges_p) {
+    if (tokenRanges_p->capacity == tokenRanges_p->used) {
+        tokenRanges_p->capacity *= 2;
+        tokenRanges_p->array = realloc(tokenRanges_p->array, (tokenRanges_p->capacity * sizeof(CFRange)));
+    }
+}
+
+size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRange, CFOptionFlags tokenizerOptions, CFRange **ranges) {
 	// This function contains a very crude pseudo-dynamic array implementation as it is a pain to work with CFRange structs and CFArray objects.
 	// Don’t forget to free the ranges array when you are done with it!
-	int token_ranges_capacity = 4;
-	CFRange * token_ranges = malloc(token_ranges_capacity * sizeof(CFRange));
+	TokenRangesArray tokenRanges = {
+		.used = 0,
+		.capacity = 4,
+		.array = malloc(tokenRanges.capacity * sizeof(CFRange))
+	};
 	
 	CFStringTokenizerRef tokenizer = CFStringTokenizerCreate(kCFAllocatorDefault, string, tokenizerRange, tokenizerOptions, NULL);
 
@@ -23,12 +39,8 @@ int jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRa
 	
 	CFRange tokenRange;
 	CFIndex prevTokenRangeMax = 0;
-	int token_index = 0;
 	while (tokenType != kCFStringTokenizerTokenNone) {
-		if (token_ranges_capacity == token_index+1) {
-			token_ranges_capacity *= 2;
-			token_ranges = realloc(token_ranges, (token_ranges_capacity * sizeof(CFRange)));
-		}
+		assureTokenRangesArrayCapacity(&tokenRanges);
 		
 		tokenRange = CFStringTokenizerGetCurrentTokenRange(tokenizer);
 		
@@ -36,23 +48,22 @@ int jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenizerRa
 			// Gaps are expected behaviour when using kCFStringTokenizerUnitWord, 
 			// but for some reason, gaps in other tokenizations can appear.
 			// One particular example is the tokenizer skipping a line feed ('\n') directly after a string of Chinese characters when using kCFStringTokenizerUnitWordBoundary. 
+			assureTokenRangesArrayCapacity(&tokenRanges);
 			CFRange gapRange = CFRangeMake(prevTokenRangeMax, (tokenRange.location - prevTokenRangeMax));
-			token_ranges[token_index] = gapRange;
-			token_index++;
+			tokenRanges.array[tokenRanges.used++] = gapRange;
 		}
 		
-		token_ranges[token_index] = tokenRange;
-		token_index++;
-		
-		tokenType = CFStringTokenizerAdvanceToNextToken(tokenizer);
+		tokenRanges.array[tokenRanges.used++] = tokenRange;
 
 		prevTokenRangeMax = (tokenRange.location + tokenRange.length);
+		
+		tokenType = CFStringTokenizerAdvanceToNextToken(tokenizer);
 	}
 	
 	CFRelease(tokenizer);
 	
-	*ranges = token_ranges;
+	*ranges = tokenRanges.array;
 	
-	return token_index;
+	return tokenRanges.used;
 }
 

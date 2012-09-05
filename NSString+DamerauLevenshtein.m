@@ -22,7 +22,7 @@ CFIndex levensteinStringDistance(CFStringRef string1, CFStringRef string2);
 CFIndex levensteinUniCharDistance(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 CFIndex levensteinUniCharDistanceCore(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 
-CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count);
+CFIndex tokenLengthTotal(CFRange token_ranges[], size_t token_count);
 float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string2_chars, CFIndex m);
 float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, CFStringRef string2, const UniChar *string2_chars, CFIndex m);
 float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeights weights);
@@ -238,10 +238,10 @@ float valuePhrase(const UniChar *string1_chars, CFIndex n, const UniChar *string
 	return normalizedDistance;
 }
 
-CFIndex tokenLengthTotal(CFRange token_ranges[], int token_count) {
+CFIndex tokenLengthTotal(CFRange token_ranges[], size_t token_count) {
 	CFIndex token_length_total = 0;
 	
-	for (int i = 0; i < token_count; i++) {
+	for (size_t i = 0; i < token_count; i++) {
 		token_length_total += token_ranges[i].length;
 	}
 	
@@ -252,8 +252,8 @@ float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, C
 	// We might be able to speed this up using JXTrie 
 	// We could penalize words that are similar the farther their indexes are apart  
 	CFRange *word_ranges1, *word_ranges2;
-	int word_count1 = jxst_CFStringPrepareTokenRangesArray(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
-	int word_count2 = jxst_CFStringPrepareTokenRangesArray(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
+	size_t word_count1 = jxst_CFStringPrepareTokenRangesArray(string1, CFRangeMake(0, n), kCFStringTokenizerUnitWord, &word_ranges1);
+	size_t word_count2 = jxst_CFStringPrepareTokenRangesArray(string2, CFRangeMake(0, m), kCFStringTokenizerUnitWord, &word_ranges2);
 	
 	CFIndex word_length_total1 = tokenLengthTotal(word_ranges1, word_count1);
 	CFIndex word_length_total2 = tokenLengthTotal(word_ranges2, word_count2);
@@ -262,12 +262,12 @@ float valueWords(CFStringRef string1, const UniChar *string1_chars, CFIndex n, C
 	CFIndex distance_total = 0;
 	CFRange word1Range, word2Range;
 	
-	for (int i = 0; i < word_count1; i++) {
+	for (size_t i = 0; i < word_count1; i++) {
 		word1Range = word_ranges1[i];
 		
 		CFIndex best_distance = m;
 		
-		for (int j = 0; j < word_count2; j++) {
+		for (size_t j = 0; j < word_count2; j++) {
 			word2Range = word_ranges2[j];
 			
 			CFIndex this_distance = levensteinUniCharDistance(&(string1_chars[word1Range.location]), word1Range.length, 
