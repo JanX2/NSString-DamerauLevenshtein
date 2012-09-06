@@ -8,6 +8,8 @@
 
 #import "JXLDStringTokenUtilities.h"
 
+CFOptionFlags jxst_kCFStringTokenizerTokenIsGap                              = 1UL << ((sizeof(unsigned long) * CHAR_BIT) -1);
+
 typedef struct {
 	CFRange *array;
 	CFStringTokenizerTokenType *types;
@@ -48,17 +50,19 @@ size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenize
 
 	// Set tokenizer to the start of the string. 
 	CFStringTokenizerTokenType tokenType = CFStringTokenizerGoToTokenAtIndex(tokenizer, 0);
+	CFStringTokenizerTokenType gapTokenType = (kCFStringTokenizerTokenNormal | jxst_kCFStringTokenizerTokenIsGap);
 	
 	CFRange tokenRange;
 	CFIndex prevTokenRangeMax = 0;
 	while (tokenType != kCFStringTokenizerTokenNone) {
 		tokenRange = CFStringTokenizerGetCurrentTokenRange(tokenizer);
 		
-		if (detectGaps && tokenRange.location > prevTokenRangeMax) {
+		if (detectGaps && (tokenRange.location > prevTokenRangeMax)) {
 			// Gaps are expected behaviour when using kCFStringTokenizerUnitWord, 
 			// but for some reason, gaps in other tokenizations can appear.
-			// One particular example is the tokenizer skipping a line feed ('\n') directly after a string of Chinese characters when using kCFStringTokenizerUnitWordBoundary.
-			tokenRanges.array[tokenRanges.used].length += (tokenRange.location - prevTokenRangeMax);
+			// One particular example is the tokenizer skipping a line feed ('\n') directly after a string of Chinese characters when using kCFStringTokenizerUnitWordBoundary. 
+			CFRange gapRange = CFRangeMake(prevTokenRangeMax, (tokenRange.location - prevTokenRangeMax));
+			addToTokenRangesArray(&tokenRanges, gapRange, gapTokenType);
 		}
 		
 		addToTokenRangesArray(&tokenRanges, tokenRange, tokenType);
@@ -71,7 +75,8 @@ size_t jxst_CFStringPrepareTokenRangesArray(CFStringRef string, CFRange tokenize
 	if (detectGaps) {
 		CFIndex stringLength = CFStringGetLength(string);
 		if (stringLength > prevTokenRangeMax) {
-			tokenRanges.array[tokenRanges.used].length += (stringLength - prevTokenRangeMax);
+			CFRange gapRange = CFRangeMake(prevTokenRangeMax, (stringLength - prevTokenRangeMax));
+			addToTokenRangesArray(&tokenRanges, gapRange, gapTokenType);
 		}
 	}
 	

@@ -303,25 +303,47 @@ NSString *DamerauLevenshteinTestsLongString2;
 	}
 	
 	{
-		CFStringRef testString = CFSTR("文\nb文\n");
+		CFStringRef testString = CFSTR("文\nba abac文\n");
 		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
 		CFRange *ranges;
 		CFStringTokenizerTokenType *types;
 		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &ranges, &types);
-		STAssertEquals(count, (size_t)3, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
+		STAssertEquals(count, (size_t)7, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
 		
 		CFStringTokenizerTokenType normal = (kCFStringTokenizerTokenNormal);
+		CFStringTokenizerTokenType nonLetter = (kCFStringTokenizerTokenNormal | kCFStringTokenizerTokenHasNonLettersMask);
 		CFStringTokenizerTokenType normalCJ = (kCFStringTokenizerTokenNormal | kCFStringTokenizerTokenIsCJWordMask);
+		CFStringTokenizerTokenType normalGap = (kCFStringTokenizerTokenNormal | jxst_kCFStringTokenizerTokenIsGap);
 		
-		if (count == 3) {
+		if (count == 7) {
 			STAssertEquals(types[0], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.1 failed.");
-			STAssertEquals(types[1], normal, @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
-			STAssertEquals(types[2], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.3 failed.");
+			STAssertEquals(types[1], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
+			STAssertEquals(types[2], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.3 failed.");
+			STAssertEquals(types[3], nonLetter,   @"jxst_CFStringPrepareTokenRangesArray test #2.4 failed.");
+			STAssertEquals(types[4], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.5 failed.");
+			STAssertEquals(types[5], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.6 failed.");
+			STAssertEquals(types[6], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.7 failed.");
 		}
+		
 #if 0
 		for (size_t i = 0; i < count; i++) {
 			CFRange substringRange = ranges[i];
-			CFShow(CFStringCreateWithSubstring(kCFAllocatorDefault, testString, substringRange));
+			
+			CFStringRef substringString = CFStringCreateWithSubstring(kCFAllocatorDefault, testString, substringRange);
+			CFMutableStringRef outString = CFStringCreateMutable(kCFAllocatorDefault, 0);
+			CFStringAppendFormat(outString, NULL, CFSTR("'%@'"), substringString);
+			CFRelease(substringString);
+
+			CFStringFindAndReplace(outString, CFSTR("\n"), CFSTR("¶"), CFRangeMake(0, CFStringGetLength(outString)), 0);
+			
+			char *out_chars;
+			CFIndex string_length = CFStringGetMaximumSizeForEncoding(CFStringGetLength(outString), kCFStringEncodingUTF8);
+			out_chars = malloc(string_length + 1);
+			CFStringGetCString(outString, out_chars, string_length + 1, kCFStringEncodingUTF8);
+			
+			puts(out_chars);
+			
+			CFRelease(outString);
 		}
 #endif
 	}
