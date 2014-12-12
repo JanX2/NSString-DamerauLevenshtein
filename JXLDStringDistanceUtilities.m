@@ -98,7 +98,7 @@ void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDis
 		}
 		
 		if (options & JXLDWhitespaceInsensitiveComparison) {
-			//CFStringTransform(string, NULL, CFSTR("[:WhiteSpace:] any-remove;"), false); // This works, but is very slow
+			//CFStringTransform(string, NULL, CFSTR("[:WhiteSpace:] any-remove;"), false); // This works, but is very slow.
 			jxld_CFStringRemoveWhitespace(string);
 		}
 		
