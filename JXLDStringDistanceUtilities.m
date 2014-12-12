@@ -75,7 +75,7 @@ void jxld_CFStringReplaceCharactersInSet(CFMutableStringRef string, CFCharacterS
 
 void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDistanceOptions options) {
 	if (!(options & JXLDLiteralComparison)) {
-		CFOptionFlags foldingOptions = 0;
+		CFStringCompareFlags foldingOptions = 0;
 
 		if (options & JXLDCaseInsensitiveComparison) {
 			foldingOptions |= kCFCompareCaseInsensitive;
