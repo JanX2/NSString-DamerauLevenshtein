@@ -20,9 +20,10 @@ typedef struct {
 CF_INLINE void assureTokenRangesArrayCapacity(TokenRangesArray *tokenRanges_p) {
     if (tokenRanges_p->capacity == tokenRanges_p->used) {
         tokenRanges_p->capacity *= 2;
-        tokenRanges_p->array = realloc(tokenRanges_p->array, (tokenRanges_p->capacity * sizeof(CFRange)));
+        tokenRanges_p->array = reallocf(tokenRanges_p->array, (tokenRanges_p->capacity * sizeof(CFRange)));
+		
 		if (tokenRanges_p->types != NULL) {
-			tokenRanges_p->types = realloc(tokenRanges_p->types, (tokenRanges_p->capacity * sizeof(CFStringTokenizerTokenType)));
+			tokenRanges_p->types = reallocf(tokenRanges_p->types, (tokenRanges_p->capacity * sizeof(CFStringTokenizerTokenType)));
 		}
     }
 }
