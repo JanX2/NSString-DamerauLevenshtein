@@ -154,6 +154,10 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 }
 
 NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CFIndex newWord_length, JXTrieNode *node) {
+	if (newWord_chars == NULL) {
+		return NSNotFound;
+	}
+	
 	NSUInteger newNodesCount = 0;
 	UniChar currentChar;
 	JXTrieNode *thisNode = nil;
