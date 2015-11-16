@@ -3,7 +3,8 @@
 #import "NSString+DamerauLevenshtein.h"
 
 int main (int argc, const char * argv[]) {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+	@autoreleasepool {
 
 	NSString *string1 = @"Hello, World!";
 	NSString *string2 = @"Hallo, Welt!";
@@ -43,7 +44,8 @@ int main (int argc, const char * argv[]) {
 	
 	float semanticSimilarity = [string1 semanticSimilarityToString:string2 weights:weights];
 	NSLog(@"\nThe semantic similarity between\n\"%@\"\nand\n\"%@\"\n=\n%f\n\n", string1, string2, semanticSimilarity);
+
+	}
 	
-	[pool drain];
 	return 0;
 }

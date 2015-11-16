@@ -16,7 +16,12 @@
 
 + (instancetype)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
 {
-	return [[[JXTrieResult alloc] initWithWord:aWord andDistance:aDistance] autorelease];
+	return [[JXTrieResult alloc] initWithWord:aWord andDistance:aDistance];
+}
+
+- (instancetype)init
+{
+	return [self initWithWord:nil andDistance:0];
 }
 
 - (instancetype)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
@@ -28,13 +33,6 @@
 	}
 	return self;
 	
-}
-
-- (void)dealloc
-{
-	self.word = nil;
-
-	[super dealloc];
 }
 
 

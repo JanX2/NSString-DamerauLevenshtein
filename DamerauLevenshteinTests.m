@@ -290,7 +290,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 
 - (void)test_jxst_CFStringPrepareTokenRangesArray {
 	{
-		CFStringRef testString = (CFStringRef)DamerauLevenshteinTestsLongString1;
+		CFStringRef testString = (__bridge CFStringRef)DamerauLevenshteinTestsLongString1;
 		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
 		CFRange *ranges;
 		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWord, &ranges, NULL);

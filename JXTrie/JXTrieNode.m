@@ -68,8 +68,6 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	//self.word = nil;
 	self.children = nil;
 	if (_children_keys != NULL)  free(_children_keys);
-
-	[super dealloc];
 }
 
 
@@ -80,7 +78,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	if (self) {
 		//self.word = [coder decodeObjectForKey:@"word"];
 		_wordCount = [coder decodeIntegerForKey:@"wordCount"];
-		self.children = (CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
+		self.children = (__bridge CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
 		_cacheIsFresh = NO;
 	}
 	
@@ -91,7 +89,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 {	
 	//[coder encodeObject:word forKey:@"word"];
 	[coder encodeInteger:_wordCount forKey:@"wordCount"];
-	[coder encodeObject:(NSMutableDictionary *)_children forKey:@"children"]; // CHANGEME: This may not work with custom CFMutableDictionary objects
+	[coder encodeObject:(__bridge NSMutableDictionary *)_children forKey:@"children"]; // CHANGEME: This may not work with custom CFMutableDictionary objects
 }
 
 
@@ -149,7 +147,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
 {
-	CFDictionarySetValue(_children, (void *)(intptr_t)currentChar, newNode);
+	CFDictionarySetValue(_children, (void *)(intptr_t)currentChar, (__bridge const void *)(newNode));
 	_cacheIsFresh = NO;
 }
 
@@ -165,7 +163,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 		currentChar = newWord_chars[i];
 		thisNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)(intptr_t)currentChar);
 		if (thisNode == nil) {
-			JXTrieNode *newNode = [[JXTrieNode new] autorelease];
+			JXTrieNode *newNode = [JXTrieNode new];
 			[node insertNode:newNode forKey:currentChar];
 			newNodesCount += 1;
 			node = newNode;
@@ -189,7 +187,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	const UniChar *newWord_chars;
 	UniChar *newWord_buffer = NULL;
 	
-	jxld_CFStringPrepareUniCharBuffer((CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
+	jxld_CFStringPrepareUniCharBuffer((__bridge CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
 	
 	NSUInteger newNodesCount = insertWordFromUniCharsInto(newWord_chars, newWord_length, self);
 	
@@ -296,7 +294,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 		[nodeDescription appendFormat:@"%@)\n", indentation];
 	}
 
-	return [nodeDescription autorelease];
+	return nodeDescription;
 	
 }
 

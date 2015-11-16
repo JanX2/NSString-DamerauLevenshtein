@@ -9,8 +9,9 @@
 // Apparently, recreating the trie from the raw word list is faster than archiving/unarchiving using NSKeyedArchiver. 
 
 int main (int argc, const char * argv[]) {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
+
+	@autoreleasepool {
+
 	NSString *target;
 	NSUInteger maxCost;
 	NSString *dictionary;
@@ -61,7 +62,8 @@ int main (int argc, const char * argv[]) {
 	NSLog(@"\n%@", results);
 	
 	NSLog(@"Search for \"%@\" took %.4f s. ", target, (double)duration);
+
+	}
 	
-	[pool drain];
 	return 0;
 }

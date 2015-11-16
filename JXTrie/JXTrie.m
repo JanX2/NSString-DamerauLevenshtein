@@ -13,7 +13,7 @@
 
 
 @interface JXTrie ()
-@property (nonatomic, retain) JXTrieNode *rootNode;
+@property (nonatomic, strong) JXTrieNode *rootNode;
 @end
 
 
@@ -35,12 +35,12 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 							NSUInteger maxCost);
 + (instancetype)trie;
 {
-	return [[[JXTrie alloc] initWithOptions:0] autorelease];
+	return [[JXTrie alloc] initWithOptions:0];
 }
 
 + (instancetype)trieWithOptions:(JXLDStringDistanceOptions)options;
 {
-	return [[[JXTrie alloc] initWithOptions:options] autorelease];
+	return [[JXTrie alloc] initWithOptions:options];
 }
 
 - (instancetype)init;
@@ -64,12 +64,12 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 + (instancetype)trieWithStrings:(NSArray *)wordList;
 {
-	return [[[JXTrie alloc] initWithStrings:wordList options:0] autorelease];
+	return [[JXTrie alloc] initWithStrings:wordList options:0];
 }
 
 + (instancetype)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 {
-	return [[[JXTrie alloc] initWithStrings:wordList options:options] autorelease];
+	return [[JXTrie alloc] initWithStrings:wordList options:options];
 }
 
 - (instancetype)initWithStrings:(NSArray *)wordList;
@@ -87,10 +87,10 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 		CFMutableStringRef string;
 		
 		for (NSString *word in wordList) {
-			string = (CFMutableStringRef)[word mutableCopy];
+			string = (CFMutableStringRef)CFBridgingRetain([word mutableCopy]);
 			jxld_CFStringPreprocessWithOptions(string, optionFlags);
 			
-			nodeCount += [rootNode insertWord:(NSString *)string];
+			nodeCount += [rootNode insertWord:(__bridge NSString *)string];
 			wordCount += 1;
 			
 			CFRelease(string);
@@ -109,12 +109,12 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 + (instancetype)trieWithWordListString:(NSString *)wordListString;
 {
-	return [[[JXTrie alloc] initWithWordListString:wordListString options:0] autorelease];
+	return [[JXTrie alloc] initWithWordListString:wordListString options:0];
 }
 
 + (instancetype)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 {
-	return [[[JXTrie alloc] initWithWordListString:wordListString options:options] autorelease];
+	return [[JXTrie alloc] initWithWordListString:wordListString options:options];
 }
 
 - (instancetype)initWithWordListString:(NSString *)wordListString;
@@ -129,11 +129,11 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	if (self == nil)  return nil;
 	
 	if (optionFlags) {
-		CFMutableStringRef preparedWordListString = (CFMutableStringRef)[wordListString mutableCopy];
+		CFMutableStringRef preparedWordListString = (CFMutableStringRef)CFBridgingRetain([wordListString mutableCopy]);
 		
 		jxld_CFStringPreprocessWithOptions(preparedWordListString, optionFlags);
 		
-		wordListString = [(NSString *)preparedWordListString autorelease];
+		wordListString = (__bridge NSString *)preparedWordListString;
 	}
 	
 	NSUInteger wordListStringLength = wordListString.length;
@@ -141,7 +141,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	const UniChar *list_chars;
 	UniChar *list_buffer = NULL;
 	
-	jxld_CFStringPrepareUniCharBuffer((CFStringRef)wordListString, &list_chars, &list_buffer, CFRangeMake(0, (CFIndex)wordListStringLength));
+	jxld_CFStringPrepareUniCharBuffer((__bridge CFStringRef)wordListString, &list_chars, &list_buffer, CFRangeMake(0, (CFIndex)wordListStringLength));
 	
 	NSRange fullRange = NSMakeRange(0, wordListStringLength);
 	__block NSUInteger blockNodeCount = 0;
@@ -166,12 +166,6 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	}
 	
     return self;
-}
-
-- (void)dealloc
-{
-	self.rootNode = nil;
-	[super dealloc];
 }
 
 
@@ -279,7 +273,7 @@ void searchRecursive(JXTrieNode *node,
 	// maximum cost, and there is a word in this trie node, then add it.
 	if (currentRow[currentRowLastIndex] <= maxCost && node.hasWord) {
 		CFStringRef nodeWord = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, result_chars, row_index+1, kCFAllocatorNull);
-		[results addObject:[JXTrieResult resultWithWord:(NSString *)nodeWord 
+		[results addObject:[JXTrieResult resultWithWord:(__bridge NSString *)nodeWord
 											andDistance:currentRow[currentRowLastIndex]]];
 		CFRelease(nodeWord);
 	}
@@ -354,11 +348,11 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	CFStringRef string;
 	
 	if (optionFlags) {
-		string = (CFStringRef)[word mutableCopy];
+		string = (CFStringRef)CFBridgingRetain([word mutableCopy]);
 		jxld_CFStringPreprocessWithOptions((CFMutableStringRef)string, optionFlags);
 	}
 	else {
-		string = (CFStringRef)[word retain];
+		string = (CFStringRef)CFBridgingRetain(word);
 	}
 	
 	CFIndex string_length = CFStringGetLength(string);
@@ -382,7 +376,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	
 	if (optionFlags) {
 		CFStringRef string = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, chars, length, kCFAllocatorNull);
-		results = [self search:(NSString *)string maximumDistance:maxCost];
+		results = [self search:(__bridge NSString *)string maximumDistance:maxCost];
 		CFRelease(string);
 	}
 	else {

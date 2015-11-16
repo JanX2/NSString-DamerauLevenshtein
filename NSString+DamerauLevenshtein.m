@@ -40,12 +40,12 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeigh
 	CFMutableStringRef string2_mutable = NULL;
 	
 	if (options & JXLDLiteralComparison) {
-		string1 = (CFStringRef)self;
-		string2 = (CFStringRef)comparisonString;
+		string1 = (__bridge CFStringRef)self;
+		string2 = (__bridge CFStringRef)comparisonString;
 	}
 	else {
-		string1_mutable = (CFMutableStringRef)[self mutableCopy];
-		string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+		string1_mutable = (CFMutableStringRef)CFBridgingRetain([self mutableCopy]);
+		string2_mutable = (CFMutableStringRef)CFBridgingRetain([comparisonString mutableCopy]);
 		
 		// Processing options and pre-processing the strings accordingly 
 		// The string lengths may change during pre-processing
@@ -361,8 +361,8 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeigh
 	
 	CFStringRef string1, string2;
 	
-	CFMutableStringRef string1_mutable = (CFMutableStringRef)[self mutableCopy];
-	CFMutableStringRef string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+	CFMutableStringRef string1_mutable = (CFMutableStringRef)CFBridgingRetain([self mutableCopy]);
+	CFMutableStringRef string2_mutable = (CFMutableStringRef)CFBridgingRetain([comparisonString mutableCopy]);
 	
 	// Processing options and pre-processing the strings accordingly 
 	// The string lengths may change during pre-processing
@@ -449,14 +449,14 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeigh
 {
 	NSString *string1, *string2;
 	
-	CFMutableStringRef string1_mutable = (CFMutableStringRef)[self mutableCopy];
-	CFMutableStringRef string2_mutable = (CFMutableStringRef)[comparisonString mutableCopy];
+	CFMutableStringRef string1_mutable = (CFMutableStringRef)CFBridgingRetain([self mutableCopy]);
+	CFMutableStringRef string2_mutable = (CFMutableStringRef)CFBridgingRetain([comparisonString mutableCopy]);
 	
 	jxld_CFStringPreprocessWithOptions(string1_mutable, options);
 	jxld_CFStringPreprocessWithOptions(string2_mutable, options);
 	
-	string1 = (NSString *)string1_mutable;
-	string2 = (NSString *)string2_mutable;
+	string1 = (__bridge NSString *)string1_mutable;
+	string2 = (__bridge NSString *)string2_mutable;
 	
 	NSComparisonResult comparisonResult = [string1 compare:string2 options:NSLiteralSearch];
 	
@@ -470,13 +470,13 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeigh
 {
 	NSString *result;
 	
-	CFMutableStringRef string1_mutable = (CFMutableStringRef)[self mutableCopy];
+	CFMutableStringRef string1_mutable = (__bridge CFMutableStringRef)[self mutableCopy];
 	
 	jxld_CFStringPreprocessWithOptions(string1_mutable, options);
 	
-	result = (NSString *)string1_mutable;
+	result = (__bridge NSString *)string1_mutable;
 	
-	return [result autorelease];
+	return result;
 }
 
 @end
