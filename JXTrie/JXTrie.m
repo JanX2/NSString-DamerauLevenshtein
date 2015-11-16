@@ -348,8 +348,9 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	CFStringRef string;
 	
 	if (optionFlags) {
-		string = (CFStringRef)CFBridgingRetain([word mutableCopy]);
-		jxld_CFStringPreprocessWithOptions((CFMutableStringRef)string, optionFlags);
+		CFMutableStringRef string_mutable = (CFMutableStringRef)CFBridgingRetain([word mutableCopy]);
+		jxld_CFStringPreprocessWithOptions(string_mutable, optionFlags);
+		string = (CFStringRef)string_mutable;
 	}
 	else {
 		string = (CFStringRef)CFBridgingRetain(word);
