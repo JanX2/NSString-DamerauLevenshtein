@@ -49,7 +49,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 @dynamic hasWord;
 @synthesize wordCount = _wordCount;
 
-- (id)init
+- (instancetype)init
 {
 	self = [super init];
 	if (self) {
@@ -73,7 +73,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 }
 
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {		
 	self = [super init];
 	

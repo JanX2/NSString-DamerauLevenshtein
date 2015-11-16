@@ -17,8 +17,8 @@
 @property (nonatomic, copy) NSString *word;
 @property (nonatomic, assign) NSUInteger distance;
 
-+ (id)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
-- (id)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
++ (instancetype)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
+- (instancetype)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance NS_DESIGNATED_INITIALIZER;
 
 @end
 

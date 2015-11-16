@@ -33,22 +33,22 @@ void searchRecursive(JXTrieNode *node,
 NSMutableArray * searchCore(JXTrieNode *rootNode, 
 							const UniChar *string_chars, CFIndex string_length, 
 							NSUInteger maxCost);
-+ (id)trie;
++ (instancetype)trie;
 {
 	return [[[JXTrie alloc] initWithOptions:0] autorelease];
 }
 
-+ (id)trieWithOptions:(JXLDStringDistanceOptions)options;
++ (instancetype)trieWithOptions:(JXLDStringDistanceOptions)options;
 {
 	return [[[JXTrie alloc] initWithOptions:options] autorelease];
 }
 
-- (id)init;
+- (instancetype)init;
 {
 	return [self initWithOptions:0];
 }
 
-- (id)initWithOptions:(JXLDStringDistanceOptions)options;
+- (instancetype)initWithOptions:(JXLDStringDistanceOptions)options;
 {
 	self = [super init];
 	
@@ -62,22 +62,22 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	return self;
 }
 
-+ (id)trieWithStrings:(NSArray *)wordList;
++ (instancetype)trieWithStrings:(NSArray *)wordList;
 {
 	return [[[JXTrie alloc] initWithStrings:wordList options:0] autorelease];
 }
 
-+ (id)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
++ (instancetype)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 {
 	return [[[JXTrie alloc] initWithStrings:wordList options:options] autorelease];
 }
 
-- (id)initWithStrings:(NSArray *)wordList;
+- (instancetype)initWithStrings:(NSArray *)wordList;
 {
 	return [self initWithStrings:wordList options:0];
 }
 
-- (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
+- (instancetype)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 {
 	self = [self initWithOptions:options];
 	
@@ -107,22 +107,22 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 }
 
 
-+ (id)trieWithWordListString:(NSString *)wordListString;
++ (instancetype)trieWithWordListString:(NSString *)wordListString;
 {
 	return [[[JXTrie alloc] initWithWordListString:wordListString options:0] autorelease];
 }
 
-+ (id)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
++ (instancetype)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 {
 	return [[[JXTrie alloc] initWithWordListString:wordListString options:options] autorelease];
 }
 
-- (id)initWithWordListString:(NSString *)wordListString;
+- (instancetype)initWithWordListString:(NSString *)wordListString;
 {
 	return [self initWithWordListString:wordListString options:0];
 }
 
-- (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
+- (instancetype)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 {
 	self = [self initWithOptions:options];
 	
@@ -175,7 +175,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 }
 
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {		
 	self = [self init];
 	
@@ -394,7 +394,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (NSString *)description
 {
-	return [rootNode description];
+	return rootNode.description;
 }
 
 

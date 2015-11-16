@@ -23,8 +23,8 @@
 @property (nonatomic, readonly) BOOL hasWord;
 @property (readonly) NSUInteger wordCount;
 
-- (CFMutableDictionaryRef)children;
-- (CFIndex)children_keys_count;
+@property (nonatomic, readonly) CFMutableDictionaryRef children CF_RETURNS_NOT_RETAINED;
+@property (nonatomic, readonly) CFIndex children_keys_count;
 - (CFIndex)children_keys:(UniChar **)keys;
 - (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
 

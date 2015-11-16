@@ -18,19 +18,19 @@ int main (int argc, const char * argv[]) {
 	NSTimeInterval start;
 	NSTimeInterval duration;
 	
-	if ([[[NSProcessInfo processInfo] arguments] count] < 3) {
+	if ([NSProcessInfo processInfo].arguments.count < 3) {
 		fprintf(stderr, "usage: %s [<search string> <maximum distance>] [<dictionary path>]\n",
-				[[[NSProcessInfo processInfo] processName] UTF8String]);
+				[NSProcessInfo processInfo].processName.UTF8String);
 		target = TARGET;
 		maxCost = MAX_COST;
 	}
 	else {
-		target = [[[NSProcessInfo processInfo] arguments] objectAtIndex:1];
-		maxCost = [[[[NSProcessInfo processInfo] arguments] objectAtIndex:2] integerValue];
+		target = [NSProcessInfo processInfo].arguments[1];
+		maxCost = [NSProcessInfo processInfo].arguments[2].integerValue;
 	}
 
-	if ([[[NSProcessInfo processInfo] arguments] count] > 3) {
-		dictionary = [[[NSProcessInfo processInfo] arguments] objectAtIndex:3];
+	if ([NSProcessInfo processInfo].arguments.count > 3) {
+		dictionary = [NSProcessInfo processInfo].arguments[3];
 	}
 	else {
 		dictionary = DICTIONARY;
@@ -48,7 +48,7 @@ int main (int argc, const char * argv[]) {
 	duration = [NSDate timeIntervalSinceReferenceDate] - start;
 	
 	//NSLog(@"\n\n%@", trie);
-	NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
+	NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)trie.count, (unsigned long)trie.nodeCount);
 	NSLog(@"Creating the trie for \"%@\" took %.4f s. ", dictionary, (double)duration);
 		
 	

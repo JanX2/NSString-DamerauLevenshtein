@@ -26,23 +26,23 @@
 	JXLDStringDistanceOptions optionFlags;
 }
 
-- (NSUInteger)nodeCount;
-- (NSUInteger)count;
+@property (nonatomic, readonly) NSUInteger nodeCount;
+@property (nonatomic, readonly) NSUInteger count;
 
-+ (id)trie;
-+ (id)trieWithOptions:(JXLDStringDistanceOptions)options;
-- (id)init;
-- (id)initWithOptions:(JXLDStringDistanceOptions)options;
++ (instancetype)trie;
++ (instancetype)trieWithOptions:(JXLDStringDistanceOptions)options;
+- (instancetype)init;
+- (instancetype)initWithOptions:(JXLDStringDistanceOptions)options NS_DESIGNATED_INITIALIZER;
 
-+ (id)trieWithStrings:(NSArray *)wordList;
-+ (id)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
-- (id)initWithStrings:(NSArray *)wordList;
-- (id)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
++ (instancetype)trieWithStrings:(NSArray *)wordList;
++ (instancetype)trieWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
+- (instancetype)initWithStrings:(NSArray *)wordList;
+- (instancetype)initWithStrings:(NSArray *)wordList options:(JXLDStringDistanceOptions)options;
 
-+ (id)trieWithWordListString:(NSString *)wordListString;
-+ (id)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
-- (id)initWithWordListString:(NSString *)wordListString;
-- (id)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
++ (instancetype)trieWithWordListString:(NSString *)wordListString;
++ (instancetype)trieWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
+- (instancetype)initWithWordListString:(NSString *)wordListString;
+- (instancetype)initWithWordListString:(NSString *)wordListString options:(JXLDStringDistanceOptions)options;
 
 - (void)insertWord:(NSString *)newWord;
 - (void)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;

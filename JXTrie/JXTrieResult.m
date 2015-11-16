@@ -14,12 +14,12 @@
 @synthesize word;
 @synthesize distance;
 
-+ (id)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
++ (instancetype)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
 {
 	return [[[JXTrieResult alloc] initWithWord:aWord andDistance:aDistance] autorelease];
 }
 
-- (id)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
+- (instancetype)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
 {
 	self = [super init];
 	if (self) {

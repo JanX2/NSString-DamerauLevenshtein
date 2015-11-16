@@ -224,27 +224,26 @@ NSString *DamerauLevenshteinTestsLongString2;
 }
 
 - (void)test_unicode {
-	NSArray *entries = [NSArray arrayWithObjects:
-						[NSArray arrayWithObjects:@"Štein", @"stein", [NSNumber numberWithUnsignedInteger:1], nil], 
-						[NSArray arrayWithObjects:@"Štein", @"Stein", [NSNumber numberWithUnsignedInteger:1], nil], 
-						[NSArray arrayWithObjects:@"Štein", @"steïn", [NSNumber numberWithUnsignedInteger:2], nil], 
-						[NSArray arrayWithObjects:@"Štein", @"Steïn", [NSNumber numberWithUnsignedInteger:2], nil], 
-						[NSArray arrayWithObjects:@"Štein", @"štein", [NSNumber numberWithUnsignedInteger:1], nil], 
-						[NSArray arrayWithObjects:@"Štein", @"šteïn", [NSNumber numberWithUnsignedInteger:2], nil], 
-						[NSArray arrayWithObjects:@"föo", @"foo", [NSNumber numberWithUnsignedInteger:1], nil], 
-						[NSArray arrayWithObjects:@"français", @"francais", [NSNumber numberWithUnsignedInteger:1], nil], 
-						[NSArray arrayWithObjects:@"français", @"franæais", [NSNumber numberWithUnsignedInteger:1], nil], 
-						[NSArray arrayWithObjects:@"私の名前は白です", @"ぼくの名前は白です", [NSNumber numberWithUnsignedInteger:2], nil], nil];
+	NSArray *entries = @[@[@"Štein", @"stein", @1U], 
+						@[@"Štein", @"Stein", @1U], 
+						@[@"Štein", @"steïn", @2U], 
+						@[@"Štein", @"Steïn", @2U], 
+						@[@"Štein", @"štein", @1U], 
+						@[@"Štein", @"šteïn", @2U], 
+						@[@"föo", @"foo", @1U], 
+						@[@"français", @"francais", @1U], 
+						@[@"français", @"franæais", @1U], 
+						@[@"私の名前は白です", @"ぼくの名前は白です", @2U]];
 
 	NSString *string1;
 	NSString *string2;
 	NSUInteger expectedDistance;
 	
 	for (NSUInteger entryIndex; entryIndex < entries.count; entryIndex++) {
-		NSArray *entry = [entries objectAtIndex:entryIndex];
-		string1 = [entry objectAtIndex:0];
-		string2 = [entry objectAtIndex:1];
-		expectedDistance = [[entry objectAtIndex:2] unsignedIntegerValue];
+		NSArray *entry = entries[entryIndex];
+		string1 = entry[0];
+		string2 = entry[1];
+		expectedDistance = [entry[2] unsignedIntegerValue];
 		
 		levensteinDistance = [string1 distanceFromString:string2
 												 options:0];
