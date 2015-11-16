@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1B8615AE14CFDC530054C0BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AD14CFDC530054C0BD /* Foundation.framework */; };
-		1B8615BC14CFDC540054C0BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */; };
 		1B8615BF14CFDC540054C0BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AD14CFDC530054C0BD /* Foundation.framework */; };
 		1B8615C214CFDC540054C0BD /* libDamerauLevenshtein.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */; };
 		1B8615C814CFDC540054C0BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B8615C614CFDC540054C0BD /* InfoPlist.strings */; };
@@ -72,8 +71,7 @@
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDamerauLevenshtein.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8615AD14CFDC530054C0BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1B8615BA14CFDC540054C0BD /* iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		1B8615BA14CFDC540054C0BD /* iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8615C514CFDC540054C0BD /* DamerauLevenshteinTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTests-Info.plist"; sourceTree = "<group>"; };
 		1B8615C714CFDC540054C0BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Damerau-Levenshtein_Prefix.pch"; sourceTree = "<group>"; };
@@ -82,7 +80,7 @@
 		3D0A5C2B147FA27B00AD637E /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTest-Info.plist"; sourceTree = "<group>"; };
 		3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DamerauLevenshteinTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -117,7 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B8615BC14CFDC540054C0BD /* SenTestingKit.framework in Frameworks */,
 				1B8615BF14CFDC540054C0BD /* Foundation.framework in Frameworks */,
 				1B8615C214CFDC540054C0BD /* libDamerauLevenshtein.a in Frameworks */,
 			);
@@ -190,10 +187,10 @@
 			isa = PBXGroup;
 			children = (
 				8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */,
-				3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */,
+				3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.xctest */,
 				3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 				1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */,
-				1B8615BA14CFDC540054C0BD /* iOS Tests.octest */,
+				1B8615BA14CFDC540054C0BD /* iOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				1B8615AD14CFDC530054C0BD /* Foundation.framework */,
-				1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -335,7 +331,6 @@
 				1B8615B514CFDC540054C0BD /* Sources */,
 				1B8615B614CFDC540054C0BD /* Frameworks */,
 				1B8615B714CFDC540054C0BD /* Resources */,
-				1B8615B814CFDC540054C0BD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -344,8 +339,8 @@
 			);
 			name = "iOS Tests";
 			productName = DamerauLevenshteinTests;
-			productReference = 1B8615BA14CFDC540054C0BD /* iOS Tests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = 1B8615BA14CFDC540054C0BD /* iOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */ = {
 			isa = PBXNativeTarget;
@@ -354,7 +349,6 @@
 				3D3E639112D1011700B94EC9 /* Resources */,
 				3D3E639212D1011700B94EC9 /* Sources */,
 				3D3E639312D1011700B94EC9 /* Frameworks */,
-				3D3E639412D1011700B94EC9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -362,8 +356,8 @@
 			);
 			name = DamerauLevenshteinTest;
 			productName = DamerauLevenshteinTest;
-			productReference = 3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = 3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		3D6A1A1A12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {
 			isa = PBXNativeTarget;
@@ -453,35 +447,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1B8615B814CFDC540054C0BD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		3D3E639412D1011700B94EC9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1B8615A714CFDC530054C0BD /* Sources */ = {
@@ -615,10 +580,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -642,7 +603,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.geheimwerk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -651,10 +611,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
@@ -673,7 +629,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -751,7 +706,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
@@ -763,12 +718,9 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
-					"-framework",
-					SenTestingKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.geheimwerk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = DamerauLevenshteinTest;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -778,7 +730,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -788,12 +740,9 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
-					"-framework",
-					SenTestingKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.geheimwerk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = DamerauLevenshteinTest;
-				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
 			name = Release;

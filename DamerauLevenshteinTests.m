@@ -57,35 +57,35 @@ NSString *DamerauLevenshteinTestsLongString2;
 
 
 - (void)test_empty {
-	STAssertEquals((NSUInteger)0, [@"" distanceFromString:@""], @"Empty test #1 failed.");
+	XCTAssertEqual((NSUInteger)0, [@"" distanceFromString:@""], @"Empty test #1 failed.");
 
-	STAssertEquals((NSUInteger)1, [@"" distanceFromString:@"a"], @"Empty test #2 failed.");
+	XCTAssertEqual((NSUInteger)1, [@"" distanceFromString:@"a"], @"Empty test #2 failed.");
 
-	STAssertEquals((NSUInteger)1, [@"a" distanceFromString:@""], @"Empty test #3 failed.");
+	XCTAssertEqual((NSUInteger)1, [@"a" distanceFromString:@""], @"Empty test #3 failed.");
 }
 
 - (void)test_simple {
-	STAssertEquals((NSUInteger)1, [@"ab" distanceFromString:@"abc"], @"Simple insertion test failed.");
+	XCTAssertEqual((NSUInteger)1, [@"ab" distanceFromString:@"abc"], @"Simple insertion test failed.");
 
-	STAssertEquals((NSUInteger)1, [@"ab" distanceFromString:@"a"], @"Simple deletion test failed.");
+	XCTAssertEqual((NSUInteger)1, [@"ab" distanceFromString:@"a"], @"Simple deletion test failed.");
 
-	STAssertEquals((NSUInteger)1, [@"ab" distanceFromString:@"az"], @"Simple substitution test failed.");
+	XCTAssertEqual((NSUInteger)1, [@"ab" distanceFromString:@"az"], @"Simple substitution test failed.");
 
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
-	STAssertEquals((NSUInteger)1, [@"ab" distanceFromString:@"ba"], @"Simple transposition test failed.");
+	XCTAssertEqual((NSUInteger)1, [@"ab" distanceFromString:@"ba"], @"Simple transposition test failed.");
 #endif
 }
 
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
 - (void)test_restricted {
-	STAssertEquals((NSUInteger)3, [@"CA" distanceFromString:@"ABC"], @"Restricted test failed.");
+	XCTAssertEqual((NSUInteger)3, [@"CA" distanceFromString:@"ABC"], @"Restricted test failed.");
 }
 #endif
 
 - (void)test_case_insensitive {
 	levensteinDistance = [@"a" distanceFromString:@"A" 
 										  options:JXLDCaseInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Case insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Case insensitive test failed.");
 }
 
 - (void)test_literal {
@@ -94,11 +94,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [nWithTilde distanceFromString:nWithTildeDecomposed 
 												options:0];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Non-literal test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Non-literal test failed.");
 	
 	levensteinDistance = [nWithTilde distanceFromString:nWithTildeDecomposed 
 												options:JXLDLiteralComparison];
-	STAssertEquals((NSUInteger)2, levensteinDistance, @"Literal test failed.");
+	XCTAssertEqual((NSUInteger)2, levensteinDistance, @"Literal test failed.");
 }
 
 - (void)test_whitespace_insensitive {
@@ -107,11 +107,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
 												options:0];
-	STAssertEquals((NSUInteger)4, levensteinDistance, @"Whitespace sensitive test failed.");
+	XCTAssertEqual((NSUInteger)4, levensteinDistance, @"Whitespace sensitive test failed.");
 	
 	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
 												options:JXLDWhitespaceInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Whitespace insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Whitespace insensitive test failed.");
 }
 
 - (void)test_whitespace_trimming {
@@ -120,11 +120,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
 												options:0];
-	STAssertEquals((NSUInteger)4, levensteinDistance, @"Whitespace trimming diabled test failed.");
+	XCTAssertEqual((NSUInteger)4, levensteinDistance, @"Whitespace trimming diabled test failed.");
 	
 	levensteinDistance = [textWithWhitespace distanceFromString:textWithoutWhitespace 
 												options:JXLDWhitespaceTrimmingComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Whitespace trimming enabled test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Whitespace trimming enabled test failed.");
 }
 
 - (void)test_diacritics {
@@ -133,11 +133,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithDiacritics distanceFromString:textWithoutDiacritics 
 														options:0];
-	STAssertEquals((NSUInteger)5, levensteinDistance, @"Diacritics sensitive test failed.");
+	XCTAssertEqual((NSUInteger)5, levensteinDistance, @"Diacritics sensitive test failed.");
 	
 	levensteinDistance = [textWithDiacritics distanceFromString:textWithoutDiacritics 
 														options:JXLDDiacriticInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Diacritics insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Diacritics insensitive test failed.");
 }
 
 - (void)test_width {
@@ -146,11 +146,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [normalA distanceFromString:wideA 
 														options:0];
-	STAssertEquals((NSUInteger)1, levensteinDistance, @"Width sensitive test failed.");
+	XCTAssertEqual((NSUInteger)1, levensteinDistance, @"Width sensitive test failed.");
 	
 	levensteinDistance = [normalA distanceFromString:wideA 
 														options:JXLDWidthInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Width insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Width insensitive test failed.");
 }
 
 - (void)test_delimiters {
@@ -159,11 +159,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:0];
-	STAssertEquals((NSUInteger)2, levensteinDistance, @"Delimiters sensitive test failed.");
+	XCTAssertEqual((NSUInteger)2, levensteinDistance, @"Delimiters sensitive test failed.");
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:JXLDDelimiterInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
 }
 
 - (void)test_delimiters_whitespace_trimming {
@@ -172,11 +172,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:0];
-	STAssertEquals((NSUInteger)6, levensteinDistance, @"Delimiters sensitive test failed.");
+	XCTAssertEqual((NSUInteger)6, levensteinDistance, @"Delimiters sensitive test failed.");
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:JXLDDelimiterInsensitiveComparison | JXLDWhitespaceTrimmingComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
 }
 
 - (void)test_delimiters_whitespace_insensitive {
@@ -185,11 +185,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:0];
-	STAssertEquals((NSUInteger)6, levensteinDistance, @"Delimiters sensitive test failed.");
+	XCTAssertEqual((NSUInteger)6, levensteinDistance, @"Delimiters sensitive test failed.");
 	
 	levensteinDistance = [textWithDelimiters distanceFromString:textWithoutDelimiters 
 														options:JXLDDelimiterInsensitiveComparison | JXLDWhitespaceInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Delimiters insensitive test failed.");
 }
 
 - (void)test_quote_types {
@@ -198,11 +198,11 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [textWithSmartQuotes distanceFromString:textWithStraightQuotes 
 														options:0];
-	STAssertEquals((NSUInteger)3, levensteinDistance, @"Quote type sensitive test failed.");
+	XCTAssertEqual((NSUInteger)3, levensteinDistance, @"Quote type sensitive test failed.");
 	
 	levensteinDistance = [textWithSmartQuotes distanceFromString:textWithStraightQuotes 
 														options:JXLDQuoteTypeInsensitiveComparison];
-	STAssertEquals((NSUInteger)0, levensteinDistance, @"Quote type insensitive test failed.");
+	XCTAssertEqual((NSUInteger)0, levensteinDistance, @"Quote type insensitive test failed.");
 }
 
 - (void)test_real_world {
@@ -211,7 +211,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [string1 distanceFromString:string2 
 											 options:0];
-	STAssertEquals((NSUInteger)3, levensteinDistance, @"Real world test #1 failed.");
+	XCTAssertEqual((NSUInteger)3, levensteinDistance, @"Real world test #1 failed.");
 	
 	
 	string1 = @"sit-in";
@@ -219,7 +219,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 	
 	levensteinDistance = [string1 distanceFromString:string2 
 											 options:0];
-	STAssertEquals((NSUInteger)2, levensteinDistance, @"Real world test #4 failed.");
+	XCTAssertEqual((NSUInteger)2, levensteinDistance, @"Real world test #4 failed.");
 	
 }
 
@@ -236,8 +236,6 @@ NSString *DamerauLevenshteinTestsLongString2;
 						[NSArray arrayWithObjects:@"français", @"franæais", [NSNumber numberWithUnsignedInteger:1], nil], 
 						[NSArray arrayWithObjects:@"私の名前は白です", @"ぼくの名前は白です", [NSNumber numberWithUnsignedInteger:2], nil], nil];
 
-	NSString *testFailedMessage;
-
 	NSString *string1;
 	NSString *string2;
 	NSUInteger expectedDistance;
@@ -248,49 +246,47 @@ NSString *DamerauLevenshteinTestsLongString2;
 		string2 = [entry objectAtIndex:1];
 		expectedDistance = [[entry objectAtIndex:2] unsignedIntegerValue];
 		
-		testFailedMessage = [NSString stringWithFormat:@"Unicode test #%lu failed.", (unsigned long)entryIndex+1];
-		
 		levensteinDistance = [string1 distanceFromString:string2 
 												 options:0];
-		STAssertEquals(expectedDistance, levensteinDistance, testFailedMessage);
+		XCTAssertEqual(expectedDistance, levensteinDistance, @"Unicode test #%lu failed.", (unsigned long)entryIndex+1);
 	}
 	
 }
 
 - (void)test_normalized {
-	STAssertEqualsWithAccuracy(0.0f, [@"123456789" normalizedDistanceFromString:@"123456789"], 0.001f, @"Normalized equality test failed.");
+	XCTAssertEqualWithAccuracy(0.0f, [@"123456789" normalizedDistanceFromString:@"123456789"], 0.001f, @"Normalized equality test failed.");
 
-	STAssertEqualsWithAccuracy(0.5f, [@"12345" normalizedDistanceFromString:@"1234567890"], 0.001f, @"Normalized partial similarity test failed.");
+	XCTAssertEqualWithAccuracy(0.5f, [@"12345" normalizedDistanceFromString:@"1234567890"], 0.001f, @"Normalized partial similarity test failed.");
 	
-	STAssertEqualsWithAccuracy(1.0f, [@"ABCDE" normalizedDistanceFromString:@"123456789"], 0.001f, @"Normalized no similarity test failed.");
+	XCTAssertEqualWithAccuracy(1.0f, [@"ABCDE" normalizedDistanceFromString:@"123456789"], 0.001f, @"Normalized no similarity test failed.");
 
 #ifndef DISABLE_DAMERAU_TRANSPOSITION
-	STAssertEqualsWithAccuracy(0.5f, [@"2143658709" normalizedDistanceFromString:@"1234567890"], 0.001f, @"Normalized transposition test failed.");
+	XCTAssertEqualWithAccuracy(0.5f, [@"2143658709" normalizedDistanceFromString:@"1234567890"], 0.001f, @"Normalized transposition test failed.");
 #endif
 }
 
 - (void)test_hasSimilarity {
-	STAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:1.0f], @"Has Similarity equality test #1 failed.");
-	STAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.5f], @"Has Similarity equality test #2 failed.");
-	STAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity equality test #3 failed.");
+	XCTAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:1.0f], @"Has Similarity equality test #1 failed.");
+	XCTAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.5f], @"Has Similarity equality test #2 failed.");
+	XCTAssertTrue([@"123456789" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity equality test #3 failed.");
 
-	STAssertFalse([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:1.0f], @"Has Similarity partial similarity test #1 failed.");
-	STAssertTrue([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:0.5f], @"Has Similarity partial similarity test #2 failed.");
-	STAssertTrue([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:0.0f], @"Has Similarity partial similarity test #3 failed.");
+	XCTAssertFalse([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:1.0f], @"Has Similarity partial similarity test #1 failed.");
+	XCTAssertTrue([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:0.5f], @"Has Similarity partial similarity test #2 failed.");
+	XCTAssertTrue([@"12345" hasSimilarityToString:@"1234567890" options:0 minimumSimilarity:0.0f], @"Has Similarity partial similarity test #3 failed.");
 	
-	STAssertFalse([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:1.0f], @"Has Similarity no similarity test #1 failed.");
-	STAssertFalse([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.5f], @"Has Similarity no similarity test #2 failed.");
-	STAssertTrue([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity no similarity test #3 failed.");
+	XCTAssertFalse([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:1.0f], @"Has Similarity no similarity test #1 failed.");
+	XCTAssertFalse([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.5f], @"Has Similarity no similarity test #2 failed.");
+	XCTAssertTrue([@"ABCDE" hasSimilarityToString:@"123456789" options:0 minimumSimilarity:0.0f], @"Has Similarity no similarity test #3 failed.");
 }
 
 - (void)test_performance {
 	levensteinDistance = [DamerauLevenshteinTestsLongString1 distanceFromString:DamerauLevenshteinTestsLongString2];
-	STAssertEquals((NSUInteger)127*LONG_STRING_EXPANSION_FACTOR, levensteinDistance, @"Perfomance test failed.");
+	XCTAssertEqual((NSUInteger)127*LONG_STRING_EXPANSION_FACTOR, levensteinDistance, @"Perfomance test failed.");
 }
 
 - (void)test_semantic_similarity_performance {
 	float semanticSimilarity = [DamerauLevenshteinTestsLongString1 semanticSimilarityToString:DamerauLevenshteinTestsLongString2];
-	STAssertTrue((semanticSimilarity < 1.0f), @"Semantic Similarity Perfomance test failed.");
+	XCTAssertTrue((semanticSimilarity < 1.0f), @"Semantic Similarity Perfomance test failed.");
 }
 
 - (void)test_jxst_CFStringPrepareTokenRangesArray {
@@ -299,7 +295,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 		CFRange testStringRange = CFRangeMake(0, CFStringGetLength(testString));
 		CFRange *ranges;
 		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWord, &ranges, NULL);
-		STAssertEquals(count, (size_t)(175 * LONG_STRING_EXPANSION_FACTOR), @"jxst_CFStringPrepareTokenRangesArray test #1 failed.");
+		XCTAssertEqual(count, (size_t)(175 * LONG_STRING_EXPANSION_FACTOR), @"jxst_CFStringPrepareTokenRangesArray test #1 failed.");
 	}
 	
 	{
@@ -308,7 +304,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 		CFRange *ranges;
 		CFStringTokenizerTokenType *types;
 		size_t count = jxst_CFStringPrepareTokenRangesArray(testString, testStringRange, kCFStringTokenizerUnitWordBoundary, &ranges, &types);
-		STAssertEquals(count, (size_t)7, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
+		XCTAssertEqual(count, (size_t)7, @"jxst_CFStringPrepareTokenRangesArray test #2 failed.");
 		
 		CFStringTokenizerTokenType normal = (kCFStringTokenizerTokenNormal);
 		CFStringTokenizerTokenType nonLetter = (kCFStringTokenizerTokenNormal | kCFStringTokenizerTokenHasNonLettersMask);
@@ -316,13 +312,13 @@ NSString *DamerauLevenshteinTestsLongString2;
 		CFStringTokenizerTokenType normalGap = (kCFStringTokenizerTokenNormal | jxst_kCFStringTokenizerTokenIsGap);
 		
 		if (count == 7) {
-			STAssertEquals(types[0], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.1 failed.");
-			STAssertEquals(types[1], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
-			STAssertEquals(types[2], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.3 failed.");
-			STAssertEquals(types[3], nonLetter,   @"jxst_CFStringPrepareTokenRangesArray test #2.4 failed.");
-			STAssertEquals(types[4], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.5 failed.");
-			STAssertEquals(types[5], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.6 failed.");
-			STAssertEquals(types[6], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.7 failed.");
+			XCTAssertEqual(types[0], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.1 failed.");
+			XCTAssertEqual(types[1], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
+			XCTAssertEqual(types[2], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.3 failed.");
+			XCTAssertEqual(types[3], nonLetter,   @"jxst_CFStringPrepareTokenRangesArray test #2.4 failed.");
+			XCTAssertEqual(types[4], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.5 failed.");
+			XCTAssertEqual(types[5], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.6 failed.");
+			XCTAssertEqual(types[6], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.7 failed.");
 		}
 		
 #if 0
