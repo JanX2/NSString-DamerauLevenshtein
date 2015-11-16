@@ -149,7 +149,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
 {
-	CFDictionarySetValue(_children, (void *)currentChar, newNode);
+	CFDictionarySetValue(_children, (void *)(intptr_t)currentChar, newNode);
 	_cacheIsFresh = NO;
 }
 
@@ -159,7 +159,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	JXTrieNode *thisNode = nil;
 	for (CFIndex i = 0; i < newWord_length; i++) {
 		currentChar = newWord_chars[i];
-		thisNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)currentChar);
+		thisNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)(intptr_t)currentChar);
 		if (thisNode == nil) {
 			JXTrieNode *newNode = [[JXTrieNode new] autorelease];
 			[node insertNode:newNode forKey:currentChar];
@@ -280,7 +280,7 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 		// recursively search each branch of the trie
 		for (CFIndex i = 0; i < keys_count; i++) {
 			this_letter = _children_keys[i];
-			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)this_letter);
+			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)(intptr_t)this_letter);
 			thisDescription = JXDescriptionForObject(currentNode, nil, level+2);
 			[nodeDescription appendFormat:@"%1$@%4$C = {\n%2$@%1$@}%3$@\n", 
 			 indentation2, 
