@@ -150,7 +150,7 @@
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
 				3D7C734D12E54A8F002D2014 /* Shared */,
-				3D3E62A312D0B86500B94EC9 /* Classes */,
+				3D3E62A312D0B86500B94EC9 /* Categories */,
 				3D6A188412E22FF1009E3F9B /* JXTrie */,
 				3D3E639C12D1016700B94EC9 /* Tests */,
 				1B8615C314CFDC540054C0BD /* iOS Tests */,
@@ -238,13 +238,13 @@
 			path = Configs;
 			sourceTree = "<group>";
 		};
-		3D3E62A312D0B86500B94EC9 /* Classes */ = {
+		3D3E62A312D0B86500B94EC9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */,
 				3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */,
 			);
-			name = Classes;
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		3D3E639C12D1016700B94EC9 /* Tests */ = {
