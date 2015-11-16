@@ -246,7 +246,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 		string2 = [entry objectAtIndex:1];
 		expectedDistance = [[entry objectAtIndex:2] unsignedIntegerValue];
 		
-		levensteinDistance = [string1 distanceFromString:string2 
+		levensteinDistance = [string1 distanceFromString:string2
 												 options:0];
 		XCTAssertEqual(expectedDistance, levensteinDistance, @"Unicode test #%lu failed.", (unsigned long)entryIndex+1);
 	}
