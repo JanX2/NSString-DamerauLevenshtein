@@ -23,9 +23,6 @@
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
 		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
-		3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
-		3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
-		3D6A18FC12E25B8D009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
 		3D6A1A1F12E282FB009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
 		3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
 		3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
@@ -473,9 +470,6 @@
 			files = (
 				3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
 				3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */,
-				3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */,
-				3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */,
-				3D6A18FC12E25B8D009E3F9B /* JXTrieResult.m in Sources */,
 				3D7C736512E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */,
 				3DD68F9D155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */,
 			);
