@@ -21,18 +21,18 @@
 
 @synthesize rootNode;
 
-
-void searchRecursive(JXTrieNode *node, 
-					 UniChar prevLetter, UniChar thisLetter, 
-					 UniChar *word_chars, CFIndex columns, 
-					 CFIndex *penultimateRow, CFIndex *previousRow, 
-					 UniChar *result_chars, CFIndex row_index, 
-					 NSMutableArray *results, 
+void searchRecursive(JXTrieNode *node,
+					 UTF32Char prevLetter, UTF32Char thisLetter,
+					 UTF32Char *word_chars, CFIndex columns,
+					 CFIndex *penultimateRow, CFIndex *previousRow,
+					 UTF32Char *result_chars, CFIndex row_index,
+					 NSMutableArray *results,
 					 CFIndex maxCost);
 
 NSMutableArray * searchCore(JXTrieNode *rootNode, 
-							const UniChar *string_chars, CFIndex string_length, 
+							const UTF32Char *string_chars, CFIndex string_length,
 							NSUInteger maxCost);
+
 + (instancetype)trie;
 {
 	return [[JXTrie alloc] initWithOptions:0];
@@ -138,11 +138,6 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	
 	NSUInteger wordListStringLength = wordListString.length;
 	
-	const UniChar *list_chars;
-	UniChar *list_buffer = NULL;
-	
-	jxld_CFStringPrepareUniCharBuffer((__bridge CFStringRef)wordListString, &list_chars, &list_buffer, CFRangeMake(0, (CFIndex)wordListStringLength));
-	
 	NSRange fullRange = NSMakeRange(0, wordListStringLength);
 	__block NSUInteger blockNodeCount = 0;
 	__block NSUInteger blockWordCount = 0;
@@ -152,18 +147,14 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 									usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
 										//if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
 										// substringRange does NOT include the line termination character while enclosingRange does!
-										blockNodeCount += [rootNode insertWordWithUniChars:&(list_chars[substringRange.location]) 
-																					length:substringRange.length];
+										blockNodeCount += [rootNode insertWordFromString:wordListString
+																			withSubRange:substringRange];
 										blockWordCount += 1;
 										//}
 									}];
 	
 	nodeCount += blockNodeCount;
 	wordCount += blockWordCount;
-	
-	if (list_buffer != NULL) {
-		free(list_buffer);
-	}
 	
     return self;
 }
@@ -205,27 +196,39 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (void)insertWord:(NSString *)newWord;
 {
-	nodeCount += [self.rootNode insertWord:newWord];
+	NSRange fullRange = NSMakeRange(0, newWord.length);
+	[self insertWordFromString:newWord
+				  withSubRange:fullRange];
+}
+
+- (void)insertWordFromString:(NSString *)newWord
+				withSubRange:(NSRange)subRange;
+{
+	nodeCount += [self.rootNode insertWordFromString:newWord
+										withSubRange:subRange];
 	wordCount += 1;
 	//NSLog(@"\n%@", [self description]);
 }
 
+/*
 - (void)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 {
 	nodeCount += [self.rootNode insertWordWithUniChars:chars length:length];
 	wordCount += 1;
 	//NSLog(@"\n%@", [self description]);
 }
+*/
 
-// This recursive helper is used by the search function above. It assumes that
+// This recursive helper is used by the search function below. It assumes that
 // the previousRow has been filled in already.
 void searchRecursive(JXTrieNode *node, 
-					 UniChar prevLetter, UniChar thisLetter, 
-					 UniChar *word_chars, CFIndex columns, 
+					 UTF32Char prevLetter, UTF32Char thisLetter,
+					 UTF32Char *word_chars, CFIndex columns,
 					 CFIndex *penultimateRow, CFIndex *previousRow, 
-					 UniChar *result_chars, CFIndex row_index, 
+					 UTF32Char *result_chars, CFIndex row_index,
 					 NSMutableArray *results, 
 					 CFIndex maxCost) {
+	assert(columns > 0);
 	
 	result_chars[row_index] = thisLetter;
 
@@ -272,9 +275,18 @@ void searchRecursive(JXTrieNode *node,
 	// If the last entry in the row indicates the optimal cost is less than the
 	// maximum cost, and there is a word in this trie node, then add it.
 	if (currentRow[currentRowLastIndex] <= maxCost && node.hasWord) {
-		CFStringRef nodeWord = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, result_chars, row_index+1, kCFAllocatorNull);
+		const CFStringEncoding encoding = (CFByteOrderLittleEndian == CFByteOrderGetCurrent()) ?
+		kCFStringEncodingUTF32LE : kCFStringEncodingUTF32BE;
+		
+		CFStringRef nodeWord = CFStringCreateWithBytes(kCFAllocatorDefault,
+													   (const UInt8 *)result_chars,
+													   ((row_index + 1) * sizeof(UTF32Char)),
+													   encoding,
+													   false);
+
 		[results addObject:[JXTrieResult resultWithWord:(__bridge NSString *)nodeWord
 											andDistance:currentRow[currentRowLastIndex]]];
+		
 		CFRelease(nodeWord);
 	}
 	
@@ -286,9 +298,9 @@ void searchRecursive(JXTrieNode *node,
 	// If any entries in the row are less than the maximum cost, then 
 	// recursively search each branch of the trie
 	if (currentRowMinCost <= maxCost) {
-		UniChar *keys;
+		UTF32Char *keys;
 		CFIndex keys_count = [node children_keys:&keys];
-		UniChar nextLetter;
+		UTF32Char nextLetter;
 
 		for (CFIndex i = 0; i < keys_count; i++) {
 			nextLetter = keys[i];
@@ -307,7 +319,7 @@ void searchRecursive(JXTrieNode *node,
 }
 
 NSMutableArray * searchCore(JXTrieNode *rootNode, 
-							const UniChar *string_chars, CFIndex string_length, 
+							const UTF32Char *string_chars, CFIndex string_length,
 							NSUInteger maxCost) {
 	// build first row
     CFIndex currentRowSize = string_length + 1;
@@ -320,18 +332,18 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	
 	CFMutableDictionaryRef rootNodeChildren = rootNode.children;
 	
-	UniChar *result_chars = malloc(string_length+maxCost * sizeof(UniChar));
+	UTF32Char *result_chars = malloc((string_length + maxCost) * sizeof(UTF32Char));
 	
-	UniChar *keys;
+	UTF32Char *keys;
 	CFIndex keys_count = [rootNode children_keys:&keys];
-	UniChar nextLetter;
+	UTF32Char nextLetter;
 	// recursively search each branch of the trie
 	for (CFIndex i = 0; i < keys_count; i++) {
 		nextLetter = keys[i];
 		JXTrieNode *nextNode = (JXTrieNode *)CFDictionaryGetValue(rootNodeChildren, (void *)(intptr_t)nextLetter);
 		searchRecursive(nextNode, 
 						0, nextLetter, 
-						(UniChar *)string_chars, string_length+1, 
+						(UTF32Char *)string_chars, string_length+1,
 						NULL, currentRow, 
 						result_chars, 0, 
 						results, 
@@ -357,33 +369,25 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	}
 	
 	CFIndex string_length = CFStringGetLength(string);
-	const UniChar *string_chars;
-	UniChar *string_buffer = NULL;
-
-	jxld_CFStringPrepareUniCharBuffer(string, &string_chars, &string_buffer, CFRangeMake(0, string_length));
+	CFIndex string_buffer_size = CFStringGetMaximumSizeForEncoding(string_length, kCFStringEncodingUTF32) * sizeof(UInt8);
+	UTF32Char *string_buffer = malloc(string_buffer_size);
 	
-    NSMutableArray *results = searchCore(self.rootNode, string_chars, string_length, maxCost);
+	CFRange fullRange = CFRangeMake(0, string_length);
+	CFIndex bytes_count;
+	CFIndex string_converted = CFStringGetBytes(string, fullRange, kCFStringEncodingUTF32, 0, false, (UInt8 *)string_buffer, string_buffer_size, &bytes_count);
+	CFIndex string_buffer_count = bytes_count/sizeof(UTF32Char);
+	
+	bool success = (string_converted == string_length);
+	
+	NSMutableArray *results = nil;
+	if (success) {
+		results = searchCore(self.rootNode, string_buffer, string_buffer_count, maxCost);
+	}
 	
 	if (string_buffer != NULL)  free(string_buffer);
 	
 	CFRelease(string);
 
-	return results;
-}
-
-- (NSArray *)searchForUniChar:(const UniChar *)chars length:(CFIndex)length maximumDistance:(NSUInteger)maxCost;
-{
-	NSArray *results;
-	
-	if (optionFlags) {
-		CFStringRef string = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, chars, length, kCFAllocatorNull);
-		results = [self search:(__bridge NSString *)string maximumDistance:maxCost];
-		CFRelease(string);
-	}
-	else {
-		results = searchCore(self.rootNode, chars, length, maxCost);
-	}
-	
 	return results;
 }
 

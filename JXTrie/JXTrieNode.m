@@ -10,6 +10,8 @@
 
 #import "JXLDStringDistanceUtilities.h"
 
+#import "NSString+JXCodePointEnumeration.h"
+
 NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel);
 
 NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
@@ -55,7 +57,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	if (self) {
 		//self.word = nil;
 		_wordCount = 0;
-		_children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UniChar, values:JXTrieNode objects
+		_children = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, &kCFTypeDictionaryValueCallBacks); // keys: raw UTF32Char, values:JXTrieNode objects
 		_cacheIsFresh = NO;
 		_children_keys = NULL;
 	}
@@ -118,9 +120,9 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 		
 		CFDictionaryGetKeysAndValues(_children, (const void **)raw_children_keys, NULL);
 		
-		_children_keys = malloc(_children_keys_count * sizeof(UniChar));
+		_children_keys = malloc(_children_keys_count * sizeof(UTF32Char));
 		for (CFIndex i = 0; i < _children_keys_count; i++) {
-			_children_keys[i] = (UniChar)raw_children_keys[i];
+			_children_keys[i] = (UTF32Char)raw_children_keys[i];
 		}
 		
 		free(raw_children_keys);
@@ -138,73 +140,71 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	return _children_keys_count;
 }
 
-- (CFIndex)children_keys:(UniChar **)keys;
+- (CFIndex)children_keys:(UTF32Char **)keys;
 {
 	if (!_cacheIsFresh)  [self refreshChildrenCache];
 	*keys = _children_keys;
 	return _children_keys_count;
 }
 
-- (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
+- (void)insertNode:(JXTrieNode *)newNode forKey:(UTF32Char)currentChar;
 {
 	CFDictionarySetValue(_children, (void *)(intptr_t)currentChar, (__bridge const void *)(newNode));
 	_cacheIsFresh = NO;
 }
 
-NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CFIndex newWord_length, JXTrieNode *node) {
-	if (newWord_chars == NULL) {
+NS_INLINE NSUInteger insertWordWithSubRangeInto(NSString *newWord, NSRange subRange, JXTrieNode *node) {
+	if (newWord == nil) {
 		return NSNotFound;
 	}
 	
-	NSUInteger newNodesCount = 0;
-	UniChar currentChar;
-	JXTrieNode *thisNode = nil;
-	for (CFIndex i = 0; i < newWord_length; i++) {
-		currentChar = newWord_chars[i];
-		thisNode = (JXTrieNode *)CFDictionaryGetValue(node.children, (void *)(intptr_t)currentChar);
-		if (thisNode == nil) {
-			JXTrieNode *newNode = [JXTrieNode new];
-			[node insertNode:newNode forKey:currentChar];
-			newNodesCount += 1;
-			node = newNode;
-		}
-		else {
-			node = thisNode;
-		}
-	}
+	__block NSUInteger newNodesCount = 0;
+	__block JXTrieNode *currentNode = node;
+	[newWord enumerateCodePointsInRange:subRange
+							  optionsJX:JXCodePointEnumerationOptionsRangeNotRequired
+								   usingBlock:
+	 ^(UTF32Char codePoint, NSRange range, BOOL *stop) {
+		 JXTrieNode *thisNode = (JXTrieNode *)CFDictionaryGetValue(currentNode.children, (void *)(intptr_t)codePoint);
+		 if (thisNode == nil) {
+			 JXTrieNode *newNode = [JXTrieNode new];
+			 [currentNode insertNode:newNode forKey:codePoint];
+			 newNodesCount += 1;
+			 currentNode = newNode;
+		 }
+		 else {
+			 currentNode = thisNode;
+		 }
+	 }];
 	
-	[node incrementWordCount];
+	[currentNode incrementWordCount];
 
 	return newNodesCount;
-#undef node
 }
 
 - (NSUInteger)insertWord:(NSString *)newWord;
 {
-	CFIndex newWord_length = CFStringGetLength((CFStringRef)newWord);
-	
-	// Prepare fast access to chars.
-	const UniChar *newWord_chars;
-	UniChar *newWord_buffer = NULL;
-	
-	jxld_CFStringPrepareUniCharBuffer((__bridge CFStringRef)newWord, &newWord_chars, &newWord_buffer, CFRangeMake(0, newWord_length));
-	
-	NSUInteger newNodesCount = insertWordFromUniCharsInto(newWord_chars, newWord_length, self);
-	
-	if (newWord_buffer != NULL) {
-		free(newWord_buffer);
-	}
+	NSRange fullRange = NSMakeRange(0, newWord.length);
+	NSUInteger newNodesCount = insertWordWithSubRangeInto(newWord, fullRange, self);
 	
 	return newNodesCount;
 }
 
+- (NSUInteger)insertWordFromString:(NSString *)newWord
+					  withSubRange:(NSRange)subRange;
+{
+	NSUInteger newNodesCount = insertWordWithSubRangeInto(newWord, subRange, self);
+	
+	return newNodesCount;
+}
+
+/*
 - (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 {
 	NSUInteger newNodesCount = insertWordFromUniCharsInto(chars, length, self);
 	
 	return newNodesCount;
 }
-
+*/
 
 - (BOOL)hasWord;
 {
@@ -216,6 +216,20 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	_wordCount++;
 }
 
+static CFStringRef jx_CFStringCreateWithCodePoint(UTF32Char codePoint)
+{
+	UniChar surrogates[2];
+	Boolean isSurrogatePair = CFStringGetSurrogatePairForLongCharacter(codePoint, (UniChar *)&surrogates);
+	const CFIndex validSurrogatesSize = (isSurrogatePair) ? sizeof(surrogates) : sizeof(UniChar);
+	
+	CFStringRef string = CFStringCreateWithBytes(kCFAllocatorDefault,
+												 (const UInt8 *)&surrogates,
+												 validSurrogatesSize,
+												 kCFStringEncodingUTF16,
+												 false);
+	
+	return string;
+}
 
 - (NSString *)description
 {
@@ -275,23 +289,29 @@ NS_INLINE NSUInteger insertWordFromUniCharsInto(const UniChar *newWord_chars, CF
 	
 	CFIndex keys_count = self.children_keys_count;
 	if (describeChildren && keys_count > 0) {
-		[nodeDescription appendFormat:@"%@%@ = (\n", indentation, @"children"];
-		
-		UniChar this_letter;
+		[nodeDescription appendString:indentation];
+		[nodeDescription appendString:@"children"];
+		[nodeDescription appendString:@" = (\n"];
+
+		UTF32Char this_codePoint;
 		CFIndex last_index = _children_keys_count-1;
 		// recursively search each branch of the trie
 		for (CFIndex i = 0; i < keys_count; i++) {
-			this_letter = _children_keys[i];
-			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)(intptr_t)this_letter);
+			this_codePoint = _children_keys[i];
+			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)(intptr_t)this_codePoint);
 			thisDescription = JXDescriptionForObject(currentNode, nil, level+2);
-			[nodeDescription appendFormat:@"%1$@%4$C = {\n%2$@%1$@}%3$@\n", 
-			 indentation2, 
-			 thisDescription,
-			 (i == last_index) ? @"" : @",",
-			 this_letter];
+			[nodeDescription appendString:indentation2];
+			[nodeDescription appendString:CFBridgingRelease(jx_CFStringCreateWithCodePoint(this_codePoint))];
+			[nodeDescription appendString:@" = {\n"];
+			[nodeDescription appendString:thisDescription];
+			[nodeDescription appendString:indentation2];
+			[nodeDescription appendString:@"}"];
+			[nodeDescription appendString:(i == last_index) ? @"" : @","];
+			[nodeDescription appendString:@"\n"];
 		}
 		
-		[nodeDescription appendFormat:@"%@)\n", indentation];
+		[nodeDescription appendString:indentation];
+		[nodeDescription appendString:@")\n"];
 	}
 
 	return nodeDescription;

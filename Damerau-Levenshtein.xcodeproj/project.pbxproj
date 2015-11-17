@@ -20,6 +20,7 @@
 		1B8615E614CFE0260054C0BD /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
 		3D05EECE14803A2800782B4D /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
 		3D05EECF14803A2800782B4D /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
+		3D3576DC1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3576DB1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.m */; };
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
 		3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
 		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
@@ -75,6 +76,8 @@
 		3D05EECC14803A2800782B4D /* Lorem1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem1.txt; sourceTree = "<group>"; };
 		3D05EECD14803A2800782B4D /* Lorem2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem2.txt; sourceTree = "<group>"; };
 		3D0A5C2B147FA27B00AD637E /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		3D3576DA1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JXCodePointEnumeration.h"; sourceTree = "<group>"; };
+		3D3576DB1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JXCodePointEnumeration.m"; sourceTree = "<group>"; };
 		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,6 +243,8 @@
 			children = (
 				3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */,
 				3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */,
+				3D3576DA1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.h */,
+				3D3576DB1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */,
 				3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */,
 				3D7C736712E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */,
+				3D3576DC1BFA8CFF0053A934 /* NSString+JXCodePointEnumeration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

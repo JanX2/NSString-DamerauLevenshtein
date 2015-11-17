@@ -10,12 +10,11 @@
 
 
 @interface JXTrieNode : NSObject <NSCoding> {
-	//NSString *word;
 	NSUInteger _wordCount;
 	CFMutableDictionaryRef _children;
 	
 	BOOL _cacheIsFresh;
-	UniChar *_children_keys;
+	UTF32Char *_children_keys;
 	CFIndex _children_keys_count;
 }
 
@@ -25,11 +24,13 @@
 
 @property (nonatomic, readonly) CFMutableDictionaryRef children CF_RETURNS_NOT_RETAINED;
 @property (nonatomic, readonly) CFIndex children_keys_count;
-- (CFIndex)children_keys:(UniChar **)keys;
-- (void)insertNode:(JXTrieNode *)newNode forKey:(UniChar)currentChar;
+- (CFIndex)children_keys:(UTF32Char **)keys;
+- (void)insertNode:(JXTrieNode *)newNode forKey:(UTF32Char)currentChar;
 
 - (NSUInteger)insertWord:(NSString *)newWord;
-- (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
+- (NSUInteger)insertWordFromString:(NSString *)newWord
+					  withSubRange:(NSRange)subRange;
+//- (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 
 - (void)incrementWordCount;
 
