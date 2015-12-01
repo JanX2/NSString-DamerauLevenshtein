@@ -11,11 +11,15 @@
 
 @interface JXTrieResult : NSObject <NSCopying>
 
-@property (nonatomic, copy) NSString *word;
-@property (nonatomic, assign) NSUInteger distance;
+@property (nonatomic, readonly) NSString *word;
+@property (nonatomic, readonly) NSUInteger distance;
+@property (nonatomic, readonly) NSUInteger searchStringLength;
 
-+ (instancetype)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
-- (instancetype)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance NS_DESIGNATED_INITIALIZER;
+@property (nonatomic, readonly) float normalizedDistance;
+@property (nonatomic, readonly) float similarity;
+
++ (instancetype)resultWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength;
+- (instancetype)initWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength NS_DESIGNATED_INITIALIZER;
 
 @end
 

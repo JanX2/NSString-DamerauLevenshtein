@@ -282,9 +282,11 @@ void searchRecursive(JXTrieNode *node,
 													   ((row_index + 1) * sizeof(UTF32Char)),
 													   encoding,
 													   false);
-
+		
+		const NSUInteger searchStringLength = columns - 1;
 		[results addObject:[JXTrieResult resultWithWord:(__bridge NSString *)nodeWord
-											andDistance:currentRow[currentRowLastIndex]]];
+											   distance:currentRow[currentRowLastIndex]
+									 searchStringLength:searchStringLength]];
 		
 		CFRelease(nodeWord);
 	}
