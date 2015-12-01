@@ -27,32 +27,33 @@ void jxld_CFStringRemoveWhitespace(CFMutableStringRef string) {
 }
 
 void jxld_CFStringReplaceDelimitersWithSpace(CFMutableStringRef string) {
-    static CFCharacterSetRef delimitersCharacterSet = nil;
-	if (delimitersCharacterSet == nil) {
-		delimitersCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("_-"));
-	}
+	static CFCharacterSetRef delimitersCharacterSet = nil;
+	static dispatch_once_t predicate;
 	
-	CFStringRef replacement = CFSTR(" "); 
+	dispatch_once(&predicate, ^{
+		delimitersCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("_-"));
+	});
+	
+	CFStringRef replacement = CFSTR(" ");
     jxld_CFStringReplaceCharactersInSet(string, delimitersCharacterSet, replacement);
 }
 
 void jxld_CFStringStraightenQuotes(CFMutableStringRef string) {
 	CFStringRef replacement;
 	
-    static CFCharacterSetRef doubleQuotesCharacterSet = nil;
-	if (doubleQuotesCharacterSet == nil) {
-		doubleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("“”„‟＂〟〞〝❝❞»«❠"));
-	}
+	static CFCharacterSetRef singleQuotesCharacterSet = nil;
+	static CFCharacterSetRef doubleQuotesCharacterSet = nil;
+	static dispatch_once_t predicate;
 	
-	replacement = CFSTR("\""); 
+	dispatch_once(&predicate, ^{
+		singleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("‘’❯❮❛❜›‹‚‛❟"));
+		doubleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("“”„‟＂〟〞〝❝❞»«❠"));
+	});
+	
+	replacement = CFSTR("\"");
     jxld_CFStringReplaceCharactersInSet(string, doubleQuotesCharacterSet, replacement);
 	
-    static CFCharacterSetRef singleQuotesCharacterSet = nil;
-	if (singleQuotesCharacterSet == nil) {
-		singleQuotesCharacterSet = CFCharacterSetCreateWithCharactersInString(kCFAllocatorDefault, CFSTR("‘’❯❮❛❜›‹‚‛❟"));
-	}
-	
-	replacement = CFSTR("\'"); 
+	replacement = CFSTR("\'");
     jxld_CFStringReplaceCharactersInSet(string, singleQuotesCharacterSet, replacement);
 }
 
