@@ -9,10 +9,8 @@
 #import "JXTrieResult.h"
 
 
-@implementation JXTrieResult
 
-@synthesize word;
-@synthesize distance;
+@implementation JXTrieResult
 
 + (instancetype)resultWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
 {
@@ -47,7 +45,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"('%@', %lu)", word, (unsigned long)distance];
+	return [NSString stringWithFormat:@"('%@', %lu)", _word, (unsigned long)_distance];
 }
 
 @end

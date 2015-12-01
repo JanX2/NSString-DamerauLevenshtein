@@ -9,10 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface JXTrieResult : NSObject <NSCopying> {
-	NSString *word;
-	NSUInteger distance;
-}
+@interface JXTrieResult : NSObject <NSCopying>
 
 @property (nonatomic, copy) NSString *word;
 @property (nonatomic, assign) NSUInteger distance;

@@ -14,12 +14,16 @@
 
 @interface JXTrie ()
 @property (nonatomic, strong) JXTrieNode *rootNode;
+@property (nonatomic, readwrite) NSUInteger nodeCount;
 @end
 
 
-@implementation JXTrie
+@implementation JXTrie {
+	NSUInteger _wordCount;
+	
+	JXLDStringDistanceOptions _optionFlags;
+}
 
-@synthesize rootNode;
 
 void searchRecursive(JXTrieNode *node,
 					 UTF32Char prevLetter, UTF32Char thisLetter,
@@ -53,10 +57,10 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	self = [super init];
 	
 	if (self) {
-		rootNode = [JXTrieNode new];
-		nodeCount = 0;
-		wordCount = 0;
-		optionFlags = options;
+		_rootNode = [JXTrieNode new];
+		_nodeCount = 0;
+		_wordCount = 0;
+		_optionFlags = options;
 	}
 	
 	return self;
@@ -83,23 +87,23 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	
 	if (self == nil)  return nil;
 	
-	if (optionFlags) {
+	if (_optionFlags) {
 		CFMutableStringRef string;
 		
 		for (NSString *word in wordList) {
 			string = (CFMutableStringRef)CFBridgingRetain([word mutableCopy]);
-			jxld_CFStringPreprocessWithOptions(string, optionFlags);
+			jxld_CFStringPreprocessWithOptions(string, _optionFlags);
 			
-			nodeCount += [rootNode insertWord:(__bridge NSString *)string];
-			wordCount += 1;
+			_nodeCount += [_rootNode insertWord:(__bridge NSString *)string];
+			_wordCount += 1;
 			
 			CFRelease(string);
 		}
 	}
 	else {
 		for (NSString *word in wordList) {
-			nodeCount += [rootNode insertWord:(NSString *)word];
-			wordCount += 1;
+			_nodeCount += [_rootNode insertWord:(NSString *)word];
+			_wordCount += 1;
 		}
 	}
 	
@@ -128,10 +132,10 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	
 	if (self == nil)  return nil;
 	
-	if (optionFlags) {
+	if (_optionFlags) {
 		CFMutableStringRef preparedWordListString = (CFMutableStringRef)CFBridgingRetain([wordListString mutableCopy]);
 		
-		jxld_CFStringPreprocessWithOptions(preparedWordListString, optionFlags);
+		jxld_CFStringPreprocessWithOptions(preparedWordListString, _optionFlags);
 		
 		wordListString = (__bridge NSString *)preparedWordListString;
 	}
@@ -147,14 +151,14 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 									usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
 										//if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
 										// substringRange does NOT include the line termination character while enclosingRange does!
-										blockNodeCount += [rootNode insertWordFromString:wordListString
-																			withSubRange:substringRange];
+										blockNodeCount += [_rootNode insertWordFromString:wordListString
+																			 withSubRange:substringRange];
 										blockWordCount += 1;
 										//}
 									}];
 	
-	nodeCount += blockNodeCount;
-	wordCount += blockWordCount;
+	_nodeCount += blockNodeCount;
+	_wordCount += blockWordCount;
 	
     return self;
 }
@@ -165,10 +169,10 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	self = [self init];
 	
 	if (self) {
-		self.rootNode = [coder decodeObjectForKey:@"rootNode"];
-		nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
-		wordCount = [coder decodeIntegerForKey:@"wordCount"];
-		optionFlags = [coder decodeIntegerForKey:@"optionFlags"];
+		_rootNode = [coder decodeObjectForKey:@"rootNode"];
+		_nodeCount = [coder decodeIntegerForKey:@"nodeCount"];
+		_wordCount = [coder decodeIntegerForKey:@"wordCount"];
+		_optionFlags = [coder decodeIntegerForKey:@"optionFlags"];
 	}
 	
 	return self;
@@ -176,21 +180,16 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {	
-	[coder encodeObject:rootNode forKey:@"rootNode"];
-	[coder encodeInteger:nodeCount forKey:@"nodeCount"];
-	[coder encodeInteger:wordCount forKey:@"wordCount"];
-	[coder encodeInteger:optionFlags forKey:@"optionFlags"];
+	[coder encodeObject:_rootNode forKey:@"rootNode"];
+	[coder encodeInteger:_nodeCount forKey:@"nodeCount"];
+	[coder encodeInteger:_wordCount forKey:@"wordCount"];
+	[coder encodeInteger:_optionFlags forKey:@"optionFlags"];
 }
 
-
-- (NSUInteger)nodeCount;
-{
-	return nodeCount;
-}
 
 - (NSUInteger)count;
 {
-	return wordCount;
+	return _wordCount;
 }
 
 
@@ -204,16 +203,16 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 - (void)insertWordFromString:(NSString *)newWord
 				withSubRange:(NSRange)subRange;
 {
-	nodeCount += [self.rootNode insertWordFromString:newWord
-										withSubRange:subRange];
-	wordCount += 1;
+	_nodeCount += [_rootNode insertWordFromString:newWord
+									 withSubRange:subRange];
+	_wordCount += 1;
 	//NSLog(@"\n%@", [self description]);
 }
 
 /*
 - (void)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 {
-	nodeCount += [self.rootNode insertWordWithUniChars:chars length:length];
+	_nodeCount += [self.rootNode insertWordWithUniChars:chars length:length];
 	wordCount += 1;
 	//NSLog(@"\n%@", [self description]);
 }
@@ -359,9 +358,9 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 {
 	CFStringRef string;
 	
-	if (optionFlags) {
+	if (_optionFlags) {
 		CFMutableStringRef string_mutable = (CFMutableStringRef)CFBridgingRetain([word mutableCopy]);
-		jxld_CFStringPreprocessWithOptions(string_mutable, optionFlags);
+		jxld_CFStringPreprocessWithOptions(string_mutable, _optionFlags);
 		string = (CFStringRef)string_mutable;
 	}
 	else {
@@ -381,7 +380,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	
 	NSMutableArray *results = nil;
 	if (success) {
-		results = searchCore(self.rootNode, string_buffer, string_buffer_count, maxCost);
+		results = searchCore(_rootNode, string_buffer, string_buffer_count, maxCost);
 	}
 	
 	if (string_buffer != NULL)  free(string_buffer);
@@ -393,7 +392,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 
 - (NSString *)description
 {
-	return rootNode.description;
+	return _rootNode.description;
 }
 
 

@@ -18,13 +18,7 @@
 
 @class JXTrieNode;
 
-@interface JXTrie : NSObject <NSCoding> {
-	JXTrieNode *rootNode;
-	NSUInteger nodeCount;
-	NSUInteger wordCount;
-	
-	JXLDStringDistanceOptions optionFlags;
-}
+@interface JXTrie : NSObject <NSCoding>
 
 @property (nonatomic, readonly) NSUInteger nodeCount;
 @property (nonatomic, readonly) NSUInteger count;
