@@ -80,7 +80,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	if (self) {
 		//self.word = [coder decodeObjectForKey:@"word"];
 		_wordCount = [coder decodeIntegerForKey:@"wordCount"];
-		self.children = (__bridge CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
+		_children = (__bridge CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
 		_cacheIsFresh = NO;
 	}
 	

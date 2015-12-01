@@ -27,8 +27,8 @@
 	self = [super init];
 	
 	if (self) {
-		self.word = aWord;
-		self.distance = aDistance;
+		_word = aWord;
+		_distance = aDistance;
 	}
 	
 	return self;
