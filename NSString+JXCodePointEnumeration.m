@@ -3,8 +3,9 @@
 //  JXNumberStringProcessing
 //
 //  Created by Jan on 07.06.14.
-//  Copyright (c) 2014 Jan Weiß. All rights reserved.
+//  Copyright (c) 2014-2015 Jan Weiß. All rights reserved.
 //
+//  MIT License. See NSString+JXCodePointEnumeration.h for details.
 
 #import "NSString+JXCodePointEnumeration.h"
 

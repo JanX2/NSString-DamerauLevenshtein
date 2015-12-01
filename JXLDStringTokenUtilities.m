@@ -3,7 +3,7 @@
 //  Damerau-Levenshtein
 //
 //  Created by Jan on 04.05.12.
-//  Copyright (c) 2012 geheimwerk.de. All rights reserved.
+//  Copyright (c) 2012-2015 geheimwerk.de. All rights reserved.
 //
 
 #import "JXLDStringTokenUtilities.h"

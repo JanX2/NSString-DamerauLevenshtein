@@ -3,7 +3,7 @@
 //  Damerau-Levenshtein
 //
 //  Created by Jan on 15.01.11.
-//  Copyright 2011-2012 geheimwerk.de. All rights reserved.
+//  Copyright 2011-2015 geheimwerk.de. All rights reserved.
 //
 //  MIT License. 
 //  License information is at the end of this file. 
@@ -52,7 +52,7 @@
  * Author: steve.hanov@gmail.com (Steve Hanov)
  * Author: jan@geheimwerk.de (Jan Weiß)
  *
- * Copyright (c) 2011 geheimwerk.de
+ * Copyright (c) 2011-2015 geheimwerk.de
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
