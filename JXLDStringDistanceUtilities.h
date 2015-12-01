@@ -39,3 +39,5 @@ void jxld_CFStringReplaceDelimitersWithSpace(CFMutableStringRef string);
 void jxld_CFStringStraightenQuotes(CFMutableStringRef string);
 
 void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDistanceOptions options);
+
+float jxld_normalizeDistance(NSUInteger length1, NSUInteger length2, float maxDistance, NSUInteger (^levensteinDistanceBlock)(void));

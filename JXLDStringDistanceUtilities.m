@@ -157,3 +157,24 @@ void jxld_CFStringPreprocessWithOptions(CFMutableStringRef string, JXLDStringDis
 	}
 }
 
+float jxld_normalizeDistance(NSUInteger length1, NSUInteger length2, float maxDistance, NSUInteger (^levensteinDistanceBlock)(void)) {
+	float normalizedDistance = 0.0f;
+	
+	NSUInteger longStringLength = MAX(length1, length2);
+	if (maxDistance <= 1.0f) {
+		NSUInteger shortStringLength = MIN(length1, length2);
+		
+		NSUInteger minPossibleDistance = longStringLength - shortStringLength;
+		float minPossibleNormalizedDistance = (float)minPossibleDistance/longStringLength;
+		if (minPossibleNormalizedDistance >= maxDistance) {
+			return minPossibleNormalizedDistance;
+		}
+	}
+	
+	if (longStringLength > 0) {
+		NSUInteger levensteinDistance = levensteinDistanceBlock();
+		normalizedDistance = (float)levensteinDistance/longStringLength;
+	}
+	
+	return normalizedDistance;
+}

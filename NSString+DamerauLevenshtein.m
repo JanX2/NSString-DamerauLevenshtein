@@ -402,25 +402,12 @@ float semanticStringDistance(CFStringRef string1, CFStringRef string2, JXLDWeigh
 
 - (float)normalizedDistanceFromString:(NSString *)comparisonString options:(JXLDStringDistanceOptions)options maximumDistance:(float)maxDistance;
 {
-	float normalizedDistance = 0.0f;
 	NSUInteger selfLength = self.length;
 	NSUInteger comparisonStringLength = comparisonString.length;
 	
-	NSUInteger longStringLength = MAX(selfLength, comparisonStringLength);
-	if (maxDistance <= 1.0f) {
-		NSUInteger shortStringLength = MIN(selfLength, comparisonStringLength);
-		
-		NSUInteger minPossibleDistance = longStringLength - shortStringLength;
-		float minPossibleNormalizedDistance = (float)minPossibleDistance/longStringLength;
-		if (minPossibleNormalizedDistance >= maxDistance) {
-			return minPossibleNormalizedDistance;
-		}
-	}
-	
-	if (longStringLength > 0) {
-		NSUInteger levensteinDistance = [self distanceFromString:comparisonString options:options];
-		normalizedDistance = (float)levensteinDistance/longStringLength;
-	}
+	float normalizedDistance = jxld_normalizeDistance(selfLength, comparisonStringLength, maxDistance, ^NSUInteger{
+		return [self distanceFromString:comparisonString options:options];
+	});
 	
 	return normalizedDistance;
 }
