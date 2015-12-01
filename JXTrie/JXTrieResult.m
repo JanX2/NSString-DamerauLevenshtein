@@ -25,10 +25,12 @@
 - (instancetype)initWithWord:(NSString *)aWord andDistance:(NSUInteger)aDistance;
 {
 	self = [super init];
+	
 	if (self) {
 		self.word = aWord;
 		self.distance = aDistance;
 	}
+	
 	return self;
 	
 }
