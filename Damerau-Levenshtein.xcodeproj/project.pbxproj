@@ -8,44 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		1B8615AE14CFDC530054C0BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AD14CFDC530054C0BD /* Foundation.framework */; };
-		1B8615BC14CFDC540054C0BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */; };
-		1B8615BF14CFDC540054C0BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AD14CFDC530054C0BD /* Foundation.framework */; };
-		1B8615C214CFDC540054C0BD /* libDamerauLevenshtein.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */; };
-		1B8615C814CFDC540054C0BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B8615C614CFDC540054C0BD /* InfoPlist.strings */; };
 		1B8615D314CFDC940054C0BD /* JXLDStringDistanceUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */; };
 		1B8615D414CFDC990054C0BD /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
 		1B8615D514CFDC9E0054C0BD /* NSString+DamerauLevenshtein.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */; settings = {ATTRIBUTES = (); }; };
 		1B8615D614CFDCA20054C0BD /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
-		1B8615E414CFDED80054C0BD /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
-		1B8615E514CFE0210054C0BD /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
-		1B8615E614CFE0260054C0BD /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
-		3D05EECE14803A2800782B4D /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
-		3D05EECF14803A2800782B4D /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
-		3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
-		3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
-		3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
-		3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
-		3D6A18FC12E25B8D009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
 		3D6A1A1F12E282FB009E3F9B /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
 		3D6A1A2012E282FB009E3F9B /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
 		3D6A1A2112E282FB009E3F9B /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
 		3D6A1A2412E28324009E3F9B /* LevenshteinDistanceSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */; };
-		3D7C736512E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
 		3D7C736612E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
 		3D7C736712E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
 		3DD68F9B155448A30068B4D6 /* JXLDStringTokenUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD68F99155448A30068B4D6 /* JXLDStringTokenUtilities.h */; };
 		3DD68F9C155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD68F9A155448A30068B4D6 /* JXLDStringTokenUtilities.m */; };
-		3DD68F9D155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD68F9A155448A30068B4D6 /* JXLDStringTokenUtilities.m */; };
 		3DD68F9E155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD68F9A155448A30068B4D6 /* JXLDStringTokenUtilities.m */; };
 		3DD68FA2155450BB0068B4D6 /* JXLDWeights.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD68FA0155450BB0068B4D6 /* JXLDWeights.h */; };
 		8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Damerau-Levenshtein.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */; };
+		C53726D41EA1C3740067AFAC /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C53726D31EA1C3740067AFAC /* DamerauLevenshteinTests.m */; };
+		C53726D61EA1C3740067AFAC /* libDamerauLevenshtein.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */; };
+		C53726DC1EA1C4970067AFAC /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
+		C53726DD1EA1C4970067AFAC /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1B8615C014CFDC540054C0BD /* PBXContainerItemProxy */ = {
+		C53726D71EA1C3740067AFAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -72,20 +60,14 @@
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDamerauLevenshtein.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8615AD14CFDC530054C0BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1B8615BA14CFDC540054C0BD /* iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		1B8615C514CFDC540054C0BD /* DamerauLevenshteinTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTests-Info.plist"; sourceTree = "<group>"; };
-		1B8615C714CFDC540054C0BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Damerau-Levenshtein_Prefix.pch"; sourceTree = "<group>"; };
 		3D05EECC14803A2800782B4D /* Lorem1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem1.txt; sourceTree = "<group>"; };
 		3D05EECD14803A2800782B4D /* Lorem2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem2.txt; sourceTree = "<group>"; };
 		3D0A5C2B147FA27B00AD637E /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+DamerauLevenshtein.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+DamerauLevenshtein.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTest-Info.plist"; sourceTree = "<group>"; };
-		3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DamerauLevenshteinTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3D6A188512E22FF1009E3F9B /* JXTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrie.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D6A188612E22FF1009E3F9B /* JXTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrie.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3D6A188712E22FF1009E3F9B /* JXTrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieNode.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -101,6 +83,10 @@
 		3DD68F9A155448A30068B4D6 /* JXLDStringTokenUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXLDStringTokenUtilities.m; sourceTree = "<group>"; };
 		3DD68FA0155450BB0068B4D6 /* JXLDWeights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXLDWeights.h; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C53726CB1EA1C32C0067AFAC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C53726D11EA1C3740067AFAC /* DamerauLevenshteinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DamerauLevenshteinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C53726D31EA1C3740067AFAC /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; };
+		C53726D51EA1C3740067AFAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; lineEnding = 0; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,23 +96,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B8615AE14CFDC530054C0BD /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B8615B614CFDC540054C0BD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B8615BC14CFDC540054C0BD /* SenTestingKit.framework in Frameworks */,
-				1B8615BF14CFDC540054C0BD /* Foundation.framework in Frameworks */,
-				1B8615C214CFDC540054C0BD /* libDamerauLevenshtein.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D3E639312D1011700B94EC9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +114,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C53726CE1EA1C3740067AFAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C53726D61EA1C3740067AFAC /* libDamerauLevenshtein.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -155,12 +132,11 @@
 				3D7C734D12E54A8F002D2014 /* Shared */,
 				3D3E62A312D0B86500B94EC9 /* Classes */,
 				3D6A188412E22FF1009E3F9B /* JXTrie */,
-				3D3E639C12D1016700B94EC9 /* Tests */,
-				1B8615C314CFDC540054C0BD /* iOS Tests */,
 				3D05EECB14803A2800782B4D /* Test Data */,
 				C6859EA2029092E104C91782 /* Documentation */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				3D0A5C2A147FA27B00AD637E /* Configs */,
+				C53726D21EA1C3740067AFAC /* DamerauLevenshteinTests */,
 				1B8615AC14CFDC530054C0BD /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 				3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */,
@@ -190,10 +166,9 @@
 			isa = PBXGroup;
 			children = (
 				8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */,
-				3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */,
 				3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 				1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */,
-				1B8615BA14CFDC540054C0BD /* iOS Tests.octest */,
+				C53726D11EA1C3740067AFAC /* DamerauLevenshteinTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,28 +176,11 @@
 		1B8615AC14CFDC530054C0BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C53726CB1EA1C32C0067AFAC /* XCTest.framework */,
 				1B8615AD14CFDC530054C0BD /* Foundation.framework */,
 				1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1B8615C314CFDC540054C0BD /* iOS Tests */ = {
-			isa = PBXGroup;
-			children = (
-				1B8615C414CFDC540054C0BD /* Supporting Files */,
-			);
-			name = "iOS Tests";
-			path = DamerauLevenshteinTests;
-			sourceTree = "<group>";
-		};
-		1B8615C414CFDC540054C0BD /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1B8615C514CFDC540054C0BD /* DamerauLevenshteinTests-Info.plist */,
-				1B8615C614CFDC540054C0BD /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3D05EECB14803A2800782B4D /* Test Data */ = {
@@ -251,15 +209,6 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		3D3E639C12D1016700B94EC9 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */,
-				3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */,
-			);
-			name = Tests;
-			sourceTree = "<group>";
-		};
 		3D6A188412E22FF1009E3F9B /* JXTrie */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +233,15 @@
 				3DD68FA0155450BB0068B4D6 /* JXLDWeights.h */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		C53726D21EA1C3740067AFAC /* DamerauLevenshteinTests */ = {
+			isa = PBXGroup;
+			children = (
+				C53726D31EA1C3740067AFAC /* DamerauLevenshteinTests.m */,
+				C53726D51EA1C3740067AFAC /* Info.plist */,
+			);
+			path = DamerauLevenshteinTests;
 			sourceTree = "<group>";
 		};
 		C6859EA2029092E104C91782 /* Documentation */ = {
@@ -328,43 +286,6 @@
 			productReference = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		1B8615B914CFDC540054C0BD /* iOS Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1B8615D114CFDC540054C0BD /* Build configuration list for PBXNativeTarget "iOS Tests" */;
-			buildPhases = (
-				1B8615B514CFDC540054C0BD /* Sources */,
-				1B8615B614CFDC540054C0BD /* Frameworks */,
-				1B8615B714CFDC540054C0BD /* Resources */,
-				1B8615B814CFDC540054C0BD /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1B8615C114CFDC540054C0BD /* PBXTargetDependency */,
-			);
-			name = "iOS Tests";
-			productName = DamerauLevenshteinTests;
-			productReference = 1B8615BA14CFDC540054C0BD /* iOS Tests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
-		3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3D3E639A12D1011A00B94EC9 /* Build configuration list for PBXNativeTarget "DamerauLevenshteinTest" */;
-			buildPhases = (
-				3D3E639112D1011700B94EC9 /* Resources */,
-				3D3E639212D1011700B94EC9 /* Sources */,
-				3D3E639312D1011700B94EC9 /* Frameworks */,
-				3D3E639412D1011700B94EC9 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = DamerauLevenshteinTest;
-			productName = DamerauLevenshteinTest;
-			productReference = 3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 		3D6A1A1A12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D6A1A2212E28321009E3F9B /* Build configuration list for PBXNativeTarget "LevenshteinDistanceSearch" */;
@@ -399,6 +320,24 @@
 			productReference = 8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */;
 			productType = "com.apple.product-type.tool";
 		};
+		C53726D01EA1C3740067AFAC /* DamerauLevenshteinTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C53726D91EA1C3740067AFAC /* Build configuration list for PBXNativeTarget "DamerauLevenshteinTests" */;
+			buildPhases = (
+				C53726CD1EA1C3740067AFAC /* Sources */,
+				C53726CE1EA1C3740067AFAC /* Frameworks */,
+				C53726CF1EA1C3740067AFAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C53726D81EA1C3740067AFAC /* PBXTargetDependency */,
+			);
+			name = DamerauLevenshteinTests;
+			productName = DamerauLevenshteinTests;
+			productReference = C53726D11EA1C3740067AFAC /* DamerauLevenshteinTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -406,6 +345,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					C53726D01EA1C3740067AFAC = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = MU27A4SCKC;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "Damerau-Levenshtein" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -423,64 +369,24 @@
 			projectRoot = "";
 			targets = (
 				8DD76F960486AA7600D96B5E /* Damerau-Levenshtein */,
-				3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */,
 				3D6A1A1A12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 				1B8615AA14CFDC530054C0BD /* DamerauLevenshtein */,
-				1B8615B914CFDC540054C0BD /* iOS Tests */,
+				C53726D01EA1C3740067AFAC /* DamerauLevenshteinTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1B8615B714CFDC540054C0BD /* Resources */ = {
+		C53726CF1EA1C3740067AFAC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B8615E614CFE0260054C0BD /* Lorem2.txt in Resources */,
-				1B8615E514CFE0210054C0BD /* Lorem1.txt in Resources */,
-				1B8615C814CFDC540054C0BD /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D3E639112D1011700B94EC9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3D05EECE14803A2800782B4D /* Lorem1.txt in Resources */,
-				3D05EECF14803A2800782B4D /* Lorem2.txt in Resources */,
+				C53726DC1EA1C4970067AFAC /* Lorem1.txt in Resources */,
+				C53726DD1EA1C4970067AFAC /* Lorem2.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1B8615B814CFDC540054C0BD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		3D3E639412D1011700B94EC9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1B8615A714CFDC530054C0BD /* Sources */ = {
@@ -490,28 +396,6 @@
 				1B8615D414CFDC990054C0BD /* JXLDStringDistanceUtilities.m in Sources */,
 				1B8615D614CFDCA20054C0BD /* NSString+DamerauLevenshtein.m in Sources */,
 				3DD68F9E155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B8615B514CFDC540054C0BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B8615E414CFDED80054C0BD /* DamerauLevenshteinTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3D3E639212D1011700B94EC9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3D3E63AE12D1036E00B94EC9 /* NSString+DamerauLevenshtein.m in Sources */,
-				3D3E639F12D101B700B94EC9 /* DamerauLevenshteinTests.m in Sources */,
-				3D6A188912E22FF1009E3F9B /* JXTrie.m in Sources */,
-				3D6A188A12E22FF1009E3F9B /* JXTrieNode.m in Sources */,
-				3D6A18FC12E25B8D009E3F9B /* JXTrieResult.m in Sources */,
-				3D7C736512E55502002D2014 /* JXLDStringDistanceUtilities.m in Sources */,
-				3DD68F9D155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,26 +422,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C53726CD1EA1C3740067AFAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C53726D41EA1C3740067AFAC /* DamerauLevenshteinTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1B8615C114CFDC540054C0BD /* PBXTargetDependency */ = {
+		C53726D81EA1C3740067AFAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1B8615AA14CFDC530054C0BD /* DamerauLevenshtein */;
-			targetProxy = 1B8615C014CFDC540054C0BD /* PBXContainerItemProxy */;
+			targetProxy = C53726D71EA1C3740067AFAC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		1B8615C614CFDC540054C0BD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1B8615C714CFDC540054C0BD /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1B8615CC14CFDC540054C0BD /* Debug */ = {
@@ -606,71 +487,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		1B8615CE14CFDC540054C0BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "DamerauLevenshteinTests/DamerauLevenshteinTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		1B8615CF14CFDC540054C0BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "DamerauLevenshteinTests/DamerauLevenshteinTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -730,56 +546,6 @@
 			};
 			name = Release;
 		};
-		3D3E639812D1011A00B94EC9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "DamerauLevenshteinTest-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PRODUCT_NAME = DamerauLevenshteinTest;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		3D3E639912D1011A00B94EC9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "DamerauLevenshteinTest-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Cocoa,
-					"-framework",
-					SenTestingKit,
-				);
-				PRODUCT_NAME = DamerauLevenshteinTest;
-				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		3D6A1A1D12E282E1009E3F9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -824,6 +590,100 @@
 			};
 			name = Release;
 		};
+		C53726DA1EA1C3740067AFAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MU27A4SCKC;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = DamerauLevenshteinTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.milestonemade.DamerauLevenshteinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C53726DB1EA1C3740067AFAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MU27A4SCKC;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = DamerauLevenshteinTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.milestonemade.DamerauLevenshteinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -832,15 +692,6 @@
 			buildConfigurations = (
 				1B8615CC14CFDC540054C0BD /* Debug */,
 				1B8615CD14CFDC540054C0BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1B8615D114CFDC540054C0BD /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1B8615CE14CFDC540054C0BD /* Debug */,
-				1B8615CF14CFDC540054C0BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -863,15 +714,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D3E639A12D1011A00B94EC9 /* Build configuration list for PBXNativeTarget "DamerauLevenshteinTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3D3E639812D1011A00B94EC9 /* Debug */,
-				3D3E639912D1011A00B94EC9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		3D6A1A2212E28321009E3F9B /* Build configuration list for PBXNativeTarget "LevenshteinDistanceSearch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -880,6 +722,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C53726D91EA1C3740067AFAC /* Build configuration list for PBXNativeTarget "DamerauLevenshteinTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C53726DA1EA1C3740067AFAC /* Debug */,
+				C53726DB1EA1C3740067AFAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
