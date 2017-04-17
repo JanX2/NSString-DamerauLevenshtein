@@ -352,7 +352,6 @@ NSString *DamerauLevenshteinTestsLongString2;
 }
 
 -(void) testLevenshteinDistanceSearch{
-    
     // Read dictionary file into a trie
     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
     
@@ -363,22 +362,19 @@ NSString *DamerauLevenshteinTestsLongString2;
     JXTrie *trie = [JXTrie trieWithWordListString:wordListText];
     
     CGFloat duration = [NSDate timeIntervalSinceReferenceDate] - start;
-    
-    //NSLog(@"\n\n%@", trie);
-    NSLog(@"Read %lu words into %lu nodes. ", (unsigned long)[trie count], (unsigned long)[trie nodeCount]);
-    NSLog(@"Creating the trie took %.4f s. ", (double)duration);
-    
-    
     NSArray *results = nil;
     
     start = [NSDate timeIntervalSinceReferenceDate];
     results = [trie search:target maximumDistance:maxCost];
     duration = [NSDate timeIntervalSinceReferenceDate] - start;
     
-    NSLog(@"\n%@", results);
-    
-    NSLog(@"Search for \"%@\" took %.4f s. ", target, (double)duration);
-
+    XCTAssertEqual([results count], (NSUInteger) 3);
+    XCTAssertEqualObjects([results[0] word], @"goofer");
+    XCTAssertEqual([results[0] distance], (NSUInteger)1);
+    XCTAssertEqualObjects([results[1] word], @"goober");
+    XCTAssertEqual([results[1] distance], (NSUInteger)0);
+    XCTAssertEqualObjects([results[2] word], @"gobber");
+    XCTAssertEqual([results[2] distance], (NSUInteger)1);
 }
 
 @end
