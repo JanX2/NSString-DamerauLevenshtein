@@ -159,7 +159,6 @@
 				3D0A5C2A147FA27B00AD637E /* Configs */,
 				1B8615AC14CFDC530054C0BD /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */,
 			);
 			name = "Damerau-Levenshtein";
 			sourceTree = "<group>";
@@ -242,6 +241,7 @@
 		3D3E639C12D1016700B94EC9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C513C1BA1EA548F500A59E7C /* Mac Tests */,
 				1B8615C314CFDC540054C0BD /* iOS Tests */,
 				3D05EECB14803A2800782B4D /* Test Data */,
 				3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */,
@@ -274,6 +274,14 @@
 				3DD68FA0155450BB0068B4D6 /* JXLDWeights.h */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		C513C1BA1EA548F500A59E7C /* Mac Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */,
+			);
+			name = "Mac Tests";
 			sourceTree = "<group>";
 		};
 		C6859EA2029092E104C91782 /* Documentation */ = {
