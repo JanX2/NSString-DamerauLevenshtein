@@ -6,10 +6,9 @@
 //  Copyright 2011-2012 geheimwerk.de. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-
-@interface DamerauLevenshteinTests : SenTestCase {
+@interface DamerauLevenshteinTests : XCTestCase {
 	NSUInteger levensteinDistance;
 }
 

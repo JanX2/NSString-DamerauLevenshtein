@@ -8,17 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1B8615AE14CFDC530054C0BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AD14CFDC530054C0BD /* Foundation.framework */; };
-		1B8615BC14CFDC540054C0BD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */; };
-		1B8615BF14CFDC540054C0BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AD14CFDC530054C0BD /* Foundation.framework */; };
-		1B8615C214CFDC540054C0BD /* libDamerauLevenshtein.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */; };
-		1B8615C814CFDC540054C0BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B8615C614CFDC540054C0BD /* InfoPlist.strings */; };
 		1B8615D314CFDC940054C0BD /* JXLDStringDistanceUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D7C736312E55501002D2014 /* JXLDStringDistanceUtilities.h */; };
 		1B8615D414CFDC990054C0BD /* JXLDStringDistanceUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C736412E55501002D2014 /* JXLDStringDistanceUtilities.m */; };
 		1B8615D514CFDC9E0054C0BD /* NSString+DamerauLevenshtein.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D3E62AA12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.h */; settings = {ATTRIBUTES = (); }; };
 		1B8615D614CFDCA20054C0BD /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
-		1B8615E414CFDED80054C0BD /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
-		1B8615E514CFE0210054C0BD /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
-		1B8615E614CFE0260054C0BD /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
 		3D05EECE14803A2800782B4D /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
 		3D05EECF14803A2800782B4D /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
 		3D3E62AC12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E62AB12D0B8C700B94EC9 /* NSString+DamerauLevenshtein.m */; };
@@ -42,10 +35,17 @@
 		8DD76F9A0486AA7600D96B5E /* Damerau-Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* Damerau-Levenshtein.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* Damerau-Levenshtein.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */; };
+		C513C1A31EA545BF00A59E7C /* JXTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188612E22FF1009E3F9B /* JXTrie.m */; };
+		C513C1A41EA545BF00A59E7C /* JXTrieNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A188812E22FF1009E3F9B /* JXTrieNode.m */; };
+		C513C1A51EA545BF00A59E7C /* JXTrieResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */; };
+		C513C1B11EA546B400A59E7C /* libDamerauLevenshtein.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */; };
+		C513C1B71EA546BE00A59E7C /* Lorem1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECC14803A2800782B4D /* Lorem1.txt */; };
+		C513C1B81EA546BE00A59E7C /* Lorem2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D05EECD14803A2800782B4D /* Lorem2.txt */; };
+		C513C1B91EA546EA00A59E7C /* DamerauLevenshteinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1B8615C014CFDC540054C0BD /* PBXContainerItemProxy */ = {
+		C513C1B21EA546B400A59E7C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -72,10 +72,7 @@
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDamerauLevenshtein.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8615AD14CFDC530054C0BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1B8615BA14CFDC540054C0BD /* iOS Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		1B8615C514CFDC540054C0BD /* DamerauLevenshteinTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTests-Info.plist"; sourceTree = "<group>"; };
-		1B8615C714CFDC540054C0BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* Damerau-Levenshtein_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Damerau-Levenshtein_Prefix.pch"; sourceTree = "<group>"; };
 		3D05EECC14803A2800782B4D /* Lorem1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem1.txt; sourceTree = "<group>"; };
 		3D05EECD14803A2800782B4D /* Lorem2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lorem2.txt; sourceTree = "<group>"; };
@@ -101,6 +98,9 @@
 		3DD68F9A155448A30068B4D6 /* JXLDStringTokenUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXLDStringTokenUtilities.m; sourceTree = "<group>"; };
 		3DD68FA0155450BB0068B4D6 /* JXLDWeights.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXLDWeights.h; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Damerau-Levenshtein"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C513C1A61EA5466200A59E7C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C513C1AC1EA546B400A59E7C /* iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C513C1B01EA546B400A59E7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../iOS Tests/Info.plist"; sourceTree = "<group>"; };
 		C6859EA3029092ED04C91782 /* Damerau-Levenshtein.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; lineEnding = 0; path = "Damerau-Levenshtein.1"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,16 +110,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B8615AE14CFDC530054C0BD /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B8615B614CFDC540054C0BD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B8615BC14CFDC540054C0BD /* SenTestingKit.framework in Frameworks */,
-				1B8615BF14CFDC540054C0BD /* Foundation.framework in Frameworks */,
-				1B8615C214CFDC540054C0BD /* libDamerauLevenshtein.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +135,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C513C1A91EA546B400A59E7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C513C1B11EA546B400A59E7C /* libDamerauLevenshtein.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -156,14 +154,11 @@
 				3D3E62A312D0B86500B94EC9 /* Classes */,
 				3D6A188412E22FF1009E3F9B /* JXTrie */,
 				3D3E639C12D1016700B94EC9 /* Tests */,
-				1B8615C314CFDC540054C0BD /* iOS Tests */,
-				3D05EECB14803A2800782B4D /* Test Data */,
 				C6859EA2029092E104C91782 /* Documentation */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				3D0A5C2A147FA27B00AD637E /* Configs */,
 				1B8615AC14CFDC530054C0BD /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
-				3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */,
 			);
 			name = "Damerau-Levenshtein";
 			sourceTree = "<group>";
@@ -193,7 +188,7 @@
 				3D3E639612D1011700B94EC9 /* DamerauLevenshteinTest.octest */,
 				3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 				1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */,
-				1B8615BA14CFDC540054C0BD /* iOS Tests.octest */,
+				C513C1AC1EA546B400A59E7C /* iOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -201,6 +196,7 @@
 		1B8615AC14CFDC530054C0BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C513C1A61EA5466200A59E7C /* XCTest.framework */,
 				1B8615AD14CFDC530054C0BD /* Foundation.framework */,
 				1B8615BB14CFDC540054C0BD /* SenTestingKit.framework */,
 			);
@@ -210,19 +206,10 @@
 		1B8615C314CFDC540054C0BD /* iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				1B8615C414CFDC540054C0BD /* Supporting Files */,
+				C513C1B01EA546B400A59E7C /* Info.plist */,
 			);
 			name = "iOS Tests";
 			path = DamerauLevenshteinTests;
-			sourceTree = "<group>";
-		};
-		1B8615C414CFDC540054C0BD /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1B8615C514CFDC540054C0BD /* DamerauLevenshteinTests-Info.plist */,
-				1B8615C614CFDC540054C0BD /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3D05EECB14803A2800782B4D /* Test Data */ = {
@@ -254,6 +241,9 @@
 		3D3E639C12D1016700B94EC9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C513C1BA1EA548F500A59E7C /* Mac Tests */,
+				1B8615C314CFDC540054C0BD /* iOS Tests */,
+				3D05EECB14803A2800782B4D /* Test Data */,
 				3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */,
 				3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */,
 			);
@@ -284,6 +274,14 @@
 				3DD68FA0155450BB0068B4D6 /* JXLDWeights.h */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		C513C1BA1EA548F500A59E7C /* Mac Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */,
+			);
+			name = "Mac Tests";
 			sourceTree = "<group>";
 		};
 		C6859EA2029092E104C91782 /* Documentation */ = {
@@ -327,25 +325,6 @@
 			productName = DamerauLevenshtein;
 			productReference = 1B8615AB14CFDC530054C0BD /* libDamerauLevenshtein.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		1B8615B914CFDC540054C0BD /* iOS Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1B8615D114CFDC540054C0BD /* Build configuration list for PBXNativeTarget "iOS Tests" */;
-			buildPhases = (
-				1B8615B514CFDC540054C0BD /* Sources */,
-				1B8615B614CFDC540054C0BD /* Frameworks */,
-				1B8615B714CFDC540054C0BD /* Resources */,
-				1B8615B814CFDC540054C0BD /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1B8615C114CFDC540054C0BD /* PBXTargetDependency */,
-			);
-			name = "iOS Tests";
-			productName = DamerauLevenshteinTests;
-			productReference = 1B8615BA14CFDC540054C0BD /* iOS Tests.octest */;
-			productType = "com.apple.product-type.bundle";
 		};
 		3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */ = {
 			isa = PBXNativeTarget;
@@ -399,6 +378,24 @@
 			productReference = 8DD76FA10486AA7600D96B5E /* Damerau-Levenshtein */;
 			productType = "com.apple.product-type.tool";
 		};
+		C513C1AB1EA546B400A59E7C /* iOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C513C1B41EA546B400A59E7C /* Build configuration list for PBXNativeTarget "iOS Tests" */;
+			buildPhases = (
+				C513C1A81EA546B400A59E7C /* Sources */,
+				C513C1A91EA546B400A59E7C /* Frameworks */,
+				C513C1AA1EA546B400A59E7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C513C1B31EA546B400A59E7C /* PBXTargetDependency */,
+			);
+			name = "iOS Tests";
+			productName = "iOS Tests";
+			productReference = C513C1AC1EA546B400A59E7C /* iOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -406,6 +403,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					C513C1AB1EA546B400A59E7C = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = MU27A4SCKC;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "Damerau-Levenshtein" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -426,22 +430,12 @@
 				3D3E639512D1011700B94EC9 /* DamerauLevenshteinTest */,
 				3D6A1A1A12E282DE009E3F9B /* LevenshteinDistanceSearch */,
 				1B8615AA14CFDC530054C0BD /* DamerauLevenshtein */,
-				1B8615B914CFDC540054C0BD /* iOS Tests */,
+				C513C1AB1EA546B400A59E7C /* iOS Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1B8615B714CFDC540054C0BD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B8615E614CFE0260054C0BD /* Lorem2.txt in Resources */,
-				1B8615E514CFE0210054C0BD /* Lorem1.txt in Resources */,
-				1B8615C814CFDC540054C0BD /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3D3E639112D1011700B94EC9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -451,22 +445,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C513C1AA1EA546B400A59E7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C513C1B71EA546BE00A59E7C /* Lorem1.txt in Resources */,
+				C513C1B81EA546BE00A59E7C /* Lorem2.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B8615B814CFDC540054C0BD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
 		3D3E639412D1011700B94EC9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -487,17 +477,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C513C1A31EA545BF00A59E7C /* JXTrie.m in Sources */,
+				C513C1A41EA545BF00A59E7C /* JXTrieNode.m in Sources */,
+				C513C1A51EA545BF00A59E7C /* JXTrieResult.m in Sources */,
 				1B8615D414CFDC990054C0BD /* JXLDStringDistanceUtilities.m in Sources */,
 				1B8615D614CFDCA20054C0BD /* NSString+DamerauLevenshtein.m in Sources */,
 				3DD68F9E155448A30068B4D6 /* JXLDStringTokenUtilities.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B8615B514CFDC540054C0BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B8615E414CFDED80054C0BD /* DamerauLevenshteinTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,26 +523,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C513C1A81EA546B400A59E7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C513C1B91EA546EA00A59E7C /* DamerauLevenshteinTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1B8615C114CFDC540054C0BD /* PBXTargetDependency */ = {
+		C513C1B31EA546B400A59E7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1B8615AA14CFDC530054C0BD /* DamerauLevenshtein */;
-			targetProxy = 1B8615C014CFDC540054C0BD /* PBXContainerItemProxy */;
+			targetProxy = C513C1B21EA546B400A59E7C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		1B8615C614CFDC540054C0BD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1B8615C714CFDC540054C0BD /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1B8615CC14CFDC540054C0BD /* Debug */ = {
@@ -606,71 +588,6 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		1B8615CE14CFDC540054C0BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "DamerauLevenshteinTests/DamerauLevenshteinTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		1B8615CF14CFDC540054C0BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "DamerauLevenshteinTests/DamerauLevenshteinTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -799,6 +716,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = LevenshteinDistanceSearch;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -820,7 +738,96 @@
 					AppKit,
 				);
 				PRODUCT_NAME = LevenshteinDistanceSearch;
+				SDKROOT = macosx;
 				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C513C1B51EA546B400A59E7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MU27A4SCKC;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOS Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.iOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C513C1B61EA546B400A59E7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MU27A4SCKC;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOS Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.iOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -832,15 +839,6 @@
 			buildConfigurations = (
 				1B8615CC14CFDC540054C0BD /* Debug */,
 				1B8615CD14CFDC540054C0BD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1B8615D114CFDC540054C0BD /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1B8615CE14CFDC540054C0BD /* Debug */,
-				1B8615CF14CFDC540054C0BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -880,6 +878,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C513C1B41EA546B400A59E7C /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C513C1B51EA546B400A59E7C /* Debug */,
+				C513C1B61EA546B400A59E7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
