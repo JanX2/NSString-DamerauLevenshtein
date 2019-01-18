@@ -13,7 +13,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "JXLDStringDistance.h"
+#import "../JXLDStringDistance.h"
 #import "JXTrieResult.h"
 
 @class JXTrieNode;
