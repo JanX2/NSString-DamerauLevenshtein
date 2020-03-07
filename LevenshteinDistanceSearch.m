@@ -56,7 +56,7 @@ int main (int argc, const char * argv[]) {
 		NSArray *results = nil;
 		
 		start = [NSDate timeIntervalSinceReferenceDate];
-		results = [trie search:target maximumDistance:maxCost];
+		results = [trie search:target maximumDistance:maxCost sortingResults:YES];
 		duration = [NSDate timeIntervalSinceReferenceDate] - start;
 		
 		NSLog(@"\n%@", results);

@@ -55,6 +55,9 @@
 // that are at most the given maximum distance from the target word. 
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;
 
+// The array is sorted by `similarity`, if requested.
+- (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost sortingResults:(BOOL)doSort;
+
 @end
 
 /*

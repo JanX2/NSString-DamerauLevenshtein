@@ -418,6 +418,17 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	return results;
 }
 
+- (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost sortingResults:(BOOL)doSort;
+{
+	NSMutableArray *results = (NSMutableArray *)[self search:word maximumDistance:maxCost];
+	
+	[results sortUsingDescriptors:@[
+									[NSSortDescriptor sortDescriptorWithKey:@"similarity" ascending:YES],
+									]];
+	
+	return results;
+}
+
 - (NSString *)description
 {
 	return _rootNode.description;
