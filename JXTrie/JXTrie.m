@@ -107,7 +107,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 		}
 	}
 	
-    return self;
+	return self;
 }
 
 
@@ -160,7 +160,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 	_nodeCount += blockNodeCount;
 	_wordCount += blockWordCount;
 	
-    return self;
+	return self;
 }
 
 
@@ -323,7 +323,7 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 							const UTF32Char *string_chars, CFIndex string_length,
 							NSUInteger maxCost) {
 	// build first row
-    CFIndex currentRowSize = string_length + 1;
+	CFIndex currentRowSize = string_length + 1;
 	CFIndex currentRow[currentRowSize];
 	for (CFIndex k = 0; k < currentRowSize; k++) {
 		currentRow[k] = k;
@@ -350,10 +350,10 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 						results, 
 						maxCost);
 	}
-    
+	
 	if (result_chars != NULL)  free(result_chars);
 	
-    return results;
+	return results;
 }
 
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;

@@ -27,7 +27,7 @@ NSString *DamerauLevenshteinTestsLongString2;
 		
 		//NSBundle *testBundle = [NSBundle bundleWithIdentifier:@"de.geheimwerk.DamerauLevenshteinTest"];
 		NSBundle *testBundle = [NSBundle bundleForClass:[self class]];
-        
+		
 		NSString *a;
 		NSString *b;
 		

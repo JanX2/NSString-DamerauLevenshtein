@@ -19,16 +19,16 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	NSString *descriptionString;
 	BOOL addQuotes = NO;
 	
-    if (object == nil)
-        descriptionString = @"(nil)";
+	if (object == nil)
+		descriptionString = @"(nil)";
 	else if ([object isKindOfClass:[NSString class]])
-        descriptionString = object;
-    else if ([object respondsToSelector:@selector(descriptionWithLocale:indent:)])
-        return [(id)object descriptionWithLocale:locale indent:indentLevel];
-    else  if ([object respondsToSelector:@selector(descriptionWithLocale:)])
-        return [(id)object descriptionWithLocale:locale];
-    else
-        descriptionString = [object description];
+		descriptionString = object;
+	else if ([object respondsToSelector:@selector(descriptionWithLocale:indent:)])
+		return [(id)object descriptionWithLocale:locale indent:indentLevel];
+	else  if ([object respondsToSelector:@selector(descriptionWithLocale:)])
+		return [(id)object descriptionWithLocale:locale];
+	else
+		descriptionString = [object description];
 	
 	NSRange range = [descriptionString rangeOfString:@" "];
 	if (range.location != NSNotFound)
@@ -37,7 +37,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	if (addQuotes)
 		return [NSString stringWithFormat:@"\"%@\"", descriptionString];
 	else
-        return descriptionString;
+		return descriptionString;
 	
 }
 
@@ -74,7 +74,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 
 - (instancetype)initWithCoder:(NSCoder *)coder
-{		
+{
 	self = [super init];
 	
 	if (self) {
@@ -97,17 +97,17 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (CFMutableDictionaryRef)children
 {
-    return _children;
+	return _children;
 }
 
 - (void)setChildren:(CFMutableDictionaryRef)newChildren
 {
-    if (_children != newChildren) {
-        if (newChildren != NULL)  CFRetain(newChildren);
-        if (_children != NULL)  CFRelease(_children);
-        _children = newChildren;
+	if (_children != newChildren) {
+		if (newChildren != NULL)  CFRetain(newChildren);
+		if (_children != NULL)  CFRelease(_children);
+		_children = newChildren;
 		_cacheIsFresh = NO;
-    }
+	}
 }
 
 - (void)refreshChildrenCache;
@@ -201,7 +201,7 @@ NS_INLINE NSUInteger insertWordWithSubRangeInto(NSString *newWord, NSRange subRa
 - (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
 {
 	NSUInteger newNodesCount = insertWordFromUniCharsInto(chars, length, self);
-	
+ 
 	return newNodesCount;
 }
 */
@@ -271,8 +271,8 @@ static CFStringRef jx_CFStringCreateWithCodePoint(UTF32Char codePoint)
 	thisDescription = JXDescriptionForObject(self.word, nil, level+1);
 
 	[nodeDescription appendFormat:
-	 @"%@word = %@;\n", 
-	 indentation, 
+	 @"%@value = %@;\n",
+	 indentation,
 	 thisDescription
 	 ];
 #else
@@ -280,8 +280,8 @@ static CFStringRef jx_CFStringCreateWithCodePoint(UTF32Char codePoint)
 	thisDescription = (wordCount > 0) ? @"YES" : @"NO";
 	
 	[nodeDescription appendFormat:
-	 @"%@word = %@ (%lu);\n", 
-	 indentation, 
+	 @"%@word = %@ (%lu);\n",
+	 indentation,
 	 thisDescription,
 	 (unsigned long)wordCount
 	 ];
