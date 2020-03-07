@@ -15,11 +15,20 @@
 @property (nonatomic, readonly) NSUInteger distance;
 @property (nonatomic, readonly) NSUInteger searchStringLength;
 
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+@property (nonatomic, readonly) id value;
+#endif
+
 @property (nonatomic, readonly) float normalizedDistance;
 @property (nonatomic, readonly) float similarity;
 
+#ifndef JXTRIE_WANT_VALUE_STORAGE
 + (instancetype)resultWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength;
 - (instancetype)initWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength NS_DESIGNATED_INITIALIZER;
+#else
++ (instancetype)resultWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength value:(id)value;
+- (instancetype)initWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength value:(id)value NS_DESIGNATED_INITIALIZER;
+#endif
 
 @end
 

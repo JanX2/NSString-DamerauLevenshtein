@@ -13,17 +13,41 @@
 
 @implementation JXTrieResult
 
-+ (instancetype)resultWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength;
++ (instancetype)resultWithWord:(NSString *)word
+					  distance:(NSUInteger)distance
+			searchStringLength:(NSUInteger)searchStringLength
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+						 value:(id)value
+#endif
+;
 {
-	return [[JXTrieResult alloc] initWithWord:word distance:distance searchStringLength:searchStringLength];
+	return [[JXTrieResult alloc] initWithWord:word
+									 distance:distance
+						   searchStringLength:searchStringLength
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+										value:value
+#endif
+			];
 }
 
 - (instancetype)init
 {
-	return [self initWithWord:nil distance:0 searchStringLength:0];
+	return [self initWithWord:nil
+					 distance:0
+		   searchStringLength:0
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+						value:nil
+#endif
+			];
 }
 
-- (instancetype)initWithWord:(NSString *)word distance:(NSUInteger)distance searchStringLength:(NSUInteger)searchStringLength;
+- (instancetype)initWithWord:(NSString *)word
+					distance:(NSUInteger)distance
+		  searchStringLength:(NSUInteger)searchStringLength
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+					   value:(id)value
+#endif
+;
 {
 	self = [super init];
 	
@@ -31,6 +55,9 @@
 		_word = [word copy];
 		_distance = distance;
 		_searchStringLength = searchStringLength;
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+		_value = value;
+#endif
 	}
 	
 	return self;
@@ -56,7 +83,11 @@
 {
 	id newResult = [[[self class] allocWithZone:zone] initWithWord:self.word
 														  distance:self.distance
-												searchStringLength:self.searchStringLength];
+												searchStringLength:self.searchStringLength
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+															 value:self.value
+#endif
+					];
 	
 	return newResult;
 }
@@ -64,7 +95,11 @@
 
 - (NSString *)description
 {
+#ifndef JXTRIE_WANT_VALUE_STORAGE
 	return [NSString stringWithFormat:@"('%@', %lu, %f)", _word, (unsigned long)_distance, self.similarity];
+#else
+	return [NSString stringWithFormat:@"('%@': '%@', %lu, %f)", _word, _value, (unsigned long)_distance, self.similarity];
+#endif
 }
 
 @end

@@ -218,6 +218,28 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 }
 */
 
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+- (void)insertValue:(id)value
+			forWord:(NSString *)newWord;
+{
+	NSRange fullRange = NSMakeRange(0, newWord.length);
+	[self insertValue:value
+	forWordFromString:newWord
+		 withSubRange:fullRange];
+}
+
+- (void)insertValue:(id)value
+  forWordFromString:(NSString *)newWord
+	   withSubRange:(NSRange)subRange;
+{
+	_nodeCount += [_rootNode insertValue:value
+					   forWordFromString:newWord
+							withSubRange:subRange];
+	_wordCount += 1;
+	//NSLog(@"\n%@", [self description]);
+}
+#endif
+
 // This recursive helper is used by the search function below. It assumes that
 // the previousRow has been filled in already.
 void searchRecursive(JXTrieNode *node, 
@@ -286,7 +308,11 @@ void searchRecursive(JXTrieNode *node,
 		const NSUInteger searchStringLength = columns - 1;
 		[results addObject:[JXTrieResult resultWithWord:(__bridge NSString *)nodeWord
 											   distance:currentRow[currentRowLastIndex]
-									 searchStringLength:searchStringLength]];
+									 searchStringLength:searchStringLength
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+												  value:node.value
+#endif
+							]];
 		
 		CFRelease(nodeWord);
 	}

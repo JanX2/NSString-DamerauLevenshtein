@@ -42,6 +42,15 @@
 - (void)insertWordFromString:(NSString *)newWord
 				withSubRange:(NSRange)subRange;
 
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+- (void)insertValue:(id)value
+			forWord:(NSString *)newWord;
+
+- (void)insertValue:(id)value
+  forWordFromString:(NSString *)newWord
+	   withSubRange:(NSRange)subRange;
+#endif
+
 // The search method returns an NSArray of JXTrieResult objects for all words 
 // that are at most the given maximum distance from the target word. 
 - (NSArray *)search:(NSString *)word maximumDistance:(NSUInteger)maxCost;

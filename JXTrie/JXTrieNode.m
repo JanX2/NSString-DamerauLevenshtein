@@ -78,7 +78,10 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 	self = [super init];
 	
 	if (self) {
-		//self.word = [coder decodeObjectForKey:@"word"];
+		//_word = [coder decodeObjectForKey:@"word"];
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+		_value = [coder decodeObjectForKey:@"value"];
+#endif
 		_wordCount = [coder decodeIntegerForKey:@"wordCount"];
 		_children = (__bridge CFMutableDictionaryRef)[coder decodeObjectForKey:@"children"];
 		_cacheIsFresh = NO;
@@ -88,8 +91,11 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder
-{	
-	//[coder encodeObject:word forKey:@"word"];
+{
+	//[coder encodeObject:_word forKey:@"word"];
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+	[coder encodeObject:_value forKey:@"value"];
+#endif
 	[coder encodeInteger:_wordCount forKey:@"wordCount"];
 	[coder encodeObject:(__bridge NSMutableDictionary *)_children forKey:@"children"]; // CHANGEME: This may not work with custom CFMutableDictionary objects
 }
@@ -154,6 +160,10 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 }
 
 NS_INLINE NSUInteger insertWordWithSubRangeInto(NSString *newWord, NSRange subRange, JXTrieNode *node) {
+	return insertValueForWordWithSubRangeInto(nil, newWord, subRange, node);
+}
+
+NS_INLINE NSUInteger insertValueForWordWithSubRangeInto(id value, NSString *newWord, NSRange subRange, JXTrieNode *node) {
 	if (newWord == nil) {
 		return NSNotFound;
 	}
@@ -177,6 +187,17 @@ NS_INLINE NSUInteger insertWordWithSubRangeInto(NSString *newWord, NSRange subRa
 	 }];
 	
 	[currentNode incrementWordCount];
+	
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+	if (value != nil) {
+		currentNode.value = value;
+	}
+#   ifdef JXTRIE_DEFAULT_VALUE_IS_WORD
+	else {
+		currentNode.value = [newWord substringWithRange:subRange];
+	}
+#   endif
+#endif
 
 	return newNodesCount;
 }
@@ -193,6 +214,24 @@ NS_INLINE NSUInteger insertWordWithSubRangeInto(NSString *newWord, NSRange subRa
 					  withSubRange:(NSRange)subRange;
 {
 	NSUInteger newNodesCount = insertWordWithSubRangeInto(newWord, subRange, self);
+	
+	return newNodesCount;
+}
+
+- (NSUInteger)insertValue:(id)value
+				  forWord:(NSString *)newWord;
+{
+	NSRange fullRange = NSMakeRange(0, newWord.length);
+	NSUInteger newNodesCount = insertValueForWordWithSubRangeInto(value, newWord, fullRange, self);
+	
+	return newNodesCount;
+}
+
+- (NSUInteger)insertValue:(id)value
+		forWordFromString:(NSString *)newWord
+			 withSubRange:(NSRange)subRange;
+{
+	NSUInteger newNodesCount = insertValueForWordWithSubRangeInto(value, newWord, subRange, self);
 	
 	return newNodesCount;
 }
@@ -267,8 +306,8 @@ static CFStringRef jx_CFStringCreateWithCodePoint(UTF32Char codePoint)
 	
 	NSString *thisDescription;
 	
-#if 0
-	thisDescription = JXDescriptionForObject(self.word, nil, level+1);
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+	thisDescription = JXDescriptionForObject(self.value, nil, level+1);
 
 	[nodeDescription appendFormat:
 	 @"%@value = %@;\n",

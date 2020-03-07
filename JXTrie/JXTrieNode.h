@@ -22,6 +22,10 @@
 @property (nonatomic, readonly) BOOL hasWord;
 @property (readonly) NSUInteger wordCount;
 
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+@property (nonatomic, readwrite) id value;
+#endif
+
 @property (nonatomic, readonly) CFMutableDictionaryRef children CF_RETURNS_NOT_RETAINED;
 @property (nonatomic, readonly) CFIndex children_keys_count;
 - (CFIndex)children_keys:(UTF32Char **)keys;
@@ -31,6 +35,15 @@
 - (NSUInteger)insertWordFromString:(NSString *)newWord
 					  withSubRange:(NSRange)subRange;
 //- (NSUInteger)insertWordWithUniChars:(const UniChar *)chars length:(CFIndex)length;
+
+#ifdef JXTRIE_WANT_VALUE_STORAGE
+- (NSUInteger)insertValue:(id)value
+				  forWord:(NSString *)newWord;
+
+- (NSUInteger)insertValue:(id)value
+		forWordFromString:(NSString *)newWord
+			 withSubRange:(NSRange)subRange;
+#endif
 
 - (void)incrementWordCount;
 

@@ -84,12 +84,12 @@
 		3D3E639712D1011700B94EC9 /* DamerauLevenshteinTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DamerauLevenshteinTest-Info.plist"; sourceTree = "<group>"; };
 		3D3E639D12D101B700B94EC9 /* DamerauLevenshteinTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DamerauLevenshteinTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3D3E639E12D101B700B94EC9 /* DamerauLevenshteinTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DamerauLevenshteinTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		3D6A188512E22FF1009E3F9B /* JXTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrie.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3D6A188612E22FF1009E3F9B /* JXTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrie.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		3D6A188712E22FF1009E3F9B /* JXTrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieNode.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3D6A188812E22FF1009E3F9B /* JXTrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrieNode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		3D6A18FA12E25B8D009E3F9B /* JXTrieResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieResult.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrieResult.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3D6A188512E22FF1009E3F9B /* JXTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrie.h; sourceTree = "<group>"; };
+		3D6A188612E22FF1009E3F9B /* JXTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrie.m; sourceTree = "<group>"; };
+		3D6A188712E22FF1009E3F9B /* JXTrieNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieNode.h; sourceTree = "<group>"; };
+		3D6A188812E22FF1009E3F9B /* JXTrieNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrieNode.m; sourceTree = "<group>"; };
+		3D6A18FA12E25B8D009E3F9B /* JXTrieResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXTrieResult.h; sourceTree = "<group>"; };
+		3D6A18FB12E25B8D009E3F9B /* JXTrieResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JXTrieResult.m; sourceTree = "<group>"; };
 		3D6A1A1B12E282DE009E3F9B /* LevenshteinDistanceSearch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LevenshteinDistanceSearch; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6A1A2312E28324009E3F9B /* LevenshteinDistanceSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LevenshteinDistanceSearch.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3D7C734612E549D2002D2014 /* JXLDStringDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = JXLDStringDistance.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -769,6 +769,10 @@
 				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
+				OTHER_CFLAGS = (
+					"-DJXTRIE_WANT_VALUE_STORAGE",
+					"-DJXTRIE_DEFAULT_VALUE_IS_WORD",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -791,6 +795,10 @@
 				GCC_PREFIX_HEADER = "Damerau-Levenshtein_Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
+				OTHER_CFLAGS = (
+					"-DJXTRIE_WANT_VALUE_STORAGE",
+					"-DJXTRIE_DEFAULT_VALUE_IS_WORD",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
