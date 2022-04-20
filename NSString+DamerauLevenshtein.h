@@ -20,7 +20,10 @@
  Calculates the Damerau-Levenshtein distance between self and a second string. 
  The returned value is a count of the differences between the two strings.  
  This can then be used for fuzzy string matching.  
- See http://en.wikipedia.org/wiki/Levenstein_Distance for more information about the basic algorithm. 
+ See http://en.wikipedia.org/wiki/Levenstein_Distance for more information about the basic algorithm.
+ WARNING: The core algorithm for the distance/similarity methods is quadratic.
+ The run time is relative to the string lengths multiplied by one another.
+ For two long strings (100k code points) this can lead to run times on the order of minutes on current hardware.
  */
 - (NSUInteger)distanceFromString:(NSString *)comparisonString;
 
