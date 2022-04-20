@@ -8,7 +8,7 @@
 
 #import "JXLDStringTokenUtilities.h"
 
-CFOptionFlags jxst_kCFStringTokenizerTokenIsGap                              = 1UL << ((sizeof(unsigned long) * CHAR_BIT) -1);
+CFOptionFlags jxst_kCFStringTokenizerTokenIsGap                              = (CFOptionFlags)1 << ((sizeof(CFOptionFlags) * CHAR_BIT) -1);
 
 typedef struct {
 	CFRange *array;
