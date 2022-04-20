@@ -13,14 +13,7 @@
 
 // Return the minimum of a, b and c
 CF_INLINE CFIndex jxld_smallestCFIndex(CFIndex a, CFIndex b, CFIndex c) {
-	CFIndex min = a;
-	if ( b < min )
-		min = b;
-	
-	if ( c < min )
-		min = c;
-	
-	return min;
+	return MIN(MIN(a, b), c);
 }
 
 CF_INLINE void jxld_CFStringPrepareUniCharBuffer(CFStringRef string, const UniChar **string_chars, UniChar **string_buffer, CFRange string_range) {
