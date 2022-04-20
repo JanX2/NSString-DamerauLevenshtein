@@ -308,16 +308,16 @@ NSString *DamerauLevenshteinTestsLongString2;
 		CFStringTokenizerTokenType normal = (kCFStringTokenizerTokenNormal);
 		CFStringTokenizerTokenType nonLetter = (kCFStringTokenizerTokenNormal | kCFStringTokenizerTokenHasNonLettersMask);
 		CFStringTokenizerTokenType normalCJ = (kCFStringTokenizerTokenNormal | kCFStringTokenizerTokenIsCJWordMask);
-		CFStringTokenizerTokenType normalGap = (kCFStringTokenizerTokenNormal | jxst_kCFStringTokenizerTokenIsGap);
+		//CFStringTokenizerTokenType normalGap = (kCFStringTokenizerTokenNormal | jxst_kCFStringTokenizerTokenIsGap);
 		
 		if (count == 7) {
 			XCTAssertEqual(types[0], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.1 failed.");
-			XCTAssertEqual(types[1], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
+			XCTAssertEqual(types[1], nonLetter,   @"jxst_CFStringPrepareTokenRangesArray test #2.2 failed.");
 			XCTAssertEqual(types[2], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.3 failed.");
 			XCTAssertEqual(types[3], nonLetter,   @"jxst_CFStringPrepareTokenRangesArray test #2.4 failed.");
 			XCTAssertEqual(types[4], normal,   @"jxst_CFStringPrepareTokenRangesArray test #2.5 failed.");
 			XCTAssertEqual(types[5], normalCJ, @"jxst_CFStringPrepareTokenRangesArray test #2.6 failed.");
-			XCTAssertEqual(types[6], normalGap,   @"jxst_CFStringPrepareTokenRangesArray test #2.7 failed.");
+			XCTAssertEqual(types[6], nonLetter,   @"jxst_CFStringPrepareTokenRangesArray test #2.7 failed.");
 		}
 		
 #if 0
