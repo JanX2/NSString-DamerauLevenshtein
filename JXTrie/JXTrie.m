@@ -151,8 +151,8 @@ NSMutableArray * searchCore(JXTrieNode *rootNode,
 									usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
 										//if (removeWhitespaceOnlySubstrings && ![substring ws_isBlankString]) {
 										// substringRange does NOT include the line termination character while enclosingRange does!
-										blockNodeCount += [_rootNode insertWordFromString:wordListString
-																			 withSubRange:substringRange];
+										blockNodeCount += [self->_rootNode insertWordFromString:wordListString
+																				   withSubRange:substringRange];
 										blockWordCount += 1;
 										//}
 									}];

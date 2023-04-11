@@ -128,7 +128,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 		
 		_children_keys = malloc(_children_keys_count * sizeof(UTF32Char));
 		for (CFIndex i = 0; i < _children_keys_count; i++) {
-			_children_keys[i] = (UTF32Char)raw_children_keys[i];
+			_children_keys[i] = (UTF32Char)(uintptr_t)raw_children_keys[i];
 		}
 		
 		free(raw_children_keys);
@@ -155,7 +155,7 @@ NSString *JXDescriptionForObject(id object, id locale, NSUInteger indentLevel)
 
 - (void)insertNode:(JXTrieNode *)newNode forKey:(UTF32Char)currentChar;
 {
-	CFDictionarySetValue(_children, (void *)(intptr_t)currentChar, (__bridge const void *)(newNode));
+	CFDictionarySetValue(_children, (void *)(uintptr_t)currentChar, (__bridge const void *)(newNode));
 	_cacheIsFresh = NO;
 }
 
@@ -174,7 +174,7 @@ NS_INLINE NSUInteger insertValueForWordWithSubRangeInto(id value, NSString *newW
 							  optionsJX:JXCodePointEnumerationOptionsRangeNotRequired
 								   usingBlock:
 	 ^(UTF32Char codePoint, NSRange range, BOOL *stop) {
-		 JXTrieNode *thisNode = (JXTrieNode *)CFDictionaryGetValue(currentNode.children, (void *)(intptr_t)codePoint);
+		 JXTrieNode *thisNode = (JXTrieNode *)CFDictionaryGetValue(currentNode.children, (void *)(uintptr_t)codePoint);
 		 if (thisNode == nil) {
 			 JXTrieNode *newNode = [JXTrieNode new];
 			 [currentNode insertNode:newNode forKey:codePoint];
@@ -337,7 +337,7 @@ static CFStringRef jx_CFStringCreateWithCodePoint(UTF32Char codePoint)
 		// recursively search each branch of the trie
 		for (CFIndex i = 0; i < keys_count; i++) {
 			this_codePoint = _children_keys[i];
-			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)(intptr_t)this_codePoint);
+			JXTrieNode *currentNode = CFDictionaryGetValue(_children, (void *)(uintptr_t)this_codePoint);
 			thisDescription = JXDescriptionForObject(currentNode, nil, level+2);
 			[nodeDescription appendString:indentation2];
 			[nodeDescription appendString:CFBridgingRelease(jx_CFStringCreateWithCodePoint(this_codePoint))];

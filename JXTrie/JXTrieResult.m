@@ -67,7 +67,7 @@
 - (float)normalizedDistance;
 {
 	float normalizedDistance = jxld_normalizeDistance(_word.length, _searchStringLength, 1.0f, ^NSUInteger{
-		return _distance;
+		return self->_distance;
 	});
 	
 	return normalizedDistance;
